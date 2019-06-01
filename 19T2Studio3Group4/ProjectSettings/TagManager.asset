@@ -3,7 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Character1
+  - Character2
+  - Character3
+  - Character4
+  - Character5
+  - Character6
+  - Character1_Health
+  - Character2_Health
+  - Character3_Health
+  - Character4_Health
+  - Character5_Health
+  - Character6_Health
   layers:
   - Default
   - TransparentFX
