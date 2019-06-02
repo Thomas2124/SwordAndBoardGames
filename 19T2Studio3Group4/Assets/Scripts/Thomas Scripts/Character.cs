@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Character : MonoBehaviour
     public int level = 1;
     public float exp = 0f;
     public bool isDead = false;
+    public bool isAttacking = false;
+    public Image healthBar;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +23,7 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        healthBar.fillAmount = health / 100f;
     }
 
     public void Attack()
@@ -38,9 +41,13 @@ public class Character : MonoBehaviour
 
     }
 
-    public void TakeDamage()
+    public void TakeDamage(float amount)
     {
-
+        health -= amount;
+        if (health <= 0f)
+        {
+            isDead = true;
+        }
     }
 
     public void GainExp()

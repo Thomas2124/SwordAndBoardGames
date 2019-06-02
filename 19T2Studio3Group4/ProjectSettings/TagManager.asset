@@ -16,6 +16,9 @@ TagManager:
   - Character4_Health
   - Character5_Health
   - Character6_Health
+  - Player1
+  - Player2
+  - CharacterText
   layers:
   - Default
   - TransparentFX

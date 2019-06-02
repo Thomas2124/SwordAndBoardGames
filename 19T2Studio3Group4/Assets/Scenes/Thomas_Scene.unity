@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 106690333}
   m_Layer: 0
   m_Name: EGO Player2
-  m_TagString: Untagged
+  m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,12 +149,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b0f690126da974bbca2de9c1d7e020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characters: []
+  characters:
+  - {fileID: 498265511}
+  - {fileID: 819627456}
+  - {fileID: 942915917}
   orderNumber: 1
   isMyTurn: 0
   isDefeated: 0
   activeCharacter: {fileID: 0}
   opponent: {fileID: 0}
+  enemyCharacters: []
+  charatext: {fileID: 0}
 --- !u!4 &106690334
 Transform:
   m_ObjectHideFlags: 0
@@ -271,6 +276,8 @@ MonoBehaviour:
   level: 1
   exp: 0
   isDead: 0
+  isAttacking: 0
+  healthBar: {fileID: 737468321}
 --- !u!1 &122000152
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,6 +451,8 @@ MonoBehaviour:
   level: 1
   exp: 0
   isDead: 0
+  isAttacking: 0
+  healthBar: {fileID: 1549534995}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,6 +904,8 @@ MonoBehaviour:
   level: 1
   exp: 0
   isDead: 0
+  isAttacking: 0
+  healthBar: {fileID: 1081542659}
 --- !u!1 &833295251
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,12 +965,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 833295251}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -667, y: -375, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1509359673}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &942915917
 GameObject:
@@ -1060,6 +1071,8 @@ MonoBehaviour:
   level: 1
   exp: 0
   isDead: 0
+  isAttacking: 0
+  healthBar: {fileID: 1620708657}
 --- !u!1 &1001839604
 GameObject:
   m_ObjectHideFlags: 0
@@ -1225,7 +1238,7 @@ GameObject:
   - component: {fileID: 1295940924}
   m_Layer: 0
   m_Name: EGO Player1
-  m_TagString: Untagged
+  m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1242,12 +1255,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e366c703e50d044aaf09a0c16aff176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characters: []
+  characters:
+  - {fileID: 1636452725}
+  - {fileID: 114267275}
+  - {fileID: 1555440128}
   orderNumber: 1
   isMyTurn: 0
   isDefeated: 0
   activeCharacter: {fileID: 0}
   opponent: {fileID: 0}
+  enemyCharacters: []
+  charatext: {fileID: 0}
 --- !u!4 &1295940925
 Transform:
   m_ObjectHideFlags: 0
@@ -1278,7 +1296,7 @@ GameObject:
   - component: {fileID: 1318000359}
   m_Layer: 5
   m_Name: Character Text
-  m_TagString: Untagged
+  m_TagString: CharacterText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1524,6 +1542,7 @@ RectTransform:
   - {fileID: 1549534994}
   - {fileID: 1081542658}
   - {fileID: 1620708656}
+  - {fileID: 833295254}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1705,6 +1724,53 @@ MonoBehaviour:
   level: 1
   exp: 0
   isDead: 0
+  isAttacking: 0
+  healthBar: {fileID: 122000154}
+--- !u!1 &1570769690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1570769692}
+  - component: {fileID: 1570769691}
+  m_Layer: 0
+  m_Name: EGO Battle Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1570769691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570769690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b426be57042e7443b45c332f45ab8e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 0}
+  player2: {fileID: 0}
+--- !u!4 &1570769692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570769690}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 690.531, y: 177.38643, z: -46.875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1608682253
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,6 +2144,8 @@ MonoBehaviour:
   level: 1
   exp: 0
   isDead: 0
+  isAttacking: 0
+  healthBar: {fileID: 712862346}
 --- !u!1 &1779424576
 GameObject:
   m_ObjectHideFlags: 0
