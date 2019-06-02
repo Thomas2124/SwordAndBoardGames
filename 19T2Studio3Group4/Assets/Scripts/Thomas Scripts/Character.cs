@@ -15,9 +15,9 @@ public class Character : MonoBehaviour
     public bool isAttacking = false;
     public Image healthBar;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        isDead = false;
     }
 
     // Update is called once per frame
