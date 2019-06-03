@@ -14,24 +14,54 @@ public class Player2 : MonoBehaviour
     public GameObject[] enemyCharacters;
     public List<GameObject> attackableCharacters;
     public Text charatext;
+    public Text playerText;
+    public int attackNumber;
+    public bool wait;
+    public bool character1;
+    public bool character2;
+    public bool character3;
+    public bool attacked;
+    public bool characterPicked;
+    public GameObject enemy1Button;
+    public GameObject enemy2Button;
+    public GameObject enemy3Button;
+    public bool once = false;
 
     void Awake()
     {
         opponent = GameObject.FindGameObjectWithTag("Player1");
+        attacked = false;
+        characterPicked = false;
+        character1 = true;
+        character2 = false;
+        character3 = false;
+        enemy1Button = GameObject.FindGameObjectWithTag("Enemy1Button");
+        enemy2Button = GameObject.FindGameObjectWithTag("Enemy2Button");
+        enemy3Button = GameObject.FindGameObjectWithTag("Enemy3Button");
     }
 
     void Update()
     {
+        if (once == false)
+        {
+            enemy1Button.SetActive(false);
+            enemy2Button.SetActive(false);
+            enemy3Button.SetActive(false);
+            once = true;
+        }
         enemyCharacters = opponent.GetComponent<Player1>().characters;
-
+        playerText = GameObject.FindGameObjectWithTag("PlayerText").GetComponent<Text>();
         charatext = GameObject.FindGameObjectWithTag("CharacterText").GetComponent<Text>();
         if (isMyTurn == true)
         {
-            StartCoroutine(PlayerTurn());
+            //StartCoroutine(PlayerTurn());
         }
         else
         {
-            StopAllCoroutines();
+            //StopAllCoroutines();
+            character1 = false;
+            character2 = false;
+            character3 = false;
         }
 
         for (int i = 0; i < enemyCharacters.Length; i++)
@@ -71,9 +101,126 @@ public class Player2 : MonoBehaviour
             }
         }
 
+        foreach (GameObject item in attackableCharacters)
+        {
+            if (item.GetComponent<Character>().isDead == true)
+            {
+                attackableCharacters.Remove(item);
+            }
+        }
+
         GameOver();
+
+        if (character1 == true)
+        {
+            charatext.text = characters[0].name;
+            if (attacked == true)
+            {
+                //RandomNumber();
+                characters[0].GetComponent<Character>().isAttacking = true;
+                if (characterPicked == true)
+                {
+                    attackableCharacters[attackNumber].GetComponent<Character>().health -= characters[0].GetComponent<Character>().attackRating;
+                    BoolSetter();
+                }
+            }
+        }
+
+        if (character2 == true)
+        {
+            charatext.text = characters[1].name;
+            character1 = false;
+            if (attacked == true)
+            {
+                //RandomNumber();
+                characters[1].GetComponent<Character>().isAttacking = true;
+                if (characterPicked == true)
+                {
+                    attackableCharacters[attackNumber].GetComponent<Character>().health -= characters[1].GetComponent<Character>().attackRating;
+                    BoolSetter2();
+                }
+                
+            }
+        }
+
+        if (character3 == true)
+        {
+            charatext.text = characters[2].name;
+            character2 = false;
+            if (attacked == true)
+            {
+                //RandomNumber();
+                characters[2].GetComponent<Character>().isAttacking = true;
+                if (characterPicked == true)
+                {
+                    attackableCharacters[attackNumber].GetComponent<Character>().health -= characters[2].GetComponent<Character>().attackRating;
+                    opponent.GetComponent<Player1>().TurnStarted();
+                    BoolSetter3();
+                }
+            }
+        }
     }
 
+    public void TurnStarted()
+    {
+        playerText.text = "Player 2 Turn";
+        isMyTurn = true;
+        character1 = true;
+        characterPicked = false;
+        enemy1Button.SetActive(false);
+        enemy2Button.SetActive(false);
+        enemy3Button.SetActive(false);
+    }
+
+    void BoolSetter()
+    {
+        character2 = true;
+        attacked = false;
+        characterPicked = false;
+    }
+    void BoolSetter2()
+    {
+        character3 = true;
+        attacked = false;
+        characterPicked = false;
+    }
+    void BoolSetter3()
+    {
+        isMyTurn = false;
+        character3 = false;
+        characterPicked = false;
+        attacked = false;
+    }
+
+    void ButtonChecker()
+    {
+        if (enemyCharacters[0].GetComponent<Character>().isDead == true)
+        {
+            enemy1Button.SetActive(false);
+        }
+        else
+        {
+            enemy1Button.SetActive(true);
+        }
+
+        if (enemyCharacters[1].GetComponent<Character>().isDead == true)
+        {
+            enemy2Button.SetActive(false);
+        }
+        else
+        {
+            enemy2Button.SetActive(true);
+        }
+
+        if (enemyCharacters[2].GetComponent<Character>().isDead == true)
+        {
+            enemy3Button.SetActive(false);
+        }
+        else
+        {
+            enemy3Button.SetActive(true);
+        }
+    }
     void GameOver()
     {
         if (characters[0].GetComponent<Character>().isDead == true && characters[1].GetComponent<Character>().isDead == true && characters[2].GetComponent<Character>().isDead == true)
@@ -81,98 +228,42 @@ public class Player2 : MonoBehaviour
             isDefeated = true;
         }
     }
-
-    IEnumerator PlayerTurn()
+    void RandomNumber()
     {
-        bool hit = false;
-        characters[0].GetComponent<Character>().isAttacking = true;
-        charatext.text = characters[0].name;
-        if (hit == false)
-        {
-            attackableCharacters[Random.Range(0, attackableCharacters.Count)].GetComponent<Character>().health -= characters[0].GetComponent<Character>().attackRating;
-            hit = true;
-        }
+        attackNumber = Random.Range(0, attackableCharacters.Count);
+        wait = false;
+    }
 
-        yield return new WaitForSeconds(2f);
+    public void AttackButton()
+    {
+        attacked = true;
+        ButtonChecker();
+    }
 
-        bool hit2 = false;
-        characters[1].GetComponent<Character>().isAttacking = true;
-        charatext.text = characters[1].name;
-        if (hit2 == false)
-        {
-            attackableCharacters[Random.Range(0, attackableCharacters.Count)].GetComponent<Character>().health -= characters[1].GetComponent<Character>().attackRating;
-            hit2 = true;
-        }
-        
+    public void AttackEnemy1()
+    {
+        characterPicked = true;
+        attackNumber = 0;
+        enemy1Button.SetActive(false);
+        enemy2Button.SetActive(false);
+        enemy3Button.SetActive(false);
+    }
 
-        yield return new WaitForSeconds(2f);
+    public void AttackEnemy2()
+    {
+        characterPicked = true;
+        attackNumber = 1;
+        enemy1Button.SetActive(false);
+        enemy2Button.SetActive(false);
+        enemy3Button.SetActive(false);
+    }
 
-        bool hit3 = false;
-        characters[2].GetComponent<Character>().isAttacking = true;
-        charatext.text = characters[2].name;
-        if (hit3 == false)
-        {
-            attackableCharacters[Random.Range(0, attackableCharacters.Count)].GetComponent<Character>().health -= characters[2].GetComponent<Character>().attackRating;
-            hit3 = true;
-        }
-
-        yield return new WaitForSeconds(2f);
-        opponent.GetComponent<Player1>().isMyTurn = true;
-        isMyTurn = false;
-
-        /*for (int i = 0; i < characters.Length; i++)
-        {
-            if (characters[i].GetComponent<Character>().isAttacking == true)
-            {
-                int randomNum = Random.Range(0, 3);
-                float damage = characters[i].GetComponent<Character>().attackRating;
-                GameObject targetEnemy = enemyCharacters[randomNum];
-                if (targetEnemy.GetComponent<Character>().isDead == false)
-                {
-                    if (targetEnemy.GetComponent<Character>().isAttacking == false)
-                    {
-                        float chance = Random.Range(1f, 100f);
-                        if (chance >= 50f)
-                        {
-                            targetEnemy.GetComponent<Character>().TakeDamage(damage);
-                            print("Hit");
-                        }
-                        else
-                        {
-                            print("Blocked");
-                        }
-                    }
-                }
-                yield return new WaitForSeconds(2f);
-            }
-        }
-        else
-        {
-            for (int j = 0; j < enemyCharacters.Length; j++)
-            {
-                if (enemyCharacters[j].GetComponent<Character>().isDead == false)
-                {
-                    if (enemyCharacters[j].GetComponent<Character>().isAttacking == false)
-                    {
-                        float chance = Random.Range(1f, 100f);
-                        if (chance >= 50f)
-                        {
-                            enemyCharacters[j].GetComponent<Character>().TakeDamage(damage);
-                            j = enemyCharacters.Length;
-                        }
-                        else
-                        {
-                            print("Blocked");
-                            j = enemyCharacters.Length;
-                        }
-                    }
-                    else
-                    {
-                        enemyCharacters[j].GetComponent<Character>().TakeDamage(damage);
-                        j = enemyCharacters.Length;
-                    }
-                }
-            }
-        }*/
+    public void AttackEnemy3()
+    {
+        characterPicked = true;
+        attackNumber = 2;
+        enemy1Button.SetActive(false);
+        enemy2Button.SetActive(false);
+        enemy3Button.SetActive(false);
     }
 }

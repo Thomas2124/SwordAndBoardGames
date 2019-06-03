@@ -27,11 +27,13 @@ public class BattleManager : MonoBehaviour
         if (RandomNum <= 50)
         {
             player1.GetComponent<Player1>().isMyTurn = true;
+            player1.GetComponent<Player1>().TurnStarted();
             player2.GetComponent<Player2>().isMyTurn = false;
         }
         else
         {
             player2.GetComponent<Player2>().isMyTurn = true;
+            player1.GetComponent<Player2>().TurnStarted();
             player1.GetComponent<Player1>().isMyTurn = false;
         }
     }
