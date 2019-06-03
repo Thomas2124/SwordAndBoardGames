@@ -24,30 +24,15 @@ public class Character : MonoBehaviour
     void Update()
     {
         healthBar.fillAmount = health / 100f;
-    }
-
-    public void Attack()
-    {
-
-    }
-
-    public void Defence()
-    {
-
-    }
-
-    public void Special()
-    {
-
+        if (health <= 0f)
+        {
+            isDead = true;
+        }
     }
 
     public void TakeDamage(float amount)
     {
         health -= amount;
-        if (health <= 0f)
-        {
-            isDead = true;
-        }
     }
 
     public void GainExp()

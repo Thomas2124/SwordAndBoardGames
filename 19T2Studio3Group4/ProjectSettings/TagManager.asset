@@ -19,6 +19,11 @@ TagManager:
   - Player1
   - Player2
   - CharacterText
+  - AttackButton
+  - Enemy1Button
+  - Enemy2Button
+  - Enemy3Button
+  - PlayerText
   layers:
   - Default
   - TransparentFX
