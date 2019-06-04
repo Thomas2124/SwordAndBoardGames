@@ -13,6 +13,7 @@ public class Character : MonoBehaviour
     public float exp = 0f;
     public bool isDead = false;
     public bool isAttacking = false;
+    public bool isDefending = false;
     public Image healthBar;
     // Start is called before the first frame update
     void Awake()

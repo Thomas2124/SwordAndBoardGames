@@ -24,6 +24,12 @@ TagManager:
   - Enemy2Button
   - Enemy3Button
   - PlayerText
+  - Enemy4Button
+  - Enemy5Button
+  - Enemy6Button
+  - Attack2
+  - Defend1
+  - Defend2
   layers:
   - Default
   - TransparentFX

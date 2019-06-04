@@ -37,4 +37,9 @@ public class BattleManager : MonoBehaviour
             player1.GetComponent<Player1>().isMyTurn = false;
         }
     }
+
+    void Attack()
+    {
+
+    }
 }
