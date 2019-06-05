@@ -30,6 +30,8 @@ TagManager:
   - Attack2
   - Defend1
   - Defend2
+  - Special1
+  - Special2
   layers:
   - Default
   - TransparentFX

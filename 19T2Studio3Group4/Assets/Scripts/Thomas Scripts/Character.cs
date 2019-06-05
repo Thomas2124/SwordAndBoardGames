@@ -14,7 +14,9 @@ public class Character : MonoBehaviour
     public bool isDead = false;
     public bool isAttacking = false;
     public bool isDefending = false;
+    public bool useSpecial = false;
     public Image healthBar;
+    public Image specialBarImage;
     // Start is called before the first frame update
     void Awake()
     {
@@ -25,9 +27,16 @@ public class Character : MonoBehaviour
     void Update()
     {
         healthBar.fillAmount = health / 100f;
+        specialBarImage.fillAmount = specialBar / 100f;
+
         if (health <= 0f)
         {
             isDead = true;
+        }
+
+        if (specialBar >= 100f)
+        {
+            specialBar = 100f;
         }
     }
 

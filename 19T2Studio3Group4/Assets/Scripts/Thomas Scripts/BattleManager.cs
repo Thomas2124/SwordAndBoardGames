@@ -33,7 +33,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             player2.GetComponent<Player2>().isMyTurn = true;
-            player1.GetComponent<Player2>().TurnStarted();
+            player2.GetComponent<Player2>().TurnStarted();
             player1.GetComponent<Player1>().isMyTurn = false;
         }
     }
