@@ -17,6 +17,7 @@ public class Character : MonoBehaviour
     public bool useSpecial = false;
     public Image healthBar;
     public Image specialBarImage;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -26,6 +27,7 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Sets fill amount in health and special
         healthBar.fillAmount = health / 100f;
         specialBarImage.fillAmount = specialBar / 100f;
 

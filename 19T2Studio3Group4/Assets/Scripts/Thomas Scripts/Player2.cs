@@ -58,7 +58,8 @@ public class Player2 : MonoBehaviour
             enemy3Button.SetActive(false);
             once = true;
         }
-        enemyCharacters = opponent.GetComponent<Player1>().characters;
+
+        enemyCharacters = opponent.GetComponent<Player1>().characters; //enemy characters = opponents characters
         playerText = GameObject.FindGameObjectWithTag("PlayerText").GetComponent<Text>();
         charatext = GameObject.FindGameObjectWithTag("CharacterText").GetComponent<Text>();
         if (isMyTurn == true)
@@ -73,7 +74,7 @@ public class Player2 : MonoBehaviour
             character3 = false;
         }
 
-        for (int i = 0; i < enemyCharacters.Length; i++)
+        for (int i = 0; i < enemyCharacters.Length; i++) //Adds characters to attackable characters list
         {
             if (enemyCharacters[i].GetComponent<Character>().isDead == false)
             {
@@ -110,23 +111,20 @@ public class Player2 : MonoBehaviour
             }
         }
 
-        GameOver();
-
-        if (character1 == true)
+        if (character1 == true) //Top Characters Turn
         {
             charatext.text = characters[0].name;
             if (characters[0].GetComponent<Character>().isDead == false)
             {
                 if (attacked == true)
                 {
-                    //RandomNumber();
                     characters[0].GetComponent<Character>().isAttacking = true;
                     characters[0].GetComponent<Character>().isDefending = false;
                     characters[0].GetComponent<Character>().useSpecial = false;
                     if (characterPicked == true)
                     {
                         EnemyDefending();
-                        if (enemiesDefending <= 0)
+                        if (enemiesDefending <= 0) //Checks for defend characters, if so spread damage amongst them
                         {
                             attackableCharacters[attackNumber].GetComponent<Character>().TakeDamage(characters[0].GetComponent<Character>().attackRating);
                             characters[0].GetComponent<Character>().specialBar += 25f;
@@ -161,9 +159,9 @@ public class Player2 : MonoBehaviour
                     characters[0].GetComponent<Character>().isAttacking = false;
                     characters[0].GetComponent<Character>().isDefending = false;
                     characters[0].GetComponent<Character>().useSpecial = true;
-                    for (int i = 0; i < attackableCharacters.Count; i++)
+                    foreach (GameObject item in attackableCharacters)
                     {
-                        attackableCharacters[i].GetComponent<Character>().TakeDamage(characters[0].GetComponent<Character>().attackRating);
+                        item.GetComponent<Character>().TakeDamage(characters[2].GetComponent<Character>().attackRating);
                     }
                     characters[0].GetComponent<Character>().specialBar = 0f;
                     BoolSetter();
@@ -184,7 +182,7 @@ public class Player2 : MonoBehaviour
             }
         }
 
-        if (character2 == true)
+        if (character2 == true) //Middle Characters Turn
         {
             charatext.text = characters[1].name;
             character1 = false;
@@ -192,14 +190,13 @@ public class Player2 : MonoBehaviour
             {
                 if (attacked == true)
                 {
-                    //RandomNumber();
                     characters[1].GetComponent<Character>().isAttacking = true;
                     characters[1].GetComponent<Character>().isDefending = false;
                     characters[1].GetComponent<Character>().useSpecial = false;
                     if (characterPicked == true)
                     {
                         EnemyDefending();
-                        if (enemiesDefending <= 0)
+                        if (enemiesDefending <= 0) //Checks for defend characters, if so spread damage amongst them
                         {
                             attackableCharacters[attackNumber].GetComponent<Character>().TakeDamage(characters[1].GetComponent<Character>().attackRating);
                             characters[1].GetComponent<Character>().specialBar += 25f;
@@ -234,9 +231,9 @@ public class Player2 : MonoBehaviour
                     characters[1].GetComponent<Character>().isAttacking = false;
                     characters[1].GetComponent<Character>().isDefending = false;
                     characters[1].GetComponent<Character>().useSpecial = true;
-                    for (int i = 0; i < attackableCharacters.Count; i++)
+                    foreach (GameObject item in attackableCharacters)
                     {
-                        attackableCharacters[i].GetComponent<Character>().TakeDamage(characters[1].GetComponent<Character>().attackRating);
+                        item.GetComponent<Character>().TakeDamage(characters[2].GetComponent<Character>().attackRating);
                     }
                     characters[1].GetComponent<Character>().specialBar = 0f;
                     BoolSetter2();
@@ -257,7 +254,7 @@ public class Player2 : MonoBehaviour
             }
         }
 
-        if (character3 == true)
+        if (character3 == true) //Bottom Characters Turn
         {
             charatext.text = characters[2].name;
             character2 = false;
@@ -266,14 +263,13 @@ public class Player2 : MonoBehaviour
             {
                 if (attacked == true)
                 {
-                    //RandomNumber();
                     characters[2].GetComponent<Character>().isAttacking = true;
                     characters[2].GetComponent<Character>().isDefending = false;
                     characters[2].GetComponent<Character>().useSpecial = false;
                     if (characterPicked == true)
                     {
                         EnemyDefending();
-                        if (enemiesDefending <= 0)
+                        if (enemiesDefending <= 0) //Checks for defend characters, if so spread damage amongst them
                         {
                             attackableCharacters[attackNumber].GetComponent<Character>().TakeDamage(characters[2].GetComponent<Character>().attackRating);
                             characters[2].GetComponent<Character>().specialBar += 25f;
@@ -308,9 +304,9 @@ public class Player2 : MonoBehaviour
                     characters[2].GetComponent<Character>().isAttacking = false;
                     characters[2].GetComponent<Character>().isDefending = false;
                     characters[2].GetComponent<Character>().useSpecial = true;
-                    for (int i = 0; i < attackableCharacters.Count; i++)
+                    foreach (GameObject item in attackableCharacters)
                     {
-                        attackableCharacters[i].GetComponent<Character>().TakeDamage(characters[2].GetComponent<Character>().attackRating);
+                        item.GetComponent<Character>().TakeDamage(characters[2].GetComponent<Character>().attackRating);
                     }
                     characters[2].GetComponent<Character>().specialBar = 0f;
                     BoolSetter3();
@@ -330,9 +326,11 @@ public class Player2 : MonoBehaviour
                 BoolSetter3();
             }
         }
+
+        GameOver();
     }
 
-    void EnemyDefending()
+    void EnemyDefending() //Checks how many enemy character are defending
     {
         for (int i = 0; i < attackableCharacters.Count; i++)
         {
@@ -343,16 +341,8 @@ public class Player2 : MonoBehaviour
         }
     }
 
-    void ButtonChecker()
+    void ButtonChecker() //Checks which opponents can be attacked
     {
-        /*foreach (GameObject item in attackableCharacters)
-        {
-            if (item.GetComponent<Character>().isDead == true)
-            {
-                attackableCharacters.Remove(item);
-            }
-        }*/
-
         for (int i = 0; i < attackableCharacters.Count; i++)
         {
             if (attackableCharacters[i].GetComponent<Character>().isDead == false)
@@ -375,9 +365,10 @@ public class Player2 : MonoBehaviour
         }
     }
 
-    public void TurnStarted()
+    public void TurnStarted() //Sets conditions for the start of the turn
     {
         MainButtonTurnOn();
+        enemiesDefending = 0;
         isMyTurn = true;
         characterPicked = false;
         attacked = false;
@@ -387,7 +378,7 @@ public class Player2 : MonoBehaviour
         ButtonTurnOff();
     }
 
-    void BoolSetter()
+    void BoolSetter() //Sets conditions for the middle character
     {
         MainButtonTurnOn();
         character2 = true;
@@ -397,7 +388,7 @@ public class Player2 : MonoBehaviour
         characterPicked = false;
     }
 
-    void BoolSetter2()
+    void BoolSetter2() //Sets conditions for the bottom character
     {
         MainButtonTurnOn();
         character3 = true;
@@ -407,7 +398,7 @@ public class Player2 : MonoBehaviour
         characterPicked = false;
     }
 
-    void BoolSetter3()
+    void BoolSetter3() //Sets conditions for the end of the turn
     {
         isMyTurn = false;
         character3 = false;
@@ -419,7 +410,7 @@ public class Player2 : MonoBehaviour
     }
 
 
-    void GameOver()
+    void GameOver() //Checks if player characters are dead
     {
         if (characters[0].GetComponent<Character>().isDead == true && characters[1].GetComponent<Character>().isDead == true && characters[2].GetComponent<Character>().isDead == true)
         {
@@ -432,7 +423,7 @@ public class Player2 : MonoBehaviour
         wait = false;
     }
 
-    public void AttackButton()
+    public void AttackButton() //Option if player wants to attack
     {
         MainButtonTurnOff();
         attacked = true;
@@ -441,56 +432,56 @@ public class Player2 : MonoBehaviour
         ButtonChecker();
     }
 
-    public void SpecialButton()
+    public void SpecialButton() //Option if player wants to use the special move
     {
         special = true;
         attacked = false;
         defending = false;
     }
 
-    public void DefendButton()
+    public void DefendButton() //Option if player wants to defend
     {
         special = false;
         attacked = false;
         defending = true;
     }
 
-    public void AttackEnemy1()
+    public void AttackEnemy1() //Option to attack top enemy character
     {
         characterPicked = true;
         attackNumber = 0;
         ButtonTurnOff();
     }
 
-    public void AttackEnemy2()
+    public void AttackEnemy2() //Option to attack middle enemy character
     {
         characterPicked = true;
         attackNumber = 1;
         ButtonTurnOff();
     }
 
-    public void AttackEnemy3()
+    public void AttackEnemy3() //Option to attack bottom enemy character
     {
         characterPicked = true;
         attackNumber = 2;
         ButtonTurnOff();
     }
 
-    void ButtonTurnOff()
+    void ButtonTurnOff() //turns off attack buttons
     {
         enemy1Button.SetActive(false);
         enemy2Button.SetActive(false);
         enemy3Button.SetActive(false);
     }
 
-    void MainButtonTurnOff()
+    void MainButtonTurnOff() //turns off primary options buttons
     {
         attackButton.SetActive(false);
         defendButton.SetActive(false);
         specialButton.SetActive(false);
     }
 
-    void MainButtonTurnOn()
+    void MainButtonTurnOn() //turns on primary options buttons
     {
         attackButton.SetActive(true);
         defendButton.SetActive(true);

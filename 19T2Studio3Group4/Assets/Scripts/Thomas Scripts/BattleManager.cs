@@ -23,8 +23,8 @@ public class BattleManager : MonoBehaviour
 
     void CoinFlip()
     {
-        int RandomNum = Random.Range(1, 100);
-        if (RandomNum <= 50)
+        int RandomNum = Random.Range(1, 100); //Random Number
+        if (RandomNum <= 50) //Sets Players Turn
         {
             player1.GetComponent<Player1>().isMyTurn = true;
             player1.GetComponent<Player1>().TurnStarted();
