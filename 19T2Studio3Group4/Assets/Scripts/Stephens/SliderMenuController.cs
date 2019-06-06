@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopMenuController : MonoBehaviour
+public class SliderMenuController : MonoBehaviour
 {
-	//
+	//public GameObject[] displayedGameObjecct;
 	public GameObject shopDisplay0;
 	public GameObject shopDisplay1;
 	public GameObject shopDisplay2;
@@ -13,15 +13,18 @@ public class ShopMenuController : MonoBehaviour
 
 	public Slider shopDisplaysScroll;
 
+	//public float[] sliderValue;
 	public float displayOne;
 	public float displayTwo;
 	public float displayThree;
 	public float displayZero;
 	
+
+	
 	//Activate 1 of 4 options while ensuring all other options are turned off.
 	public void ShopDisplay()
 	{
-		if(shopDisplaysScroll.value == displayZero)
+		if(shopDisplaysScroll.value == displayZero) 
 		{
 			shopDisplay0.SetActive (true);
 			shopDisplay1.SetActive (false);
@@ -50,4 +53,6 @@ public class ShopMenuController : MonoBehaviour
 			shopDisplay1.SetActive (false);
 		}
 	}
+	
+
 }
