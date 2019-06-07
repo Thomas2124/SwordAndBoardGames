@@ -113,6 +113,7 @@ public class UIController : MonoBehaviour
 	public void ShopeOpen()
 	{
 		menu.SetActive (false);
+		menuIsVisable = false;
 		shope.SetActive (true);
 		battle.SetActive (false);
 		upgrade.SetActive (false);
@@ -128,6 +129,7 @@ public class UIController : MonoBehaviour
 	public void BattleOpen()
 	{
 		menu.SetActive (false);
+		menuIsVisable = false;
 		shope.SetActive (false);
 		battle.SetActive (true);
 		upgrade.SetActive (false);
@@ -143,6 +145,7 @@ public class UIController : MonoBehaviour
 	public void UpgradeOpen()
 	{
 		menu.SetActive (false);
+		menuIsVisable = false;
 		shope.SetActive (false);
 		battle.SetActive (false);
 		upgrade.SetActive (true);
@@ -158,6 +161,7 @@ public class UIController : MonoBehaviour
 	public void TeamOpen()
 	{
 		menu.SetActive (false);
+		menuIsVisable = false;
 		shope.SetActive (false);
 		battle.SetActive (false);
 		upgrade.SetActive (false);
@@ -173,6 +177,7 @@ public class UIController : MonoBehaviour
 	public void QuestOpen()
 	{
 		menu.SetActive (false);
+		menuIsVisable = false;
 		shope.SetActive (false);
 		battle.SetActive (false);
 		upgrade.SetActive (false);
@@ -188,6 +193,7 @@ public class UIController : MonoBehaviour
 	public void CommunicationOpen()
 	{
 		menu.SetActive (false);
+		menuIsVisable = false;
 		shope.SetActive (false);
 		battle.SetActive (false);
 		upgrade.SetActive (false);
@@ -203,6 +209,7 @@ public class UIController : MonoBehaviour
 	public void RankingOpen()
 	{
 		menu.SetActive (false);
+		menuIsVisable = false;
 		shope.SetActive (false);
 		battle.SetActive (false);
 		upgrade.SetActive (false);
@@ -218,6 +225,7 @@ public class UIController : MonoBehaviour
 	public void CharacterInfoOpen()
 	{
 		menu.SetActive (false);
+		menuIsVisable = false;
 		shope.SetActive (false);
 		battle.SetActive (false);
 		upgrade.SetActive (false);
@@ -233,6 +241,7 @@ public class UIController : MonoBehaviour
 	public void SettingsOpen()
 	{
 		menu.SetActive (false);
+		menuIsVisable = false;
 		shope.SetActive (false);
 		battle.SetActive (false);
 		upgrade.SetActive (false);
@@ -248,6 +257,7 @@ public class UIController : MonoBehaviour
 	public void ProfileOpen()
 	{
 		menu.SetActive (false);
+		menuIsVisable = false;
 		shope.SetActive (false);
 		battle.SetActive (false);
 		upgrade.SetActive (false);
