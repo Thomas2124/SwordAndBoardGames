@@ -33,11 +33,10 @@ public class Player1 : MonoBehaviour
     public bool defending;
     public bool special;
     public List<int> characterAttackNumbers;
-    public bool turnBool;
+    public int targetNum;
 
     void Awake()
     {
-        turnBool = false;
         opponent = GameObject.FindGameObjectWithTag("Player2");
         attacked = false;
         characterPicked = false;
@@ -60,6 +59,7 @@ public class Player1 : MonoBehaviour
             enemy5Button.SetActive(false);
             enemy6Button.SetActive(false);
             characterAttackNumbers.Clear();
+            CharacterReset();
             once = true;
         }
 
@@ -114,7 +114,6 @@ public class Player1 : MonoBehaviour
                     attackableCharacters.Add(enemyCharacters[i]);
                 }
             }
-
         }
 
         if (character1 == true) //Top Characters Turn
@@ -123,12 +122,11 @@ public class Player1 : MonoBehaviour
             charatext.text = characters[0].name;
             if (script.isDead == false)
             {
-                script.isAttacking = true;
                 if (attacked == true)
                 {
+                    script.isAttacking = true;
                     if (characterPicked == true)
                     {
-                        characterAttackNumbers[0] = attackNumber;
                         BoolSetter(0);
                     }
                 }
@@ -161,10 +159,9 @@ public class Player1 : MonoBehaviour
             {
                 if (attacked == true)
                 {
+                    script.isAttacking = true;
                     if (characterPicked == true)
                     {
-                        script.isAttacking = true;
-                        characterAttackNumbers[1] = attackNumber;
                         BoolSetter(1);
                     }
                 }
@@ -200,7 +197,6 @@ public class Player1 : MonoBehaviour
                     script.isAttacking = true;
                     if (characterPicked == true)
                     {
-                        characterAttackNumbers[2] = attackNumber;
                         AttackingTurn();
                     }
                 }
@@ -243,7 +239,47 @@ public class Player1 : MonoBehaviour
         {
             if (script.isAttacking == true)
             {
-                PlayerAttack(character, characterAttackNumbers[character]);
+                if (character == 0)
+                {
+                    if (characterAttackNumbers != null)
+                    {
+                        targetNum = characterAttackNumbers[0];
+                    }
+                    else
+                    {
+                        targetNum = characterAttackNumbers[0];
+                    }
+                }
+
+                if (character == 1)
+                {
+                    if (characterAttackNumbers.Count == 1)
+                    {
+                        targetNum = characterAttackNumbers[0];
+                    }
+                    else
+                    {
+                        targetNum = characterAttackNumbers[1];
+                    }
+                }
+
+                if (character == 2)
+                {
+                    if (characterAttackNumbers.Count == 1)
+                    {
+                        targetNum = characterAttackNumbers[0];
+                    }
+                    else if (characterAttackNumbers.Count == 2)
+                    {
+                        targetNum = characterAttackNumbers[1];
+                    }
+                    else
+                    {
+                        targetNum = characterAttackNumbers[2];
+                    }
+                }
+
+                PlayerAttack(character, targetNum);
             }
 
             if (script.isDefending == true)
@@ -273,7 +309,8 @@ public class Player1 : MonoBehaviour
             {
                 if (attackableCharacters[i].GetComponent<Character>().isDefending == true)
                 {
-                    attackableCharacters[i].GetComponent<Character>().TakeDamage(characters[character].GetComponent<Character>().attackRating / enemiesDefending);
+                    float damage = characters[character].GetComponent<Character>().attackRating / enemiesDefending;
+                    attackableCharacters[i].GetComponent<Character>().TakeDamage(damage);
                     characters[character].GetComponent<Character>().specialBar += 25f / enemiesDefending;
                 }
             }
@@ -346,6 +383,7 @@ public class Player1 : MonoBehaviour
 
     public void TurnStarted() //Sets conditions for the start of the turn
     {
+        CharacterReset();
         MainButtonTurnOn();
         characterAttackNumbers.Clear();
         enemiesDefending = 0;
@@ -384,6 +422,7 @@ public class Player1 : MonoBehaviour
             characterPicked = false;
         }
 
+
         if (number == 2)
         {
             isMyTurn = false;
@@ -393,6 +432,17 @@ public class Player1 : MonoBehaviour
             defending = false;
             special = false;
             opponent.GetComponent<Player2>().TurnStarted();
+        }
+    }
+
+    void CharacterReset()
+    {
+        foreach (GameObject item in characters)
+        {
+            Character theScript = item.GetComponent<Character>();
+            theScript.isAttacking = false;
+            theScript.isDefending = false;
+            theScript.useSpecial = false;
         }
     }
 
@@ -424,7 +474,6 @@ public class Player1 : MonoBehaviour
         special = true;
         attacked = false;
         defending = false;
-        characterAttackNumbers.Add(attackNumber);
     }
 
     public void DefendButton() //Option if player wants to defend
@@ -432,7 +481,6 @@ public class Player1 : MonoBehaviour
         special = false;
         attacked = false;
         defending = true;
-        characterAttackNumbers.Add(attackNumber);
     }
 
     public void AttackEnemy1() //Option to attack top enemy character
