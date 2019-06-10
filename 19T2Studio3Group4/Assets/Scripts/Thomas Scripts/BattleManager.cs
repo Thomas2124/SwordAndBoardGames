@@ -12,9 +12,19 @@ public class BattleManager : MonoBehaviour
     public GameObject victoryObject;
     public Text victoryText;
 
+    public Character character1;
+
     // Start is called before the first frame update
     void Awake()
     {
+        PlayerData data = SaveSystem.LoadPlayer();
+        character1 = GameObject.Find("Character1").GetComponent<Character>();
+        character1.health = data.health;
+        character1.attackRating = data.attackRating;
+        character1.defenceRating = data.defenceRating;
+        character1.level = data.level;
+        character1.exp = data.exp;
+
         player1 = GameObject.FindGameObjectWithTag("Player1");
         player2 = GameObject.FindGameObjectWithTag("Player2");
         victoryObject = GameObject.FindWithTag("Victory Object");
