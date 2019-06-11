@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
+    public string characterName;
     public float health = 100f;
     public float attackRating = 10f;
     public float defenceRating = 10f;
@@ -17,6 +18,8 @@ public class Character : MonoBehaviour
     public bool useSpecial = false;
     public Image healthBar;
     public Image specialBarImage;
+    public float addDamage;
+    public float subDamage;
 
     // Start is called before the first frame update
     void Awake()
@@ -55,5 +58,16 @@ public class Character : MonoBehaviour
     public void GainLevel()
     {
 
+    }
+
+    void SpecialMoveAttack(GameObject target)
+    {
+        target.GetComponent<Character>().TakeDamage(attackRating * addDamage);
+    }
+
+    void SpecialMoveDefence(GameObject target)
+    {
+        float theDamage = target.GetComponent<Character>().attackRating / 100f;
+        this.TakeDamage(theDamage / subDamage);
     }
 }
