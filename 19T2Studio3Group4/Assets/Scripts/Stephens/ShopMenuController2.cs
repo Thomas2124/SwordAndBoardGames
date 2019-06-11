@@ -25,6 +25,12 @@ public class ShopMenuController2 : MonoBehaviour
 	public static bool dropChanceThreeIsVisable;
 	public static bool dropChanceFourIsVisable;
 
+	public static bool buyCurrencyIsVisable;
+	public GameObject buyCurrency;
+	public static bool buyCurrencyWindowIsVisable;
+	public GameObject buyCurrencyWindow;
+
+
 	public void OptionOne()
 	{
 		optionOne.SetActive (true);
@@ -171,5 +177,47 @@ public class ShopMenuController2 : MonoBehaviour
 	void DropChanceFourVisable(){
 		dropChanceFour.SetActive (true);
 		dropChanceFourIsVisable = true;
+	}
+	public void BuyCurrency()
+	{
+		if(buyCurrencyIsVisable)
+		{
+			BuyCurrencyClose();
+		}
+		else
+		{
+			BuyCurrencyVisable();
+		}
+	}
+	
+	//Set object to inactive or active
+	void BuyCurrencyClose(){
+		buyCurrency.SetActive (false);
+		buyCurrencyIsVisable = false;
+	}
+	void BuyCurrencyVisable(){
+		buyCurrency.SetActive (true);
+		buyCurrencyIsVisable = true;
+	}
+	public void BuyCurrencyWindow()
+	{
+		if(buyCurrencyWindowIsVisable)
+		{
+			BuyCurrencyWindowClose();
+		}
+		else
+		{
+			BuyCurrencyWindowVisable();
+		}
+	}
+	
+	//Set object to inactive or active
+	void BuyCurrencyWindowClose(){
+		buyCurrencyWindow.SetActive (false);
+		buyCurrencyWindowIsVisable = false;
+	}
+	void BuyCurrencyWindowVisable(){
+		buyCurrencyWindow.SetActive (true);
+		buyCurrencyWindowIsVisable = true;
 	}
 }
