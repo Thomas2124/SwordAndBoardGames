@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
+    public string characterName;
     public float health = 100f;
     public float attackRating = 10f;
     public float defenceRating = 10f;

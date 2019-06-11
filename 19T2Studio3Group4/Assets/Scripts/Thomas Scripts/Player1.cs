@@ -119,7 +119,7 @@ public class Player1 : MonoBehaviour
         if (character1 == true) //Top Characters Turn
         {
             Character script = characters[0].GetComponent<Character>();
-            charatext.text = characters[0].name;
+            charatext.text = script.characterName;
             if (script.isDead == false)
             {
                 if (attacked == true)
@@ -154,7 +154,7 @@ public class Player1 : MonoBehaviour
         if (character2 == true) //Middle Characters Turn
         {
             Character script = characters[1].GetComponent<Character>();
-            charatext.text = characters[1].name;
+            charatext.text = script.characterName;
             if (script.isDead == false)
             {
                 if (attacked == true)
@@ -189,7 +189,7 @@ public class Player1 : MonoBehaviour
         if (character3 == true) //Bottom Characters Turn
         {
             Character script = characters[2].GetComponent<Character>();
-            charatext.text = characters[2].name;
+            charatext.text = script.characterName;
             if (script.isDead == false)
             {
                 if (attacked == true)
