@@ -179,6 +179,11 @@ MonoBehaviour:
   enemiesDefending: 0
   defending: 0
   special: 0
+  characterAttackNumbers: 
+  targetNum: 0
+  timerNum: 0
+  nextTime: 0
+  timerText: {fileID: 0}
 --- !u!4 &106690334
 Transform:
   m_ObjectHideFlags: 0
@@ -288,6 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41eb5959f92354541ac5f4e2f5af4710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName: 
   health: 100
   attackRating: 25
   defenceRating: 10
@@ -300,6 +306,8 @@ MonoBehaviour:
   useSpecial: 0
   healthBar: {fileID: 737468321}
   specialBarImage: {fileID: 1319638424}
+  addDamage: 0
+  subDamage: 0
 --- !u!1 &122000152
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,6 +460,85 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154691940}
+  m_CullTransparentMesh: 0
+--- !u!1 &174424741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 174424742}
+  - component: {fileID: 174424744}
+  - component: {fileID: 174424743}
+  m_Layer: 5
+  m_Name: P1 Timer
+  m_TagString: P1timer
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &174424742
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174424741}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1509359673}
+  m_RootOrder: 26
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -283.9, y: 313}
+  m_SizeDelta: {x: 96, y: 76.695}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &174424743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174424741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 60
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 6
+    m_MaxSize: 60
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 60
+--- !u!222 &174424744
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174424741}
   m_CullTransparentMesh: 0
 --- !u!1 &264920133
 GameObject:
@@ -941,6 +1028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41eb5959f92354541ac5f4e2f5af4710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName: 
   health: 100
   attackRating: 25
   defenceRating: 10
@@ -953,6 +1041,8 @@ MonoBehaviour:
   useSpecial: 0
   healthBar: {fileID: 1549534995}
   specialBarImage: {fileID: 1016940807}
+  addDamage: 0
+  subDamage: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1405,6 +1495,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 683218798}
   m_CullTransparentMesh: 0
+--- !u!1 &710790220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 710790221}
+  - component: {fileID: 710790223}
+  - component: {fileID: 710790222}
+  m_Layer: 5
+  m_Name: P2 Timer
+  m_TagString: P2timer
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &710790221
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710790220}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1509359673}
+  m_RootOrder: 27
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 283.4, y: 313}
+  m_SizeDelta: {x: 96, y: 76.695}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &710790222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710790220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 60
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 6
+    m_MaxSize: 60
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 60
+--- !u!222 &710790223
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710790220}
+  m_CullTransparentMesh: 0
 --- !u!1 &712862344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1645,6 +1814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41eb5959f92354541ac5f4e2f5af4710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName: 
   health: 100
   attackRating: 25
   defenceRating: 10
@@ -1657,6 +1827,8 @@ MonoBehaviour:
   useSpecial: 0
   healthBar: {fileID: 1081542659}
   specialBarImage: {fileID: 1742811346}
+  addDamage: 0
+  subDamage: 0
 --- !u!1 &833295251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1721,7 +1893,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1509359673}
-  m_RootOrder: 27
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &942915917
 GameObject:
@@ -1815,6 +1987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41eb5959f92354541ac5f4e2f5af4710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName: 
   health: 100
   attackRating: 25
   defenceRating: 10
@@ -1827,6 +2000,8 @@ MonoBehaviour:
   useSpecial: 0
   healthBar: {fileID: 1620708657}
   specialBarImage: {fileID: 1781864014}
+  addDamage: 0
+  subDamage: 0
 --- !u!1 &1001839604
 GameObject:
   m_ObjectHideFlags: 0
@@ -2011,7 +2186,7 @@ RectTransform:
   m_Children:
   - {fileID: 1367891320}
   m_Father: {fileID: 1509359673}
-  m_RootOrder: 26
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2584,6 +2759,11 @@ MonoBehaviour:
   enemiesDefending: 0
   defending: 0
   special: 0
+  characterAttackNumbers: 
+  targetNum: 0
+  timerNum: 0
+  nextTime: 0
+  timerText: {fileID: 0}
 --- !u!4 &1295940925
 Transform:
   m_ObjectHideFlags: 0
@@ -3313,6 +3493,8 @@ RectTransform:
   - {fileID: 1607760818}
   - {fileID: 1397212622}
   - {fileID: 264920134}
+  - {fileID: 174424742}
+  - {fileID: 710790221}
   - {fileID: 1025519656}
   - {fileID: 833295254}
   m_Father: {fileID: 0}
@@ -3621,6 +3803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41eb5959f92354541ac5f4e2f5af4710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName: 
   health: 100
   attackRating: 25
   defenceRating: 10
@@ -3633,6 +3816,8 @@ MonoBehaviour:
   useSpecial: 0
   healthBar: {fileID: 122000154}
   specialBarImage: {fileID: 1897881780}
+  addDamage: 0
+  subDamage: 0
 --- !u!1 &1570769690
 GameObject:
   m_ObjectHideFlags: 0
@@ -3668,6 +3853,9 @@ MonoBehaviour:
   player2Lost: 0
   victoryObject: {fileID: 0}
   victoryText: {fileID: 0}
+  character1: {fileID: 0}
+  character2: {fileID: 0}
+  character3: {fileID: 0}
 --- !u!4 &1570769692
 Transform:
   m_ObjectHideFlags: 0
@@ -4191,6 +4379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41eb5959f92354541ac5f4e2f5af4710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName: 
   health: 100
   attackRating: 25
   defenceRating: 10
@@ -4203,6 +4392,8 @@ MonoBehaviour:
   useSpecial: 0
   healthBar: {fileID: 712862346}
   specialBarImage: {fileID: 1372406176}
+  addDamage: 0
+  subDamage: 0
 --- !u!1 &1742811345
 GameObject:
   m_ObjectHideFlags: 0
