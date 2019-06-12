@@ -13,6 +13,9 @@ public class UIController : MonoBehaviour
 	public static bool tosIsVisable = false;
 	public static bool titleMenuIsVisable = false;
 	public static bool menuIsVisable = false;
+	public static bool closeGameIsVisable = false;
+	public static bool helpIsVisable = false;
+	public static bool bugReportIsVisable = false;
 	
 	public GameObject titlescreen;
 	public GameObject tos;
@@ -30,6 +33,9 @@ public class UIController : MonoBehaviour
 	public GameObject profile;
 	public GameObject settings;
 	public GameObject menu;
+	public GameObject help;
+	public GameObject closeGame;
+	public GameObject bugReport;
 	
 	//How Do I make the navigation script into an array of script
 	
@@ -271,9 +277,73 @@ public class UIController : MonoBehaviour
 	}
 	//These can be simplified using arrays
 	
+	public void CloseGame()
+	{
+		if (closeGameIsVisable)
+		{
+			ClosecloseGame();
+		}
+		else
+		{
+			closeGameVisable();
+		}
+	}
+	
+	void ClosecloseGame(){
+		closeGame.SetActive (false);
+		closeGameIsVisable = false;
+	}
+	
+	void closeGameVisable(){
+		closeGame.SetActive (true);
+		closeGameIsVisable = true;
+	}
+	
 	public void Quit()
 	{
 		Application.Quit();
 	}
-		
+	
+		public void Help()
+	{
+		if (helpIsVisable)
+		{
+			Closehelp();
+		}
+		else
+		{
+			helpVisable();
+		}
+	}
+	
+	void Closehelp(){
+		help.SetActive (false);
+		helpIsVisable = false;
+	}
+	
+	void helpVisable(){
+		help.SetActive (true);
+		helpIsVisable = true;
+	}
+		public void BugReport()
+	{
+		if (bugReportIsVisable)
+		{
+			ClosebugReport();
+		}
+		else
+		{
+			bugReportVisable();
+		}
+	}
+	
+	void ClosebugReport(){
+		bugReport.SetActive (false);
+		bugReportIsVisable = false;
+	}
+	
+	void bugReportVisable(){
+		bugReport.SetActive (true);
+		bugReportIsVisable = true;
+	}		
 }
