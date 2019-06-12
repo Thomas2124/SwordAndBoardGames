@@ -25,6 +25,7 @@ public class Character : MonoBehaviour
     void Awake()
     {
         isDead = false;
+        addDamage = 50;
     }
 
     // Update is called once per frame
@@ -62,7 +63,8 @@ public class Character : MonoBehaviour
 
     void SpecialMoveAttack(GameObject target)
     {
-        target.GetComponent<Character>().TakeDamage(attackRating * addDamage);
+        float addition = attackRating / 100f;
+        target.GetComponent<Character>().TakeDamage(addition + attackRating * addDamage);
     }
 
     void SpecialMoveDefence(GameObject target)
