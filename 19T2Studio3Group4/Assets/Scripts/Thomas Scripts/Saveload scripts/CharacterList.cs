@@ -167,6 +167,29 @@ public class CharacterList : MonoBehaviour
         pick1 = true;
         pick2 = false;
         pick3 = false;
+        if (ExpSaveSystem.LoadPlayer() == null)
+        {
+            
+        }
+        else
+        {
+            ExpSaver expData = ExpSaveSystem.LoadPlayer();
+            fishman_exp = expData.fishman_exp;
+            werewolf_exp = expData.werewolf_exp;
+            bukkakeSlime_exp = expData.bukkakeSlime_exp;
+            dragonoid_exp = expData.dragonoid_exp;
+            golem_exp = expData.golem_exp;
+            catperson_exp = expData.catperson_exp;
+            angel_exp = expData.angel_exp;
+            devil_exp = expData.devil_exp;
+            orge_exp = expData.orge_exp;
+            gargoyle_exp = expData.gargoyle_exp;
+            garuda_exp = expData.garuda_exp;
+            loxodon_exp = expData.loxodon_exp;
+            minotaur_exp = expData.minotaur_exp;
+            spiderperson_exp = expData.spiderperson_exp;
+            hobnoblin_exp = expData.hobnoblin_exp;
+        }
     }
 
     // Update is called once per frame

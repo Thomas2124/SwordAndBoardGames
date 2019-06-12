@@ -34,6 +34,9 @@ public class Player1 : MonoBehaviour
     public bool special;
     public List<int> characterAttackNumbers;
     public int targetNum;
+    public int timerNum;
+    public float nextTime;
+    public Text timerText;
 
     void Awake()
     {
@@ -53,8 +56,11 @@ public class Player1 : MonoBehaviour
 
     void Update()
     {
+        timerText = GameObject.FindGameObjectWithTag("P1timer").GetComponent<Text>();
         if (once == false)
         {
+            timerNum = 60;
+            timerText.enabled = false;
             enemy4Button.SetActive(false);
             enemy5Button.SetActive(false);
             enemy6Button.SetActive(false);
@@ -222,6 +228,24 @@ public class Player1 : MonoBehaviour
         }
 
         GameOver();
+        TurnTimer();
+    }
+
+    void TurnTimer()
+    {
+        if (Time.time > nextTime && isMyTurn == true)
+        {
+            timerText.enabled = true;
+            nextTime = Time.time + 1f;
+            timerNum -= 1;
+            timerText.text = timerNum.ToString();
+        }
+
+        if (timerNum <= 0)
+        {
+            timerText.enabled = false;
+            BoolSetter(2);
+        }
     }
 
     void AttackingTurn()
@@ -299,7 +323,8 @@ public class Player1 : MonoBehaviour
         EnemyDefending();
         if (enemiesDefending <= 0) //Checks for defend characters, if so spread damage amongst them
         {
-            attackableCharacters[number].GetComponent<Character>().TakeDamage(characters[character].GetComponent<Character>().attackRating);
+            float defenceNum = attackableCharacters[number].GetComponent<Character>().defenceRating / 100f;
+            attackableCharacters[number].GetComponent<Character>().TakeDamage(characters[character].GetComponent<Character>().attackRating * defenceNum);
             characters[character].GetComponent<Character>().specialBar += 25f;
             BoolSetter(character);
         }
@@ -307,10 +332,11 @@ public class Player1 : MonoBehaviour
         {
             for (int i = 0; i < attackableCharacters.Count; i++)
             {
+                float defenceNum = attackableCharacters[number].GetComponent<Character>().defenceRating / 100f;
                 if (attackableCharacters[i].GetComponent<Character>().isDefending == true)
                 {
                     float damage = characters[character].GetComponent<Character>().attackRating / enemiesDefending;
-                    attackableCharacters[i].GetComponent<Character>().TakeDamage(damage);
+                    attackableCharacters[i].GetComponent<Character>().TakeDamage(damage * defenceNum);
                     characters[character].GetComponent<Character>().specialBar += 25f / enemiesDefending;
                 }
             }
@@ -425,6 +451,8 @@ public class Player1 : MonoBehaviour
 
         if (number == 2)
         {
+            timerNum = 60;
+            timerText.enabled = false;
             isMyTurn = false;
             character3 = false;
             characterPicked = false;

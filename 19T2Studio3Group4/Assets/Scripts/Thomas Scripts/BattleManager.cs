@@ -16,9 +16,49 @@ public class BattleManager : MonoBehaviour
     public Character character2;
     public Character character3;
 
+    public float fishman_exp = 1200f;
+    public float werewolf_exp;
+    public float bukkakeSlime_exp;
+    public float dragonoid_exp;
+    public float golem_exp;
+    public float catperson_exp;
+    public float angel_exp;
+    public float devil_exp;
+    public float orge_exp;
+    public float gargoyle_exp;
+    public float garuda_exp;
+    public float loxodon_exp;
+    public float minotaur_exp;
+    public float spiderperson_exp;
+    public float hobnoblin_exp;
+
     // Start is called before the first frame update
     void Awake()
     {
+        if (ExpSaveSystem.LoadPlayer() == null)
+        {
+
+        }
+        else
+        {
+            ExpSaver expData = ExpSaveSystem.LoadPlayer();
+            fishman_exp = expData.fishman_exp;
+            werewolf_exp = expData.werewolf_exp;
+            bukkakeSlime_exp = expData.bukkakeSlime_exp;
+            dragonoid_exp = expData.dragonoid_exp;
+            golem_exp = expData.golem_exp;
+            catperson_exp = expData.catperson_exp;
+            angel_exp = expData.angel_exp;
+            devil_exp = expData.devil_exp;
+            orge_exp = expData.orge_exp;
+            gargoyle_exp = expData.gargoyle_exp;
+            garuda_exp = expData.garuda_exp;
+            loxodon_exp = expData.loxodon_exp;
+            minotaur_exp = expData.minotaur_exp;
+            spiderperson_exp = expData.spiderperson_exp;
+            hobnoblin_exp = expData.hobnoblin_exp;
+        }
+
         PlayerData data = SaveSystem.LoadPlayer();
         character1 = GameObject.Find("Character1").GetComponent<Character>();
         character2 = GameObject.Find("Character2").GetComponent<Character>();
@@ -69,9 +109,85 @@ public class BattleManager : MonoBehaviour
         if (player2Lost == true)
         {
             victoryObject.SetActive(true);
+            GameObject[] p1Characters = player1.GetComponent<Player1>().characters;
+            foreach (GameObject item in p1Characters)
+            {
+                if (item.GetComponent<Character>().characterName == "fishman")
+                {
+                    fishman_exp += 50f;
+                }
+
+                if (item.GetComponent<Character>().characterName == "werewolf")
+                {
+                    werewolf_exp += 50f;
+                }
+
+                if (item.GetComponent<Character>().characterName == "bukkake Slime")
+                {
+                    bukkakeSlime_exp += 50f;
+                }
+
+                if (item.GetComponent<Character>().characterName == "dragonoid")
+                {
+                    dragonoid_exp += 50f;
+                }
+
+                if (item.GetComponent<Character>().characterName == "golem")
+                {
+                    golem_exp += 50f;
+                }
+
+                if (item.GetComponent<Character>().characterName == "angel")
+                {
+                    catperson_exp += 50f;
+                }
+
+                if (item.GetComponent<Character>().characterName == "devil")
+                {
+                    angel_exp += 50f;
+                }
+
+                if (item.GetComponent<Character>().characterName == "orge")
+                {
+                    devil_exp += 50f;
+                }
+
+                if (item.GetComponent<Character>().characterName == "gargoyle")
+                {
+                    orge_exp += 50f;
+                }
+
+                if (item.GetComponent<Character>().characterName == "garuda")
+                {
+                    garuda_exp += 50f;
+                }
+
+                if (item.GetComponent<Character>().characterName == "loxodon")
+                {
+                    loxodon_exp += 50f;
+                }
+
+                if (item.GetComponent<Character>().characterName == "minotaur")
+                {
+                    minotaur_exp += 50f;
+                }
+
+                if (item.GetComponent<Character>().characterName == "spiderperson")
+                {
+                    spiderperson_exp += 50f;
+                }
+
+                if (item.GetComponent<Character>().characterName == "hobnoblin")
+                {
+                    hobnoblin_exp += 50f;
+                }
+            }
+
+            ExpSaveSystem.SavePlayer(this);
             player1.GetComponent<Player1>().enabled = false;
             player2.GetComponent<Player2>().enabled = false;
             victoryText.text = "Player 1 Wins!";
+
         }
     }
 

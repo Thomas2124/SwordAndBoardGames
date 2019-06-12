@@ -34,6 +34,8 @@ TagManager:
   - Special2
   - Victory Object
   - Victory Text
+  - P1timer
+  - P2timer
   layers:
   - Default
   - TransparentFX
