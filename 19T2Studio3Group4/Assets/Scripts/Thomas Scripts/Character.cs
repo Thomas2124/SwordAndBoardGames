@@ -20,10 +20,12 @@ public class Character : MonoBehaviour
     public Image specialBarImage;
     public float addDamage;
     public float subDamage;
+    public float startHealth;
 
     // Start is called before the first frame update
     void Awake()
     {
+        startHealth = health;
         isDead = false;
         addDamage = 50;
     }
@@ -32,7 +34,7 @@ public class Character : MonoBehaviour
     void Update()
     {
         //Sets fill amount in health and special
-        healthBar.fillAmount = health / 100f;
+        healthBar.fillAmount = health / startHealth;
         specialBarImage.fillAmount = specialBar / 100f;
 
         if (health <= 0f)
@@ -61,13 +63,13 @@ public class Character : MonoBehaviour
 
     }
 
-    void SpecialMoveAttack(GameObject target)
+    public void SpecialMoveAttack(GameObject target)
     {
         float addition = attackRating / 100f;
         target.GetComponent<Character>().TakeDamage(addition + attackRating * addDamage);
     }
 
-    void SpecialMoveDefence(GameObject target)
+    public void SpecialMoveDefence(GameObject target)
     {
         float theDamage = target.GetComponent<Character>().attackRating / 100f;
         this.TakeDamage(theDamage / subDamage);

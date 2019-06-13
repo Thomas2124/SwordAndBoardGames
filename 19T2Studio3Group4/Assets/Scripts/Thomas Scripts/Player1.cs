@@ -37,6 +37,9 @@ public class Player1 : MonoBehaviour
     public int timerNum;
     public float nextTime;
     public Text timerText;
+    public int sAttack1;
+    public int sAttack2;
+    public int sAttack3;
 
     void Awake()
     {
@@ -146,7 +149,11 @@ public class Player1 : MonoBehaviour
                 if (special == true)
                 {
                     script.useSpecial = true;
-                    BoolSetter(0);
+                    if (characterPicked == true)
+                    {
+                        sAttack1 = attackNumber;
+                        BoolSetter(0);
+                    }
                 }
 
                 SpecialButtonChecker(0);
@@ -181,7 +188,11 @@ public class Player1 : MonoBehaviour
                 if (special == true)
                 {
                     script.useSpecial = true;
-                    BoolSetter(1);
+                    if (characterPicked == true)
+                    {
+                        sAttack2 = attackNumber;
+                        BoolSetter(1);
+                    }
                 }
 
                 SpecialButtonChecker(1);
@@ -216,7 +227,11 @@ public class Player1 : MonoBehaviour
                 if (special == true)
                 {
                     script.useSpecial = true;
-                    AttackingTurn();
+                    if (characterPicked == true)
+                    {
+                        sAttack3 = attackNumber;
+                        AttackingTurn();
+                    }
                 }
 
                 SpecialButtonChecker(2);
@@ -352,12 +367,30 @@ public class Player1 : MonoBehaviour
 
     void PlayerSpecial(int character) //Player Special Option
     {
-        foreach (GameObject item in attackableCharacters)
+        if (character == 0)
+        {
+            GameObject enemy = attackableCharacters[sAttack1];
+            characters[character].GetComponent<Character>().SpecialMoveAttack(enemy);
+        }
+
+        if (character == 1)
+        {
+            GameObject enemy = attackableCharacters[sAttack2];
+            characters[character].GetComponent<Character>().SpecialMoveAttack(enemy);
+        }
+
+        if (character == 2)
+        {
+            GameObject enemy = attackableCharacters[sAttack3];
+            characters[character].GetComponent<Character>().SpecialMoveAttack(enemy);
+        }
+
+        /*foreach (GameObject item in attackableCharacters)
         {
             item.GetComponent<Character>().TakeDamage(characters[character].GetComponent<Character>().attackRating);
         }
         characters[character].GetComponent<Character>().specialBar = 0f;
-        BoolSetter(character);
+        BoolSetter(character);*/
     }
 
     void SpecialButtonChecker(int character) //activates special button 
@@ -499,9 +532,11 @@ public class Player1 : MonoBehaviour
 
     public void SpecialButton() //Option if player wants to use the special move
     {
+        MainButtonTurnOff();
         special = true;
         attacked = false;
         defending = false;
+        ButtonChecker();
     }
 
     public void DefendButton() //Option if player wants to defend
@@ -515,7 +550,14 @@ public class Player1 : MonoBehaviour
     {
         characterPicked = true;
         attackNumber = 0;
-        characterAttackNumbers.Add(attackNumber);
+        if (attacked == true)
+        {
+            characterAttackNumbers.Add(attackNumber);
+        }
+        else
+        {
+
+        }
         ButtonTurnOff();
     }
 
@@ -523,7 +565,14 @@ public class Player1 : MonoBehaviour
     {
         characterPicked = true;
         attackNumber = 1;
-        characterAttackNumbers.Add(attackNumber);
+        if (attacked == true)
+        {
+            characterAttackNumbers.Add(attackNumber);
+        }
+        else
+        {
+
+        }
         ButtonTurnOff();
     }
 
@@ -531,7 +580,14 @@ public class Player1 : MonoBehaviour
     {
         characterPicked = true;
         attackNumber = 2;
-        characterAttackNumbers.Add(attackNumber);
+        if (attacked == true)
+        {
+            characterAttackNumbers.Add(attackNumber);
+        }
+        else
+        {
+
+        }
         ButtonTurnOff();
     }
 
