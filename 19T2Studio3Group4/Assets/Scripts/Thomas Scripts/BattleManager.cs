@@ -11,12 +11,13 @@ public class BattleManager : MonoBehaviour
     public bool player2Lost;
     public GameObject victoryObject;
     public Text victoryText;
+    public bool endWait = false;
 
     public Character character1;
     public Character character2;
     public Character character3;
 
-    public float fishman_exp = 1200f;
+    public float fishman_exp;
     public float werewolf_exp;
     public float bukkakeSlime_exp;
     public float dragonoid_exp;
@@ -35,6 +36,7 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        endWait = false;
         if (ExpSaveSystem.LoadPlayer() == null)
         {
 
@@ -106,80 +108,57 @@ public class BattleManager : MonoBehaviour
             victoryText.text = "Player 2 Wins!";
         }
 
-        if (player2Lost == true)
+        if (player2Lost == true && endWait == false)
         {
             victoryObject.SetActive(true);
             GameObject[] p1Characters = player1.GetComponent<Player1>().characters;
             foreach (GameObject item in p1Characters)
             {
-                if (item.GetComponent<Character>().characterName == "fishman")
+                string theName = item.GetComponent<Character>().characterName;
+                switch (theName)
                 {
+                case "fishman":
                     fishman_exp += 50f;
-                }
-
-                if (item.GetComponent<Character>().characterName == "werewolf")
-                {
+                    break;
+                case "werewolf":
                     werewolf_exp += 50f;
-                }
-
-                if (item.GetComponent<Character>().characterName == "bukkake Slime")
-                {
+                    break;
+                case "bukkake Slime":
                     bukkakeSlime_exp += 50f;
-                }
-
-                if (item.GetComponent<Character>().characterName == "dragonoid")
-                {
+                    break;
+                case "dragonoid":
                     dragonoid_exp += 50f;
-                }
-
-                if (item.GetComponent<Character>().characterName == "golem")
-                {
+                    break;
+                case "golem":
                     golem_exp += 50f;
-                }
-
-                if (item.GetComponent<Character>().characterName == "angel")
-                {
-                    catperson_exp += 50f;
-                }
-
-                if (item.GetComponent<Character>().characterName == "devil")
-                {
+                    break;
+                case "angel":
                     angel_exp += 50f;
-                }
-
-                if (item.GetComponent<Character>().characterName == "orge")
-                {
+                    break;
+                case "devil":
                     devil_exp += 50f;
-                }
-
-                if (item.GetComponent<Character>().characterName == "gargoyle")
-                {
+                    break;
+                case "orge":
                     orge_exp += 50f;
-                }
-
-                if (item.GetComponent<Character>().characterName == "garuda")
-                {
+                    break;
+                case "gargoyle":
+                    gargoyle_exp += 50f;
+                    break;
+                case "garuda":
                     garuda_exp += 50f;
-                }
-
-                if (item.GetComponent<Character>().characterName == "loxodon")
-                {
+                    break;
+                case "loxodon":
                     loxodon_exp += 50f;
-                }
-
-                if (item.GetComponent<Character>().characterName == "minotaur")
-                {
+                    break;
+                case "minotaur":
                     minotaur_exp += 50f;
-                }
-
-                if (item.GetComponent<Character>().characterName == "spiderperson")
-                {
+                    break;
+                case "spiderperson":
                     spiderperson_exp += 50f;
-                }
-
-                if (item.GetComponent<Character>().characterName == "hobnoblin")
-                {
+                    break;
+                case "hobnoblin":
                     hobnoblin_exp += 50f;
+                    break;
                 }
             }
 
@@ -187,6 +166,7 @@ public class BattleManager : MonoBehaviour
             player1.GetComponent<Player1>().enabled = false;
             player2.GetComponent<Player2>().enabled = false;
             victoryText.text = "Player 1 Wins!";
+            endWait = true;
 
         }
     }
