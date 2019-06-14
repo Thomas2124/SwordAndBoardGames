@@ -18,10 +18,12 @@ public class Drophandler : MonoBehaviour, IDropHandler, IPointerEnterHandler, IP
 		}
 		
 	}
+	//detects if the mouse enters an area with the associated script
 	public void OnPointerEnter(PointerEventData eventData)
 	{
 		//Debug.Log ("Onpoint");
 	}
+	//detects if the mouse leaves an area with the associated script
 	public void OnPointerExit(PointerEventData eventData)
 	{
 		//Debug.Log ("EndPoint");
