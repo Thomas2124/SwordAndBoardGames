@@ -32,7 +32,7 @@ public class PlaceChecker : MonoBehaviour
             secondCharacter = place2.transform.GetChild(0).gameObject;
         }
 
-        if (place2.transform.childCount > 0)
+        if (place3.transform.childCount > 0)
         {
             thirdCharacter = place3.transform.GetChild(0).gameObject;
         }
