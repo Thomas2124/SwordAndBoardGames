@@ -132,9 +132,6 @@ public class BattleManager : MonoBehaviour
                 case "golem":
                     golem_exp += 50f;
                     break;
-                case "catperson":
-                    catperson_exp += 50f;
-                    break;
                 case "angel":
                     angel_exp += 50f;
                     break;

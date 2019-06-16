@@ -9,8 +9,6 @@ public class CharacterList : MonoBehaviour
     public bool pick2;
     public bool pick3;
 
-    public PlaceChecker checkerScript;
-
     [Header("First Character")]
     public string characterName;
     public float health = 200f;
@@ -162,14 +160,9 @@ public class CharacterList : MonoBehaviour
     public float hobnoblin_defenceRating = 30f;
     public int hobnoblin_level = 1;
     public float hobnoblin_exp = 0f;
-
-    public GameObject firstPlace;
-    public GameObject secondPlace;
-    public GameObject thirdPlace;
     // Start is called before the first frame update
     void Awake()
     {
-        checkerScript = GameObject.Find("EGO place getter").GetComponent<PlaceChecker>();
         pickedCharacter = false;
         pick1 = true;
         pick2 = false;
@@ -202,35 +195,9 @@ public class CharacterList : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        firstPlace = checkerScript.firstCharacter;
-        secondPlace = checkerScript.secondCharacter;
-        thirdPlace = checkerScript.thirdCharacter;
-
-        if (firstPlace != null)
+        if (pick1 == true)
         {
-            CharacterSetter(firstPlace.tag, 1);
-            ReplaceStats(1, n, h, a, d, l, e);
-        }
-
-        if (secondPlace != null)
-        {
-            CharacterSetter(secondPlace.tag, 2);
-            ReplaceStats(2, n, h, a, d, l, e);
-        }
-
-        if (thirdPlace != null)
-        {
-            CharacterSetter(thirdPlace.tag, 3);
-            ReplaceStats(3, n, h, a, d, l, e);
-        }
-
-        if (firstPlace != null && secondPlace != null && thirdPlace != null)
-        {
-            SaveStats();
-        }
-        /*if (pick1 == true)
-        {
-           if (pickedCharacter == true)
+            if (pickedCharacter == true)
             {
                 ReplaceStats(1, n, h, a, d, l, e);
                 pick2 = true;
@@ -258,59 +225,6 @@ public class CharacterList : MonoBehaviour
                 pickedCharacter = false;
                 pick3 = false;
             }
-        }*/
-    }
-
-    void CharacterSetter(string characterTag, int myNum)
-    {
-        string theName = characterTag;
-        switch (theName)
-        {
-            case "fishman":
-                Option1();
-                break;
-            case "werewolf":
-                Option2();
-                break;
-            case "bukkake Slime":
-                Option3();
-                break;
-            case "dragonoid":
-                Option4();
-                break;
-            case "golem":
-                Option5();
-                break;
-            case "catperson":
-                Option6();
-                break;
-            case "angel":
-                Option7();
-                break;
-            case "devil":
-                Option8();
-                break;
-            case "orge":
-                Option9();
-                break;
-            case "gargoyle":
-                Option10();
-                break;
-            case "garuda":
-                Option11();
-                break;
-            case "loxodon":
-                Option12();
-                break;
-            case "minotaur":
-                Option13();
-                break;
-            case "spiderperson":
-                Option14();
-                break;
-            case "hobnoblin":
-                Option15();
-                break;
         }
     }
 
