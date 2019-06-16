@@ -7,6 +7,13 @@ public class VSyncOnOFF : MonoBehaviour
 	public static bool vSyncison = false;
 	//public GameObject vSyncButton;
 
+	
+	//void Update()
+	//{
+	//	PlayerPrefs.SetFloat()
+	//}
+	
+	
 	public void VsyncOnOFF()
 	{
 		if(vSyncison)
@@ -32,4 +39,6 @@ public class VSyncOnOFF : MonoBehaviour
 		//vSyncButton.GetComponent<Renderer>().material.color = new Color(0, 255, 0);
 		print("VSyncOn");
 	}
+	
+
 }

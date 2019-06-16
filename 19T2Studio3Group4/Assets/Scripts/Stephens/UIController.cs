@@ -16,6 +16,7 @@ public class UIController : MonoBehaviour
 	public static bool closeGameIsVisable = false;
 	public static bool helpIsVisable = false;
 	public static bool bugReportIsVisable = false;
+	public static bool playerPortraitSelectIsVisable = false;
 	
 	public GameObject titlescreen;
 	public GameObject tos;
@@ -36,6 +37,8 @@ public class UIController : MonoBehaviour
 	public GameObject help;
 	public GameObject closeGame;
 	public GameObject bugReport;
+	public GameObject fade;	
+	public GameObject playerPortraitSelect;
 	
 	//How Do I make the navigation script into an array of script
 	
@@ -67,11 +70,11 @@ public class UIController : MonoBehaviour
 	//}
 
 	//open game Ui
-	public void GameOpen(){
-		update.SetActive (false); //set to false while unused
-		titlescreen.SetActive (false);
-		background.SetActive (true);
-		titleMenuIsVisable = true;
+		public void GameOpen(){
+			update.SetActive (false); //set to false while unused
+			titlescreen.SetActive (false);
+			background.SetActive (true);
+			titleMenuIsVisable = true;
 	}
 	//Open game ToS and set its state	
 	public void ToSOpen(){
@@ -345,5 +348,27 @@ public class UIController : MonoBehaviour
 	void bugReportVisable(){
 		bugReport.SetActive (true);
 		bugReportIsVisable = true;
+	}	
+
+		public void PlayerPortraitSelect()
+	{
+		if (playerPortraitSelectIsVisable)
+		{
+			CloseplayerPortraitSelect();
+		}
+		else
+		{
+			playerPortraitSelectVisable();
+		}
+	}
+	
+	void CloseplayerPortraitSelect(){
+		playerPortraitSelect.SetActive (false);
+		playerPortraitSelectIsVisable = false;
+	}
+	
+	void playerPortraitSelectVisable(){
+		playerPortraitSelect.SetActive (true);
+		playerPortraitSelectIsVisable = true;
 	}		
 }
