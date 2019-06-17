@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GachaRolls : MonoBehaviour
 {
     //Script Variables
-    private float ranNum;
+    private int ranNum;
     private string rarityRolled;
-    
+    public string[] characterlistSR;
+    public string[] characterlistR;
+    public string[] characterlistUC;
+    public string[] characterlistC;
+    public string characterRolled;
+    public Text raceText;
 
     // Start is called before the first frame update
     void Start()
@@ -29,51 +35,39 @@ public class GachaRolls : MonoBehaviour
         if(ranNum == 0)
         {
             //Super Rare
-            //Access character rarity list and goes into another chance roll
+            ranNum = Random.Range(0, 2);
+            characterRolled = characterlistSR[ranNum];
             Results();
         }
         if (ranNum >= 1 && ranNum <= 3)
         {
             //Rare
-            //Access character rarity list and goes into another chance roll
+            ranNum = Random.Range(0, 2);
+            characterRolled = characterlistR[ranNum];
             Results();
         }
         if (ranNum >= 4 && ranNum <= 9)
         {
             //Uncommon
-            //Access character rarity list and goes into another chance roll
+            ranNum = Random.Range(0, 3);
+            characterRolled = characterlistUC[ranNum];
             Results();
         }
         if (ranNum >= 10 && ranNum <= 19)
         {
             //Commmon
-            //Access character rarity list and goes into another chance roll
+            ranNum = Random.Range(0, 4);
+            characterRolled = characterlistC[ranNum];
             Results();
         }
     }
 
     public void Results()
     {
-        //tells what image to place and rarity icon to use
-        //also contains button to roll again or stop and return to gacha screen.
-    }
-
-    
-    private void CharacterRoll()
-    {
-        //checks rarity rolled and goes thgrough list
-        //use another random.range to select a character
-        //either go back to previous function or go to reults function
-    }
-
-    public void SpecialRoll()
-    {
-        for (int i = 0; i < 5; i++)
-        {
-            NormalRoll();
-            //or do another whole process depending on how it flows
-        }
-        // go into a custom UI results page or create a page that accommodates to both types of rolls
+        raceText.text = characterRolled;
+        //do a quick summary of what they recieve then press ok
+        //perform check if character exists if yes then open another panel showing that the character has leveled up
+        //if not then return to gacha screen page
     }
 
 }

@@ -17,7 +17,18 @@ public static class ExpSaveSystem
         stream.Close();
 
     }
+    public static void SavePlayer1(BattleManager myList)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/characterExp.this";
+        FileStream stream = new FileStream(path, FileMode.Create);
 
+        ExpSaver expData = new ExpSaver(myList);
+
+        formatter.Serialize(stream, expData);
+        stream.Close();
+
+    }
     public static ExpSaver LoadPlayer()
     {
         string path = Application.persistentDataPath + "/characterExp.this";
