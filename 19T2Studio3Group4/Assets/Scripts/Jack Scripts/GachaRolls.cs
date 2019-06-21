@@ -172,6 +172,9 @@ public class GachaRolls : MonoBehaviour
                     break;
             }
         }
+
+        GachaSaveSystem.SavePlayer(this);
+
         characterRolled.Clear();
         //Saves the characters experience into the savefile
     }

@@ -3,29 +3,29 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 
-public static class ExpSaveSystem
+public static class GachaSaveSystem
 {
-    public static void SavePlayer(BattleManager myList)
+    public static void SavePlayer(GachaRolls expList)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/characterExp.this";
+        string path = Application.persistentDataPath + "/newcharacterExp.this";
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        ExpSaver expData = new ExpSaver(myList);
+        GachaExpList expData = new GachaExpList(expList);
 
         formatter.Serialize(stream, expData);
         stream.Close();
 
     }
 
-    public static ExpSaver LoadPlayer()
+    public static GachaExpList LoadPlayer()
     {
-        string path = Application.persistentDataPath + "/characterExp.this";
+        string path = Application.persistentDataPath + "/newcharacterExp.this";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
-            ExpSaver expData = formatter.Deserialize(stream) as ExpSaver;
+            GachaExpList expData = formatter.Deserialize(stream) as GachaExpList;
             stream.Close();
             return expData;
         }
