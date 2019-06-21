@@ -31,13 +31,13 @@ public class PlayerScript : NetworkBehaviour
         textPosition = pos;
         name = theName;
 
-        if (isServer)
+        if (NetworkServer.connections.Count == 1)
         {
             //playerName = GameObject.Find("P1Text");
             theName = "Host";
             pos = new Vector3(-300f, 300f, 0f);
         }
-        else if (!isServer)
+        else if (NetworkServer.connections.Count == 2)
         {
             //playerName = GameObject.Find("P2Text");
             theName = "Client";
@@ -46,7 +46,6 @@ public class PlayerScript : NetworkBehaviour
 
         PlayerNameSetter(theName);
         PlayerPositionSetter(pos);
-
 
         RpcSetTextPosition(pos, theName);
     }
@@ -57,13 +56,13 @@ public class PlayerScript : NetworkBehaviour
         textPosition = pos;
         name = theName;
 
-        if (isServer)
+        if (NetworkServer.connections.Count == 1)
         {
             //playerName = GameObject.Find("P1Text");
             theName = "Host";
             pos = new Vector3(-300f, 300f, 0f);
         }
-        else if (!isServer)
+        else if (NetworkServer.connections.Count == 2)
         {
             //playerName = GameObject.Find("P2Text");
             theName = "Client";
@@ -96,7 +95,6 @@ public class PlayerScript : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(NetworkServer.connections.Count);
         if (isLocalPlayer)
         {
             enemy = GameObject.FindGameObjectsWithTag("Player");
@@ -108,15 +106,28 @@ public class PlayerScript : NetworkBehaviour
                 }
             }
 
+            healthBar.fillAmount = health / 100f;
         }
-        healthBar.fillAmount = health / 100f;
     }
+
 
 
     public void Attack()
     {
-        myOpponent.TakeDamage(damage);
-        Debug.Log("Atak");
+        CmdStartAttack(damage);
+    }
+
+    [Command]
+    void CmdStartAttack(float hit)
+    {
+        myOpponent.TakeDamage(hit);
+        RpcStartAttack(hit);
+    }
+
+    [ClientRpc]
+    void RpcStartAttack(float hit)
+    {
+        myOpponent.TakeDamage(hit);
     }
 
     void PlayerNameSetter(string theName)
