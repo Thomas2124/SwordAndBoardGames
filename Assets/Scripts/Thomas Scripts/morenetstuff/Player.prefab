@@ -200,19 +200,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3419355764041805082}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 788e3b20642345b43aea0b87a42e48cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 72a2285b777bce14aa6d6b04988d13e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  name: None
+  name: 
   textPosition: {x: 0, y: 0, z: 0}
   playerName: {fileID: 3166526725623924576}
   playerButton: {fileID: 5545417770340590931}
   damage: 25
   tempName: 
   tempPosition: {x: 0, y: 0, z: 0}
-  enemy:
-  - {fileID: 0}
+  enemy: []
   myOpponent: {fileID: 0}
   healthBar: {fileID: 3774677198499070519}
 --- !u!114 &3419355764041805076

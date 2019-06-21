@@ -25,64 +25,19 @@ public class PlayerScript : NetworkBehaviour
     public PlayerScript myOpponent;
     public Image healthBar;
 
-    [Command]
-    void CmdTextPositionToServer(Vector3 pos, string theName)
-    {
-        textPosition = pos;
-        name = theName;
-
-        if (NetworkServer.connections.Count == 1)
-        {
-            //playerName = GameObject.Find("P1Text");
-            theName = "Host";
-            pos = new Vector3(-300f, 300f, 0f);
-        }
-        else if (NetworkServer.connections.Count == 2)
-        {
-            //playerName = GameObject.Find("P2Text");
-            theName = "Client";
-            pos = new Vector3(300f, 300f, 0f);
-        }
-
-        PlayerNameSetter(theName);
-        PlayerPositionSetter(pos);
-
-        RpcSetTextPosition(pos, theName);
-    }
-
-    [ClientRpc]
-    void RpcSetTextPosition(Vector3 pos, string theName)
-    {
-        textPosition = pos;
-        name = theName;
-
-        if (NetworkServer.connections.Count == 1)
-        {
-            //playerName = GameObject.Find("P1Text");
-            theName = "Host";
-            pos = new Vector3(-300f, 300f, 0f);
-        }
-        else if (NetworkServer.connections.Count == 2)
-        {
-            //playerName = GameObject.Find("P2Text");
-            theName = "Client";
-            pos = new Vector3(300f, 300f, 0f);
-        }
-
-        PlayerNameSetter(theName);
-        PlayerPositionSetter(pos);
-    }
+    public int connectID;
 
     // Start is called before the first frame update
     void Start()
     {
         if (isLocalPlayer)
         {
-            
+            connectID = NetworkServer.connections.Count;
             //playerName.SetActive(true);
             playerButton.SetActive(true);
             healthBar.enabled = true;
-            CmdTextPositionToServer(tempPosition, tempName);
+            CmdNameSetter(tempName, tempPosition);
+            //CmdTextPositionToServer(tempPosition, tempName);
         }
         else if (!isLocalPlayer)
         {
@@ -107,10 +62,40 @@ public class PlayerScript : NetworkBehaviour
             }
 
             healthBar.fillAmount = health / 100f;
+
+            CmdNameSetter(tempName, tempPosition);
         }
     }
 
+    [Command]
+    void CmdNameSetter(string myString, Vector3 myVector)
+    {
+        myString = name;
+        myVector = textPosition;
 
+        if (connectID == 1)
+        {
+            myString = "Host";
+            myVector = new Vector3(-300f, 300f, 0f);
+        }
+        else
+        {
+            myString = "Client";
+            myVector = new Vector3(300f, 300f, 0f);
+        }
+
+        playerName.GetComponent<Text>().text = myString;
+        playerName.GetComponent<Text>().transform.localPosition = myVector;
+
+        RpcNameSetter(myString, myVector);
+    }
+
+    [ClientRpc]
+    void RpcNameSetter(string myString, Vector3 myVector)
+    {
+        playerName.GetComponent<Text>().text = myString;
+        playerName.GetComponent<Text>().transform.localPosition = myVector;
+    }
 
     public void Attack()
     {
