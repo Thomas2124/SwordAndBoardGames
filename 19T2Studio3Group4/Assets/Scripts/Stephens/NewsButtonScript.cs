@@ -9,7 +9,7 @@ public class NewsButtonScript : MonoBehaviour
 	public GameObject shopOption;
 	
 	public void OpenShopAdd()
-	{	
+	{		
 		shooop.SetActive (true);
 		shopOptionOne.SetActive (true);
 		shopOption.SetActive (true);

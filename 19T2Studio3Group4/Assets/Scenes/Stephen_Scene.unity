@@ -2942,6 +2942,7 @@ GameObject:
   - component: {fileID: 136356725}
   - component: {fileID: 136356724}
   - component: {fileID: 136356727}
+  - component: {fileID: 136356728}
   - component: {fileID: 136356723}
   m_Layer: 5
   m_Name: MoveToStorebutton
@@ -3092,6 +3093,20 @@ MonoBehaviour:
   shooop: {fileID: 1441801872}
   shopOptionOne: {fileID: 924453966}
   shopOption: {fileID: 924453966}
+--- !u!114 &136356728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136356721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4d44228a290d64e82b6ba9b9e9b3a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copyCatO: {fileID: 1927150034}
+  copiedObject: {fileID: 924453966}
 --- !u!1 &137881193
 GameObject:
   m_ObjectHideFlags: 0
@@ -5587,6 +5602,7 @@ GameObject:
   - component: {fileID: 227170025}
   - component: {fileID: 227170024}
   - component: {fileID: 227170027}
+  - component: {fileID: 227170028}
   - component: {fileID: 227170023}
   m_Layer: 5
   m_Name: MovetoStoreButton
@@ -5737,6 +5753,20 @@ MonoBehaviour:
   shooop: {fileID: 1441801872}
   shopOptionOne: {fileID: 924453966}
   shopOption: {fileID: 924453966}
+--- !u!114 &227170028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227170021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4d44228a290d64e82b6ba9b9e9b3a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copyCatO: {fileID: 1668192965}
+  copiedObject: {fileID: 924453966}
 --- !u!1 &231341002
 GameObject:
   m_ObjectHideFlags: 0
@@ -21883,6 +21913,7 @@ GameObject:
   - component: {fileID: 1164792288}
   - component: {fileID: 1164792287}
   - component: {fileID: 1164792290}
+  - component: {fileID: 1164792291}
   - component: {fileID: 1164792286}
   m_Layer: 5
   m_Name: MovetoStoreButton
@@ -22033,6 +22064,20 @@ MonoBehaviour:
   shooop: {fileID: 1441801872}
   shopOptionOne: {fileID: 924453966}
   shopOption: {fileID: 1289412672}
+--- !u!114 &1164792291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164792284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4d44228a290d64e82b6ba9b9e9b3a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copyCatO: {fileID: 2021472997}
+  copiedObject: {fileID: 1289412672}
 --- !u!1 &1166779875
 GameObject:
   m_ObjectHideFlags: 0
@@ -38181,6 +38226,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908627914}
   m_CullTransparentMesh: 0
+--- !u!1 &1912011045 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5242270269898209856, guid: 82379b98acb29f9468f0cbad0b108ecb,
+    type: 3}
+  m_PrefabInstance: {fileID: 5242270270385046919}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1918538294
 GameObject:
   m_ObjectHideFlags: 0
@@ -39866,6 +39917,7 @@ GameObject:
   - component: {fileID: 2011461816}
   - component: {fileID: 2011461815}
   - component: {fileID: 2011461818}
+  - component: {fileID: 2011461819}
   - component: {fileID: 2011461814}
   m_Layer: 5
   m_Name: MovetoStoreButton
@@ -40015,7 +40067,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shooop: {fileID: 1441801872}
   shopOptionOne: {fileID: 924453966}
-  shopOption: {fileID: 924453966}
+  shopOption: {fileID: 1912011045}
+--- !u!114 &2011461819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011461812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4d44228a290d64e82b6ba9b9e9b3a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copyCatO: {fileID: 1465427868}
+  copiedObject: {fileID: 1912011045}
 --- !u!1 &2011853487
 GameObject:
   m_ObjectHideFlags: 0
