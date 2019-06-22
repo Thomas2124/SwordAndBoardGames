@@ -206,14 +206,16 @@ MonoBehaviour:
   health: 100
   name: 
   textPosition: {x: 0, y: 0, z: 0}
+  damage: 25
   playerName: {fileID: 3166526725623924576}
   playerButton: {fileID: 5545417770340590931}
-  damage: 25
+  myOpponent: {fileID: 0}
+  healthBar: {fileID: 3774677198499070519}
+  connectID: 0
+  tempDamage: 0
   tempName: 
   tempPosition: {x: 0, y: 0, z: 0}
   enemy: []
-  myOpponent: {fileID: 0}
-  healthBar: {fileID: 3774677198499070519}
 --- !u!114 &3419355764041805076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,7 +314,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 9288d996d495b0d4a8701e0674c4e768, type: 3}
+  m_Sprite: {fileID: 21300000, guid: efff80db406e135489ca014870b3bb0c, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
