@@ -23,8 +23,11 @@ public class PlayerScript : NetworkBehaviour
     public GameObject playerButton;
     public PlayerScript myOpponent;
     public Image healthBar;
+
+    [SyncVar]
     public bool isMyTurn;
 
+    [SyncVar]
     public int connectID;
 
     //Temp Variables
@@ -32,6 +35,8 @@ public class PlayerScript : NetworkBehaviour
     public string tempName;
     public Vector3 tempPosition = Vector3.zero;
     public GameObject[] enemy;
+    public bool bool1;
+    public bool bool2;
 
     // Start is called before the first frame update
     void Start()
@@ -47,8 +52,7 @@ public class PlayerScript : NetworkBehaviour
             {
                 isMyTurn = false;
             }
-
-            playerButton.SetActive(true);
+            playerButton.SetActive(isMyTurn);
         }
         else if (!isLocalPlayer)
         {
@@ -67,53 +71,38 @@ public class PlayerScript : NetworkBehaviour
 
             CmdNameSetter(tempName, tempPosition);
 
-            CmdButtonSetter(isMyTurn);
+            playerButton.SetActive(isMyTurn);
         }
     }
 
-    //button setter
+    /*//button setter
     [Command]
-    void CmdButtonSetter(bool myBool)
+    void CmdButtonSetter()
     {
+        bool myBool = isMyTurn;
         RpcButtonSetter(myBool);
     }
 
     [ClientRpc]
     void RpcButtonSetter(bool myBool)
     {
-        if (isLocalPlayer)
-        {
-            if (isMyTurn)
-            {
-                playerButton.SetActive(myBool);
-            }
-            else
-            {
-                playerButton.SetActive(!myBool);
-            }
-        }
-    }
+        playerButton.SetActive(myBool);
+    }*/
 
     //sets turn values
     [Command]
-    void CmdTurnSetter(bool myBool)
+    void CmdTurnSetter(bool myBool, bool enemyBool)
     {
-        RpcTurnSetter(myBool);
+        myBool = false;
+        enemyBool = true;
+        RpcTurnSetter(myBool, enemyBool);
     }
 
     [ClientRpc]
-    void RpcTurnSetter(bool myBool)
+    void RpcTurnSetter(bool myBool, bool enemyBool)
     {
-        if (myBool == true)
-        {
-            this.isMyTurn = false;
-            myOpponent.isMyTurn = true;
-        }
-        else if (myBool == false)
-        {
-            this.isMyTurn = true;
-            myOpponent.isMyTurn = false;
-        }
+        this.isMyTurn = myBool;
+        myOpponent.isMyTurn = enemyBool;
     }
 
     //player healthbar
@@ -193,22 +182,22 @@ public class PlayerScript : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            CmdStartAttack(tempDamage, isMyTurn);
+            CmdStartAttack(tempDamage);
+            CmdTurnSetter(bool1, bool2);
         }
     }
 
     [Command]
-    void CmdStartAttack(float hit, bool myBool)
+    void CmdStartAttack(float hit)
     {
         hit = damage;
-        RpcStartAttack(hit, myBool);
+        RpcStartAttack(hit);
     }
 
     [ClientRpc]
-    void RpcStartAttack(float hit, bool myBool)
+    void RpcStartAttack(float hit)
     {
         myOpponent.TakeDamage(hit);
-        CmdTurnSetter(myBool);
     }
 
     void TakeDamage(float damage)
