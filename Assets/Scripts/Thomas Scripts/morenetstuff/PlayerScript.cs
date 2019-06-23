@@ -10,6 +10,13 @@ public class PlayerScript : NetworkBehaviour
     public float health = 100f;
 
     [SyncVar]
+    public float health2 = 100f;
+
+    [SyncVar]
+    public float health3 = 100f;
+
+
+    [SyncVar]
     public string name;
 
     [SyncVar]
@@ -21,8 +28,13 @@ public class PlayerScript : NetworkBehaviour
     public Vector3 healthPosition = Vector3.zero;
     public GameObject playerName;
     public GameObject playerButton;
+    public GameObject enemyButton1;
+    public GameObject enemyButton2;
+    public GameObject enemyButton3;
     public PlayerScript myOpponent;
     public Image healthBar;
+    public Image healthBar2;
+    public Image healthBar3;
 
     [SyncVar]
     public bool isMyTurn;
@@ -37,6 +49,7 @@ public class PlayerScript : NetworkBehaviour
     public GameObject[] enemy;
     public bool bool1;
     public bool bool2;
+    public bool attackPressed;
 
     // Start is called before the first frame update
     void Start()
@@ -53,10 +66,16 @@ public class PlayerScript : NetworkBehaviour
                 isMyTurn = false;
             }
             playerButton.SetActive(isMyTurn);
+            enemyButton1.SetActive(false);
+            enemyButton2.SetActive(false);
+            enemyButton3.SetActive(false);
         }
         else if (!isLocalPlayer)
         {
             playerButton.SetActive(false);
+            enemyButton1.SetActive(false);
+            enemyButton2.SetActive(false);
+            enemyButton3.SetActive(false);
         }
     }
 
@@ -67,27 +86,13 @@ public class PlayerScript : NetworkBehaviour
         {
             CmdFindPLayers();
 
-            CmdHealthBar(health, healthPosition);
+            CmdHealthBar(health, health2, health3, healthPosition);
 
             CmdNameSetter(tempName, tempPosition);
 
             playerButton.SetActive(isMyTurn);
         }
     }
-
-    /*//button setter
-    [Command]
-    void CmdButtonSetter()
-    {
-        bool myBool = isMyTurn;
-        RpcButtonSetter(myBool);
-    }
-
-    [ClientRpc]
-    void RpcButtonSetter(bool myBool)
-    {
-        playerButton.SetActive(myBool);
-    }*/
 
     //sets turn values
     [Command]
@@ -107,26 +112,36 @@ public class PlayerScript : NetworkBehaviour
 
     //player healthbar
     [Command]
-    void CmdHealthBar(float value, Vector3 pos)
+    void CmdHealthBar(float value, float value2, float value3, Vector3 pos)
     {
         pos = healthPosition;
+        Vector3 pos2 = Vector3.zero;
+        Vector3 pos3 = Vector3.zero; ;
         if (connectID == 1)
         {
             pos = new Vector3(-300f, 250f, 0f);
+            pos2 = new Vector3(-300f, 200f, 0f);
+            pos3 = new Vector3(-300f, 150f, 0f);
         }
         else
         {
             pos = new Vector3(300f, 250f, 0f);
+            pos2 = new Vector3(300f, 200f, 0f);
+            pos3 = new Vector3(300f, 150f, 0f);
         }
 
-        RpcHealthBar(value, pos);
+        RpcHealthBar(value, value2, value3, pos, pos2, pos3);
     }
 
     [ClientRpc]
-    void RpcHealthBar(float value, Vector3 pos)
+    void RpcHealthBar(float value, float value2, float value3, Vector3 pos1, Vector3 pos2, Vector3 pos3)
     {
         healthBar.fillAmount = value / 100f;
-        healthBar.transform.localPosition = pos;
+        healthBar2.fillAmount = value2 / 100f;
+        healthBar3.fillAmount = value3 / 100f;
+        healthBar.transform.localPosition = pos1;
+        healthBar2.transform.localPosition = pos2;
+        healthBar3.transform.localPosition = pos3;
     }
 
     //Finds other player
@@ -182,26 +197,69 @@ public class PlayerScript : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            CmdStartAttack(tempDamage);
-            CmdTurnSetter(bool1, bool2);
+            AttackOptions();
         }
     }
 
-    [Command]
-    void CmdStartAttack(float hit)
+    void AttackOptions()
     {
-        hit = damage;
-        RpcStartAttack(hit);
+        AttackButtonsOnOff(true);
+    }
+
+    [Command]
+    void CmdAttack1()
+    {
+        float hit = damage;
+        AttackButtonsOnOff(false);
+        RpcAttackOptions(hit, 1f);
+        CmdTurnSetter(bool1, bool2);
+    }
+
+    [Command]
+    void CmdAttack2()
+    {
+        float hit = damage;
+        AttackButtonsOnOff(false);
+        RpcAttackOptions(hit, 2f);
+        CmdTurnSetter(bool1, bool2);
+    }
+
+    [Command]
+    void CmdAttack3()
+    {
+        float hit = damage;
+        AttackButtonsOnOff(false);
+        RpcAttackOptions(hit, 3f);
+        CmdTurnSetter(bool1, bool2);
     }
 
     [ClientRpc]
-    void RpcStartAttack(float hit)
+    void RpcAttackOptions(float hit, float enemy)
     {
-        myOpponent.TakeDamage(hit);
+        myOpponent.TakeDamage(hit, enemy);
     }
 
-    void TakeDamage(float damage)
+    void TakeDamage(float damage, float enemy)
     {
-        health -= damage;
+        switch (enemy)
+        {
+            case 1f:
+                health -= damage;
+                break;
+            case 2f:
+                health2 -= damage;
+                break;
+            case 3f:
+                health3 -= damage;
+                break;
+        }
+
+    }
+
+    void AttackButtonsOnOff(bool set)
+    {
+        enemyButton1.SetActive(set);
+        enemyButton2.SetActive(set);
+        enemyButton3.SetActive(set);
     }
 }
