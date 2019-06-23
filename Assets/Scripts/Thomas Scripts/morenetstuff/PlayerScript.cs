@@ -26,11 +26,15 @@ public class PlayerScript : NetworkBehaviour
     public float damage = 25f;
 
     public Vector3 healthPosition = Vector3.zero;
+    public GameObject character1;
+    public GameObject character2;
+    public GameObject character3;
     public GameObject playerName;
     public GameObject playerButton;
     public GameObject enemyButton1;
     public GameObject enemyButton2;
     public GameObject enemyButton3;
+    public GameObject characterArrow;
     public PlayerScript myOpponent;
     public Image healthBar;
     public Image healthBar2;
@@ -46,10 +50,14 @@ public class PlayerScript : NetworkBehaviour
     public float tempDamage;
     public string tempName;
     public Vector3 tempPosition = Vector3.zero;
+    public Vector3 arrowPosition = Vector3.zero;
     public GameObject[] enemy;
     public bool bool1;
     public bool bool2;
     public bool attackPressed;
+
+    [SyncVar]
+    public int characterNumber;
 
     // Start is called before the first frame update
     void Start()
@@ -65,10 +73,13 @@ public class PlayerScript : NetworkBehaviour
             {
                 isMyTurn = false;
             }
+
+            characterNumber = 1;
             playerButton.SetActive(isMyTurn);
             enemyButton1.SetActive(false);
             enemyButton2.SetActive(false);
             enemyButton3.SetActive(false);
+            characterArrow.SetActive(false);
         }
         else if (!isLocalPlayer)
         {
@@ -76,11 +87,12 @@ public class PlayerScript : NetworkBehaviour
             enemyButton1.SetActive(false);
             enemyButton2.SetActive(false);
             enemyButton3.SetActive(false);
+            characterArrow.SetActive(false);
         }
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (isLocalPlayer)
         {
@@ -90,8 +102,118 @@ public class PlayerScript : NetworkBehaviour
 
             CmdNameSetter(tempName, tempPosition);
 
+            CmdCharacterPosition();
+
             playerButton.SetActive(isMyTurn);
+
+            CmdCharacterLoop();
         }
+    }
+
+    [Command]
+    void CmdCharacterLoop()
+    {
+        bool myBool = isMyTurn;
+        RpcCharacterLoop(myBool);
+    }
+
+    [ClientRpc]
+    void RpcCharacterLoop(bool myBool)
+    {
+        if (myBool == true)
+        {
+            characterArrow.SetActive(true);
+            if (characterNumber == 1)
+            {
+                ArrowSetter(1);
+                characterArrow.transform.localPosition = arrowPosition;
+            }
+            else if (characterNumber == 2)
+            {
+                ArrowSetter(2);
+                characterArrow.transform.localPosition = arrowPosition;
+            }
+            else if (characterNumber == 3)
+            {
+                ArrowSetter(3);
+                characterArrow.transform.localPosition = arrowPosition;
+            }
+            else
+            {
+                characterArrow.SetActive(false);
+                CmdTurnSetter(bool1, bool2);
+            }
+        }
+    }
+
+    void ArrowSetter(int num)
+    {
+        if (connectID == 1)
+        {
+            if (characterNumber == 1)
+            {
+                arrowPosition = new Vector3(-300f, 150f, 0f);
+            }
+
+            if (characterNumber == 2)
+            {
+                arrowPosition = new Vector3(-300f, 0f, 0f);
+            }
+
+            if (characterNumber == 3)
+            {
+                arrowPosition = new Vector3(-300f, -150f, 0f);
+            }
+        }
+        else
+        {
+            if (characterNumber == 1)
+            {
+                arrowPosition = new Vector3(300f, 150f, 0f);
+            }
+
+            if (characterNumber == 2)
+            {
+                arrowPosition = new Vector3(300f, 0f, 0f);
+            }
+
+            if (characterNumber == 3)
+            {
+                arrowPosition = new Vector3(300f, -150f, 0f);
+            }
+        }
+    }
+
+    //position of character images
+    [Command]
+    void CmdCharacterPosition()
+    {
+        Vector3 chara1 = Vector3.zero;
+        Vector3 chara2 = Vector3.zero;
+        Vector3 chara3 = Vector3.zero;
+
+        if (connectID == 1)
+        {
+            chara1 = new Vector3(-300f, 150f, 0f);
+            chara2 = new Vector3(-300f, 0f, 0f);
+            chara3 = new Vector3(-300f, -150f, 0f);
+        }
+        else
+        {
+            chara1 = new Vector3(300f, 150f, 0f);
+            chara2 = new Vector3(300f, 0f, 0f);
+            chara3 = new Vector3(300f, -150f, 0f);
+        }
+
+        RpcCharacterPosition(chara1, chara2, chara3);
+    }
+
+    [ClientRpc]
+    void RpcCharacterPosition(Vector3 chara1, Vector3 chara2, Vector3 chara3)
+    {
+        character1.transform.localPosition = chara1;
+        character2.transform.localPosition = chara2;
+        character3.transform.localPosition = chara3;
     }
 
     //sets turn values
@@ -100,14 +222,17 @@ public class PlayerScript : NetworkBehaviour
     {
         myBool = false;
         enemyBool = true;
-        RpcTurnSetter(myBool, enemyBool);
+        int myNum = 1;
+        RpcTurnSetter(myBool, enemyBool, myNum);
     }
 
     [ClientRpc]
-    void RpcTurnSetter(bool myBool, bool enemyBool)
+    void RpcTurnSetter(bool myBool, bool enemyBool, int num)
     {
         this.isMyTurn = myBool;
         myOpponent.isMyTurn = enemyBool;
+        this.characterNumber = num;
+        myOpponent.characterNumber = num;
     }
 
     //player healthbar
@@ -116,18 +241,18 @@ public class PlayerScript : NetworkBehaviour
     {
         pos = healthPosition;
         Vector3 pos2 = Vector3.zero;
-        Vector3 pos3 = Vector3.zero; ;
+        Vector3 pos3 = Vector3.zero;
         if (connectID == 1)
         {
-            pos = new Vector3(-300f, 250f, 0f);
-            pos2 = new Vector3(-300f, 200f, 0f);
-            pos3 = new Vector3(-300f, 150f, 0f);
+            pos = new Vector3(-300f, 225f, 0f);
+            pos2 = new Vector3(-300f, 75f, 0f);
+            pos3 = new Vector3(-300f, -75f, 0f);
         }
         else
         {
-            pos = new Vector3(300f, 250f, 0f);
-            pos2 = new Vector3(300f, 200f, 0f);
-            pos3 = new Vector3(300f, 150f, 0f);
+            pos = new Vector3(300f, 225f, 0f);
+            pos2 = new Vector3(300f, 75f, 0f);
+            pos3 = new Vector3(300f, -75f, 0f);
         }
 
         RpcHealthBar(value, value2, value3, pos, pos2, pos3);
@@ -210,32 +335,33 @@ public class PlayerScript : NetworkBehaviour
     void CmdAttack1()
     {
         float hit = damage;
-        AttackButtonsOnOff(false);
-        RpcAttackOptions(hit, 1f);
-        CmdTurnSetter(bool1, bool2);
+        bool set = false;
+        characterNumber += 1;
+        RpcAttackOptions(hit, 1f, set);
     }
 
     [Command]
     void CmdAttack2()
     {
         float hit = damage;
-        AttackButtonsOnOff(false);
-        RpcAttackOptions(hit, 2f);
-        CmdTurnSetter(bool1, bool2);
+        bool set = false;
+        characterNumber += 1;
+        RpcAttackOptions(hit, 2f, set);
     }
 
     [Command]
     void CmdAttack3()
     {
         float hit = damage;
-        AttackButtonsOnOff(false);
-        RpcAttackOptions(hit, 3f);
-        CmdTurnSetter(bool1, bool2);
+        bool set = false;
+        characterNumber += 1;
+        RpcAttackOptions(hit, 3f, set);
     }
 
     [ClientRpc]
-    void RpcAttackOptions(float hit, float enemy)
+    void RpcAttackOptions(float hit, float enemy, bool set)
     {
+        AttackButtonsOnOff(set);
         myOpponent.TakeDamage(hit, enemy);
     }
 
@@ -261,5 +387,8 @@ public class PlayerScript : NetworkBehaviour
         enemyButton1.SetActive(set);
         enemyButton2.SetActive(set);
         enemyButton3.SetActive(set);
+        enemyButton1.transform.localPosition = new Vector3(0f, 150f, 0f);
+        enemyButton2.transform.localPosition = new Vector3(0f, 0f, 0f);
+        enemyButton3.transform.localPosition = new Vector3(0f, -150f, 0f);
     }
 }
