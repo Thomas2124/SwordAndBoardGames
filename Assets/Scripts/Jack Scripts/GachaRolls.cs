@@ -13,6 +13,7 @@ public class GachaRolls : MonoBehaviour
     public string[] characterlistUC;
     public string[] characterlistC;
     public List<string> characterRolled;
+    private bool normRoll;
 
     //Result Variables
     public Text raceText;
@@ -20,9 +21,11 @@ public class GachaRolls : MonoBehaviour
     public Image resultRarity;
     public Sprite[] characterSprite;
     public Sprite[] rarity;
+    public GameObject[] normSummary;
 
 
     //Level Up Variables
+    private float expGained = 300f;
     public float fishman_exp;
     public float werewolf_exp;
     public float bukkakeSlime_exp;
@@ -75,6 +78,7 @@ public class GachaRolls : MonoBehaviour
 
     public void NormalRoll()
     {
+        normRoll = true;
         //rolls a random number to determine rarity class
         ranNum = Random.Range(0, 19);
         // rarity is split into a groups of varying chance to be selected
@@ -111,9 +115,11 @@ public class GachaRolls : MonoBehaviour
 
     public void Results()
     {
-        resultSprite.GetComponent<SpriteRenderer>().sprite = characterSprite[ranNum];
+        resultSprite.GetComponent<Image>().sprite = characterSprite[ranNum];
         raceText.text = characterRolled[0];
-        resultRarity.GetComponent<SpriteRenderer>().sprite = rarity[0];
+        resultRarity.GetComponent<Image>().sprite = rarity[0];
+        normSummary[0].SetActive(true);
+        normSummary[0].GetComponent<Image>().sprite = characterSprite[ranNum];
     }
 
     public void Levelup()
@@ -126,49 +132,49 @@ public class GachaRolls : MonoBehaviour
             switch (checkname)
             {
                 case "fishman":
-                    fishman_exp += 50f;
+                    fishman_exp += expGained;
                     break;
                 case "werewolf":
-                    werewolf_exp += 50f;
+                    werewolf_exp += expGained;
                     break;
                 case "bukkake Slime":
-                    bukkakeSlime_exp += 50f;
+                    bukkakeSlime_exp += expGained;
                     break;
                 case "dragonoid":
-                    dragonoid_exp += 50f;
+                    dragonoid_exp += expGained;
                     break;
                 case "golem":
-                    golem_exp += 50f;
+                    golem_exp += expGained;
                     break;
                 case "catperson":
-                    catperson_exp += 50f;
+                    catperson_exp += expGained;
                     break;
                 case "angel":
-                    angel_exp += 50f;
+                    angel_exp += expGained;
                     break;
                 case "devil":
-                    devil_exp += 50f;
+                    devil_exp += expGained;
                     break;
                 case "orge":
-                    orge_exp += 50f;
+                    orge_exp += expGained;
                     break;
                 case "gargoyle":
-                    gargoyle_exp += 50f;
+                    gargoyle_exp += expGained;
                     break;
                 case "garuda":
-                    garuda_exp += 50f;
+                    garuda_exp += expGained;
                     break;
                 case "loxodon":
-                    loxodon_exp += 50f;
+                    loxodon_exp += expGained;
                     break;
                 case "minotaur":
-                    minotaur_exp += 50f;
+                    minotaur_exp += expGained;
                     break;
                 case "spiderperson":
-                    spiderperson_exp += 50f;
+                    spiderperson_exp += expGained;
                     break;
                 case "hobnoblin":
-                    hobnoblin_exp += 50f;
+                    hobnoblin_exp += expGained;
                     break;
             }
         }
