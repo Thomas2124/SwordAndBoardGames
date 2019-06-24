@@ -6,15 +6,24 @@ using UnityEngine.UI;
 
 public class PlayerScript : NetworkBehaviour
 {
+    public bool isWinner;
+    //Character 1
     [SyncVar]
     public float health = 100f;
+    public bool isDefending;
+    public bool isDead;
 
+    //Character 2
     [SyncVar]
     public float health2 = 100f;
+    public bool isDefending2;
+    public bool isDead2;
 
+    //Character 3
     [SyncVar]
     public float health3 = 100f;
-
+    public bool isDefending3;
+    public bool isDead3;
 
     [SyncVar]
     public string name;
@@ -31,6 +40,7 @@ public class PlayerScript : NetworkBehaviour
     public GameObject character3;
     public GameObject playerName;
     public GameObject playerButton;
+    public GameObject defendButton;
     public GameObject enemyButton1;
     public GameObject enemyButton2;
     public GameObject enemyButton3;
@@ -64,6 +74,10 @@ public class PlayerScript : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            isWinner = false;
+            isDead = false;
+            isDead2 = false;
+            isDead3 = false;
             connectID = NetworkServer.connections.Count;
             if (connectID == 1)
             {
@@ -76,6 +90,7 @@ public class PlayerScript : NetworkBehaviour
 
             characterNumber = 1;
             playerButton.SetActive(isMyTurn);
+            defendButton.SetActive(isMyTurn);
             enemyButton1.SetActive(false);
             enemyButton2.SetActive(false);
             enemyButton3.SetActive(false);
@@ -84,6 +99,7 @@ public class PlayerScript : NetworkBehaviour
         else if (!isLocalPlayer)
         {
             playerButton.SetActive(false);
+            defendButton.SetActive(false);
             enemyButton1.SetActive(false);
             enemyButton2.SetActive(false);
             enemyButton3.SetActive(false);
@@ -105,8 +121,13 @@ public class PlayerScript : NetworkBehaviour
             CmdCharacterPosition();
 
             playerButton.SetActive(isMyTurn);
+            defendButton.SetActive(isMyTurn);
 
             CmdCharacterLoop();
+
+            CmdDeathChecker();
+
+            ButtonChecker();
         }
     }
 
@@ -125,18 +146,39 @@ public class PlayerScript : NetworkBehaviour
             characterArrow.SetActive(true);
             if (characterNumber == 1)
             {
-                ArrowSetter(1);
-                characterArrow.transform.localPosition = arrowPosition;
+                if (isDead == false)
+                {
+                    ArrowSetter(1);
+                    characterArrow.transform.localPosition = arrowPosition;
+                }
+                else
+                {
+                    characterNumber += 1;
+                }
             }
             else if (characterNumber == 2)
             {
-                ArrowSetter(2);
-                characterArrow.transform.localPosition = arrowPosition;
+                if (isDead2 == false)
+                {
+                    ArrowSetter(2);
+                    characterArrow.transform.localPosition = arrowPosition;
+                }
+                else
+                {
+                    characterNumber += 1;
+                }
             }
             else if (characterNumber == 3)
             {
-                ArrowSetter(3);
-                characterArrow.transform.localPosition = arrowPosition;
+                if (isDead3 == false)
+                {
+                    ArrowSetter(3);
+                    characterArrow.transform.localPosition = arrowPosition;
+                }
+                else
+                {
+                    characterNumber += 1;
+                }
             }
             else
             {
@@ -181,6 +223,70 @@ public class PlayerScript : NetworkBehaviour
             {
                 arrowPosition = new Vector3(300f, -150f, 0f);
             }
+        }
+    }
+
+    [Command]
+    void CmdDeathChecker()
+    {
+        float heal1 = health;
+        float heal2 = health2;
+        float heal3 = health3;
+
+        RpcDeathChecker(heal1, heal2, heal3);
+    }
+
+    [ClientRpc]
+    void RpcDeathChecker(float heal1, float heal2, float heal3)
+    {
+        if (heal1 <= 0f)
+        {
+            this.health = 0f;
+            this.isDead = true;
+            this.character1.SetActive(false);
+        }
+
+        if (heal2 <= 0f)
+        {
+            this.health2 = 0f;
+            this.isDead2 = true;
+            this.character2.SetActive(false);
+        }
+
+        if (heal3 <= 0f)
+        {
+            this.health3 = 0f;
+            this.isDead3 = true;
+            this.character3.SetActive(false);
+        }
+
+        if (this.isDead == true && this.isDead2 == true && this.isDead3 == true)
+        {
+            myOpponent.isWinner = true;
+        }
+
+        if (this.isWinner == true)
+        {
+            this.gameObject.SetActive(false);
+            myOpponent.gameObject.SetActive(false);
+        }
+    }
+
+    void ButtonChecker() //Checks which opponents can be attacked
+    {
+        if (myOpponent.isDead == true)
+        {
+            enemyButton1.SetActive(false);
+        }
+
+        if (myOpponent.isDead2 == true)
+        {
+            enemyButton2.SetActive(false);
+        }
+
+        if (myOpponent.isDead3 == true)
+        {
+            enemyButton3.SetActive(false);
         }
     }
 
@@ -233,6 +339,12 @@ public class PlayerScript : NetworkBehaviour
         myOpponent.isMyTurn = enemyBool;
         this.characterNumber = num;
         myOpponent.characterNumber = num;
+        if (this.isMyTurn == true)
+        {
+            this.isDefending = false;
+            this.isDefending2 = false;
+            this.isDefending3 = false;
+        }
     }
 
     //player healthbar
@@ -334,35 +446,228 @@ public class PlayerScript : NetworkBehaviour
     [Command]
     void CmdAttack1()
     {
-        float hit = damage;
-        bool set = false;
         characterNumber += 1;
-        RpcAttackOptions(hit, 1f, set);
+        DefendChecker(3);
     }
 
     [Command]
     void CmdAttack2()
     {
-        float hit = damage;
-        bool set = false;
         characterNumber += 1;
-        RpcAttackOptions(hit, 2f, set);
+        DefendChecker(3);
     }
 
     [Command]
     void CmdAttack3()
     {
-        float hit = damage;
-        bool set = false;
         characterNumber += 1;
-        RpcAttackOptions(hit, 3f, set);
+        DefendChecker(3);
     }
 
     [ClientRpc]
-    void RpcAttackOptions(float hit, float enemy, bool set)
+    void RpcAttackOptions(float hit, float enemy, bool set, bool attack1, bool attack2, bool attack3, float defending)
     {
         AttackButtonsOnOff(set);
-        myOpponent.TakeDamage(hit, enemy);
+        float newDamage;
+        if (defending > 0f)
+        {
+            newDamage = hit / defending;
+        }
+        else
+        {
+            newDamage = hit;
+        }
+
+        if (attack1 == false && attack2 == false && attack3 == false)
+        {
+            myOpponent.TakeDamage(newDamage, enemy);
+        }
+        else
+        {
+            if (attack1 == true)
+            {
+                myOpponent.TakeDamage(newDamage, 1);
+            }
+            else
+            {
+
+            }
+
+            if (attack2 == true)
+            {
+                myOpponent.TakeDamage(newDamage, 2);
+            }
+            else
+            {
+
+            }
+
+            if (attack3 == true)
+            {
+                myOpponent.TakeDamage(newDamage, 3);
+
+            }
+            else
+            {
+
+            }
+        }
+    }
+
+    void DefendChecker(int target)
+    {
+        bool defend1 = myOpponent.isDefending;
+        bool defend2 = myOpponent.isDefending2;
+        bool defend3 = myOpponent.isDefending3;
+
+        if (target == 1)
+        {
+            float hit = damage;
+            bool set = false;
+
+            int theDefending = 0;
+            bool attack1 = false;
+            bool attack2 = false;
+            bool attack3 = false;
+
+            if (myOpponent.isDead == false)
+            {
+                if (myOpponent.isDefending == true)
+                {
+                    theDefending += 1;
+                    attack1 = true;
+                }
+            }
+
+            if (myOpponent.isDead2 == false)
+            {
+                if (myOpponent.isDefending2 == true)
+                {
+                    theDefending += 1;
+                    attack2 = true;
+                }
+            }
+
+            if (myOpponent.isDead3 == false)
+            {
+                if (myOpponent.isDefending3 == true)
+                {
+                    theDefending += 1;
+                    attack3 = true;
+                }
+            }
+
+            RpcAttackOptions(hit, 1f, set, attack1, attack2, attack3, theDefending);
+        }
+
+        if (target == 2)
+        {
+            float hit = damage;
+            bool set = false;
+
+            int theDefending = 0;
+            bool attack1 = false;
+            bool attack2 = false;
+            bool attack3 = false;
+
+            if (myOpponent.isDead == false)
+            {
+                if (myOpponent.isDefending == true)
+                {
+                    theDefending += 1;
+                    attack1 = true;
+                }
+            }
+
+            if (myOpponent.isDead2 == false)
+            {
+                if (myOpponent.isDefending2 == true)
+                {
+                    theDefending += 1;
+                    attack2 = true;
+                }
+            }
+
+            if (myOpponent.isDead3 == false)
+            {
+                if (myOpponent.isDefending3 == true)
+                {
+                    theDefending += 1;
+                    attack3 = true;
+                }
+            }
+
+            RpcAttackOptions(hit, 2f, set, attack1, attack2, attack3, theDefending);
+        }
+
+        if (target == 3)
+        {
+            float hit = damage;
+            bool set = false;
+
+            int theDefending = 0;
+            bool attack1 = false;
+            bool attack2 = false;
+            bool attack3 = false;
+
+            if (myOpponent.isDead == false)
+            {
+                if (myOpponent.isDefending == true)
+                {
+                    theDefending += 1;
+                    attack1 = true;
+                }
+            }
+
+            if (myOpponent.isDead2 == false)
+            {
+                if (myOpponent.isDefending2 == true)
+                {
+                    theDefending += 1;
+                    attack2 = true;
+                }
+            }
+
+            if (myOpponent.isDead3 == false)
+            {
+                if (myOpponent.isDefending3 == true)
+                {
+                    theDefending += 1;
+                    attack3 = true;
+                }
+            }
+
+            RpcAttackOptions(hit, 3f, set, attack1, attack2, attack3, theDefending);
+        }
+    }
+
+    //Defending Option
+    [Command]
+    public void CmdDefending()
+    {
+        bool defend = true;
+        int number = characterNumber;
+        RpcDefending(defend, number);
+    }
+
+    [ClientRpc]
+    void RpcDefending(bool myBool, int number)
+    {
+        switch (number)
+        {
+            case 1:
+                this.isDefending = true;
+                this.characterNumber += 1;
+                break;
+            case 2:
+                this.isDefending2 = true;
+                this.characterNumber += 1;
+                break;
+            case 3:
+                this.isDefending3 = true;
+                this.characterNumber += 1;
+                break;
+        }
     }
 
     void TakeDamage(float damage, float enemy)

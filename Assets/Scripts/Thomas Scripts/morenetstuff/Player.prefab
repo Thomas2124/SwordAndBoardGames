@@ -825,7 +825,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2287211690138681139
 RectTransform:
   m_ObjectHideFlags: 0
@@ -927,7 +927,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3419355764041805077}
-        m_MethodName: Attack
+        m_MethodName: CallCmdDefending
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -984,9 +984,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a2285b777bce14aa6d6b04988d13e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWinner: 0
   health: 100
+  isDefending: 0
+  isDead: 0
   health2: 100
+  isDefending2: 0
+  isDead2: 0
   health3: 100
+  isDefending3: 0
+  isDead3: 0
   name: 
   textPosition: {x: 0, y: 0, z: 0}
   damage: 25
@@ -996,6 +1003,7 @@ MonoBehaviour:
   character3: {fileID: 4441658597577353061}
   playerName: {fileID: 3166526725623924576}
   playerButton: {fileID: 5545417770340590931}
+  defendButton: {fileID: 3280992450057974839}
   enemyButton1: {fileID: 1746198920771459628}
   enemyButton2: {fileID: 7481695664177084619}
   enemyButton3: {fileID: 1924461646732217484}
@@ -1009,6 +1017,7 @@ MonoBehaviour:
   tempDamage: 0
   tempName: 
   tempPosition: {x: 0, y: 0, z: 0}
+  arrowPosition: {x: 0, y: 0, z: 0}
   enemy: []
   bool1: 0
   bool2: 0
