@@ -8,66 +8,80 @@ public class PlayerScript : NetworkBehaviour
 {
     public bool isWinner;
     //Character 1
+    [Header("Character 1")]
     [SyncVar]
     public float health = 100f;
+    public float mana = 0f;
     public bool isDefending;
     public bool isDead;
 
     //Character 2
+    [Header("Character 2")]
     [SyncVar]
     public float health2 = 100f;
+    public float mana2 = 0f;
     public bool isDefending2;
     public bool isDead2;
 
     //Character 3
+    [Header("Character 3")]
     [SyncVar]
     public float health3 = 100f;
+    public float mana3 = 0f;
     public bool isDefending3;
     public bool isDead3;
 
+    [Header("Player Name")]
+    public GameObject playerName;
     [SyncVar]
     public string name;
-
     [SyncVar]
     public Vector3 textPosition = Vector3.zero;
 
+    [Header("Character Damage")]
     [SyncVar]
     public float damage = 25f;
 
-    public Vector3 healthPosition = Vector3.zero;
+    [Header("Character Objects")]
     public GameObject character1;
     public GameObject character2;
     public GameObject character3;
-    public GameObject playerName;
+
+    [Header("Player Turn Buttons")]
     public GameObject playerButton;
     public GameObject defendButton;
+    public GameObject specialButton;
     public GameObject enemyButton1;
     public GameObject enemyButton2;
     public GameObject enemyButton3;
-    public GameObject characterArrow;
     public PlayerScript myOpponent;
+
+    [Header("Player Bars/Images")]
+    public GameObject characterArrow;
     public Image healthBar;
     public Image healthBar2;
     public Image healthBar3;
+    public Image specialBar;
+    public Image specialBar2;
+    public Image specialBar3;
 
+    [Header("Turn Stuff")]
+    [SyncVar]
+    public int characterNumber;
     [SyncVar]
     public bool isMyTurn;
-
     [SyncVar]
     public int connectID;
 
     //Temp Variables
-    public float tempDamage;
-    public string tempName;
-    public Vector3 tempPosition = Vector3.zero;
-    public Vector3 arrowPosition = Vector3.zero;
-    public GameObject[] enemy;
-    public bool bool1;
-    public bool bool2;
-    public bool attackPressed;
-
-    [SyncVar]
-    public int characterNumber;
+    float tempDamage;
+    string tempName;
+    Vector3 tempPosition = Vector3.zero;
+    Vector3 arrowPosition = Vector3.zero;
+    GameObject[] enemy;
+    bool bool1;
+    bool bool2;
+    bool attackPressed;
 
     // Start is called before the first frame update
     void Start()
@@ -91,6 +105,7 @@ public class PlayerScript : NetworkBehaviour
             characterNumber = 1;
             playerButton.SetActive(isMyTurn);
             defendButton.SetActive(isMyTurn);
+            specialButton.SetActive(false);
             enemyButton1.SetActive(false);
             enemyButton2.SetActive(false);
             enemyButton3.SetActive(false);
@@ -100,6 +115,7 @@ public class PlayerScript : NetworkBehaviour
         {
             playerButton.SetActive(false);
             defendButton.SetActive(false);
+            specialButton.SetActive(false);
             enemyButton1.SetActive(false);
             enemyButton2.SetActive(false);
             enemyButton3.SetActive(false);
@@ -114,7 +130,9 @@ public class PlayerScript : NetworkBehaviour
         {
             CmdFindPLayers();
 
-            CmdHealthBar(health, health2, health3, healthPosition);
+            CmdHealthBar(health, health2, health3);
+
+            CmdSpecialBar(mana, mana2, mana3);
 
             CmdNameSetter(tempName, tempPosition);
 
@@ -128,9 +146,12 @@ public class PlayerScript : NetworkBehaviour
             CmdDeathChecker();
 
             ButtonChecker();
+
+            SpecialButtonActive(characterNumber);
         }
     }
 
+    //Used to progress through players character
     [Command]
     void CmdCharacterLoop()
     {
@@ -188,6 +209,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //Used to show the current active character
     void ArrowSetter(int num)
     {
         if (connectID == 1)
@@ -226,6 +248,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //Used to check if a character is dead and if the game is over
     [Command]
     void CmdDeathChecker()
     {
@@ -290,6 +313,47 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //check if a character is able to use their special attack
+    void SpecialButtonActive(int number)
+    {
+        switch (number)
+        {
+            case 1:
+                if (mana >= 100f)
+                {
+                    SpecialButtonsOnOff(true);
+                }
+                else
+                {
+                    SpecialButtonsOnOff(false);
+                }
+                break;
+            case 2:
+                if (mana2 >= 100f)
+                {
+                    SpecialButtonsOnOff(true);
+                }
+                else
+                {
+                    SpecialButtonsOnOff(false);
+                }
+                break;
+            case 3:
+                if (mana3 >= 100f)
+                {
+                    SpecialButtonsOnOff(true);
+                }
+                else
+                {
+                    SpecialButtonsOnOff(false);
+                }
+                break;
+            default:
+                specialButton.SetActive(false);
+                break;
+        }
+    }
+
     //position of character images
     [Command]
     void CmdCharacterPosition()
@@ -322,7 +386,7 @@ public class PlayerScript : NetworkBehaviour
         character3.transform.localPosition = chara3;
     }
 
-    //sets turn values
+    //sets turn values for the player
     [Command]
     void CmdTurnSetter(bool myBool, bool enemyBool)
     {
@@ -347,27 +411,61 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
-    //player healthbar
+    //set position of players specialbar
     [Command]
-    void CmdHealthBar(float value, float value2, float value3, Vector3 pos)
+    void CmdSpecialBar(float value, float value2, float value3)
     {
-        pos = healthPosition;
+        Vector3 pos1 = Vector3.zero;
         Vector3 pos2 = Vector3.zero;
         Vector3 pos3 = Vector3.zero;
         if (connectID == 1)
         {
-            pos = new Vector3(-300f, 225f, 0f);
+            pos1 = new Vector3(-400f, 150f, 0f);
+            pos2 = new Vector3(-400f, 0f, 0f);
+            pos3 = new Vector3(-400f, -150f, 0f);
+        }
+        else
+        {
+            pos1 = new Vector3(400f, 150f, 0f);
+            pos2 = new Vector3(400f, 0f, 0f);
+            pos3 = new Vector3(400f, -150f, 0f);
+        }
+
+        RpcSpecialBar(value, value2, value3, pos1, pos2, pos3);
+    }
+
+    [ClientRpc]
+    void RpcSpecialBar(float value, float value2, float value3, Vector3 pos1, Vector3 pos2, Vector3 pos3)
+    {
+        specialBar.fillAmount = value / 100f;
+        specialBar2.fillAmount = value2 / 100f;
+        specialBar3.fillAmount = value3 / 100f;
+        specialBar.transform.localPosition = pos1;
+        specialBar2.transform.localPosition = pos2;
+        specialBar3.transform.localPosition = pos3;
+    }
+
+    //set position of players Healthbar
+    [Command]
+    void CmdHealthBar(float value, float value2, float value3)
+    {
+        Vector3 pos1 = Vector3.zero;
+        Vector3 pos2 = Vector3.zero;
+        Vector3 pos3 = Vector3.zero;
+        if (connectID == 1)
+        {
+            pos1 = new Vector3(-300f, 225f, 0f);
             pos2 = new Vector3(-300f, 75f, 0f);
             pos3 = new Vector3(-300f, -75f, 0f);
         }
         else
         {
-            pos = new Vector3(300f, 225f, 0f);
+            pos1 = new Vector3(300f, 225f, 0f);
             pos2 = new Vector3(300f, 75f, 0f);
             pos3 = new Vector3(300f, -75f, 0f);
         }
 
-        RpcHealthBar(value, value2, value3, pos, pos2, pos3);
+        RpcHealthBar(value, value2, value3, pos1, pos2, pos3);
     }
 
     [ClientRpc]
@@ -381,7 +479,7 @@ public class PlayerScript : NetworkBehaviour
         healthBar3.transform.localPosition = pos3;
     }
 
-    //Finds other player
+    //Finds other player within the current scene
     [Command]
     void CmdFindPLayers()
     {
@@ -401,7 +499,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
-    //Player Names and position setter
+    //sets Players Name and the position of it
     [Command]
     void CmdNameSetter(string myString, Vector3 myVector)
     {
@@ -446,27 +544,28 @@ public class PlayerScript : NetworkBehaviour
     [Command]
     void CmdAttack1()
     {
-        characterNumber += 1;
-        DefendChecker(3);
+        DefendChecker(1);
     }
 
     [Command]
     void CmdAttack2()
     {
-        characterNumber += 1;
-        DefendChecker(3);
+        DefendChecker(2);
     }
 
     [Command]
     void CmdAttack3()
     {
-        characterNumber += 1;
         DefendChecker(3);
     }
 
+    //used to apply damage to enemy characters
     [ClientRpc]
-    void RpcAttackOptions(float hit, float enemy, bool set, bool attack1, bool attack2, bool attack3, float defending)
+    void RpcAttackOptions(float hit, float enemy, bool set, bool attack1, bool attack2, bool attack3, float defending, int manaAdd, int playerNum)
     {
+        ManaAdder(manaAdd);
+        characterNumber = playerNum;
+
         AttackButtonsOnOff(set);
         float newDamage;
         if (defending > 0f)
@@ -488,18 +587,10 @@ public class PlayerScript : NetworkBehaviour
             {
                 myOpponent.TakeDamage(newDamage, 1);
             }
-            else
-            {
-
-            }
 
             if (attack2 == true)
             {
                 myOpponent.TakeDamage(newDamage, 2);
-            }
-            else
-            {
-
             }
 
             if (attack3 == true)
@@ -507,15 +598,15 @@ public class PlayerScript : NetworkBehaviour
                 myOpponent.TakeDamage(newDamage, 3);
 
             }
-            else
-            {
-
-            }
         }
     }
 
+    //used to check if an enemy character is defending or not
     void DefendChecker(int target)
     {
+        int playerNum = characterNumber;
+        int playerNum2 = characterNumber + 1;
+
         bool defend1 = myOpponent.isDefending;
         bool defend2 = myOpponent.isDefending2;
         bool defend3 = myOpponent.isDefending3;
@@ -557,7 +648,7 @@ public class PlayerScript : NetworkBehaviour
                 }
             }
 
-            RpcAttackOptions(hit, 1f, set, attack1, attack2, attack3, theDefending);
+            RpcAttackOptions(hit, 1f, set, attack1, attack2, attack3, theDefending, playerNum, playerNum2);
         }
 
         if (target == 2)
@@ -597,7 +688,7 @@ public class PlayerScript : NetworkBehaviour
                 }
             }
 
-            RpcAttackOptions(hit, 2f, set, attack1, attack2, attack3, theDefending);
+            RpcAttackOptions(hit, 2f, set, attack1, attack2, attack3, theDefending, playerNum, playerNum2);
         }
 
         if (target == 3)
@@ -637,7 +728,7 @@ public class PlayerScript : NetworkBehaviour
                 }
             }
 
-            RpcAttackOptions(hit, 3f, set, attack1, attack2, attack3, theDefending);
+            RpcAttackOptions(hit, 3f, set, attack1, attack2, attack3, theDefending, playerNum, playerNum2);
         }
     }
 
@@ -670,6 +761,36 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //Special move option
+    [Command]
+    public void CmdSpecial()
+    {
+        SpecialButtonsOnOff(false);
+        int number = characterNumber;
+        RpcSpecial(number);
+    }
+
+    [ClientRpc]
+    void RpcSpecial(int number)
+    {
+        switch (number)
+        {
+            case 1:
+                this.mana = 0f;
+                this.characterNumber += 1;
+                break;
+            case 2:
+                this.mana2 = 0f;
+                this.characterNumber += 1;
+                break;
+            case 3:
+                this.mana3 = 0f;
+                this.characterNumber += 1;
+                break;
+        }
+    }
+
+    //decreases character health
     void TakeDamage(float damage, float enemy)
     {
         switch (enemy)
@@ -695,5 +816,27 @@ public class PlayerScript : NetworkBehaviour
         enemyButton1.transform.localPosition = new Vector3(0f, 150f, 0f);
         enemyButton2.transform.localPosition = new Vector3(0f, 0f, 0f);
         enemyButton3.transform.localPosition = new Vector3(0f, -150f, 0f);
+    }
+
+    void SpecialButtonsOnOff(bool set)
+    {
+        specialButton.SetActive(set);
+    }
+
+    //added values to special bars
+    void ManaAdder(int character)
+    {
+        switch (character)
+        {
+            case 1:
+                this.mana += 25;
+                break;
+            case 2:
+                this.mana2 += 25;
+                break;
+            case 3:
+                this.mana3 += 25;
+                break;
+        }
     }
 }
