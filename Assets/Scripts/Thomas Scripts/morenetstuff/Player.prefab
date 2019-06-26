@@ -405,7 +405,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3419355764041805077}
-        m_MethodName: CallCmdAttack1
+        m_MethodName: Attack1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -537,7 +537,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3419355764041805077}
-        m_MethodName: CallCmdAttack3
+        m_MethodName: Attack3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1121,18 +1121,27 @@ MonoBehaviour:
   mana: 0
   isDefending: 0
   isDead: 0
+  attackRating: 50
+  defenceRating: 50
   health2: 100
   mana2: 0
   isDefending2: 0
   isDead2: 0
+  attackRating2: 40
+  defenceRating2: 80
   health3: 100
   mana3: 0
   isDefending3: 0
   isDead3: 0
+  attackRating3: 24
+  defenceRating3: 100
   playerName: {fileID: 3166526725623924576}
   name: 
   textPosition: {x: 0, y: 0, z: 0}
-  damage: 25
+  finalDamage: 0
+  baseHealth1: 0
+  baseHealth2: 0
+  baseHealth3: 0
   character1: {fileID: 6171179580346686866}
   character2: {fileID: 9050356880270935159}
   character3: {fileID: 4441658597577353061}
@@ -1961,7 +1970,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3419355764041805077}
-        m_MethodName: CallCmdAttack2
+        m_MethodName: Attack2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

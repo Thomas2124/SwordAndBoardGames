@@ -14,6 +14,8 @@ public class PlayerScript : NetworkBehaviour
     public float mana = 0f;
     public bool isDefending;
     public bool isDead;
+    public float attackRating = 10f;
+    public float defenceRating = 30f;
 
     //Character 2
     [Header("Character 2")]
@@ -22,6 +24,8 @@ public class PlayerScript : NetworkBehaviour
     public float mana2 = 0f;
     public bool isDefending2;
     public bool isDead2;
+    public float attackRating2 = 25f;
+    public float defenceRating2 = 50f;
 
     //Character 3
     [Header("Character 3")]
@@ -30,6 +34,8 @@ public class PlayerScript : NetworkBehaviour
     public float mana3 = 0f;
     public bool isDefending3;
     public bool isDead3;
+    public float attackRating3 = 40f;
+    public float defenceRating3 = 60f;
 
     [Header("Player Name")]
     public GameObject playerName;
@@ -40,7 +46,12 @@ public class PlayerScript : NetworkBehaviour
 
     [Header("Character Damage")]
     [SyncVar]
-    public float damage = 25f;
+    //public float damage = 25f;
+    public float finalDamage;
+    public float baseHealth1;
+    public float baseHealth2;
+    public float baseHealth3;
+    public float sourceDamage;
 
     [Header("Character Objects")]
     public GameObject character1;
@@ -88,6 +99,9 @@ public class PlayerScript : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            baseHealth1 = health;
+            baseHealth2 = health2;
+            baseHealth3 = health3;
             isWinner = false;
             isDead = false;
             isDead2 = false;
@@ -130,7 +144,7 @@ public class PlayerScript : NetworkBehaviour
         {
             CmdFindPLayers();
 
-            CmdHealthBar(health, health2, health3);
+            CmdHealthBar(health, health2, health3, baseHealth1, baseHealth2, baseHealth3);
 
             CmdSpecialBar(mana, mana2, mana3);
 
@@ -447,7 +461,7 @@ public class PlayerScript : NetworkBehaviour
 
     //set position of players Healthbar
     [Command]
-    void CmdHealthBar(float value, float value2, float value3)
+    void CmdHealthBar(float value, float value2, float value3, float base1, float base2, float base3)
     {
         Vector3 pos1 = Vector3.zero;
         Vector3 pos2 = Vector3.zero;
@@ -465,15 +479,15 @@ public class PlayerScript : NetworkBehaviour
             pos3 = new Vector3(300f, -75f, 0f);
         }
 
-        RpcHealthBar(value, value2, value3, pos1, pos2, pos3);
+        RpcHealthBar(value, value2, value3, pos1, pos2, pos3, base1, base2, base3);
     }
 
     [ClientRpc]
-    void RpcHealthBar(float value, float value2, float value3, Vector3 pos1, Vector3 pos2, Vector3 pos3)
+    void RpcHealthBar(float value, float value2, float value3, Vector3 pos1, Vector3 pos2, Vector3 pos3, float baseHealth, float baseHealth2, float baseHealth3)
     {
-        healthBar.fillAmount = value / 100f;
-        healthBar2.fillAmount = value2 / 100f;
-        healthBar3.fillAmount = value3 / 100f;
+        healthBar.fillAmount = value / baseHealth;
+        healthBar2.fillAmount = value2 / baseHealth2;
+        healthBar3.fillAmount = value3 / baseHealth3;
         healthBar.transform.localPosition = pos1;
         healthBar2.transform.localPosition = pos2;
         healthBar3.transform.localPosition = pos3;
@@ -541,68 +555,61 @@ public class PlayerScript : NetworkBehaviour
         AttackButtonsOnOff(true);
     }
 
-    [Command]
-    void CmdAttack1()
+    public void Attack1()
     {
-        DefendChecker(1);
+        sourceDamage = this.attackRating;
+        CmdDefendChecker(1);
     }
 
-    [Command]
-    void CmdAttack2()
+    public void Attack2()
     {
-        DefendChecker(2);
+        sourceDamage = this.attackRating2;
+        CmdDefendChecker(2);
     }
 
-    [Command]
-    void CmdAttack3()
+    public void Attack3()
     {
-        DefendChecker(3);
+        sourceDamage = this.attackRating3;
+        CmdDefendChecker(3);
     }
 
     //used to apply damage to enemy characters
     [ClientRpc]
-    void RpcAttackOptions(float hit, float enemy, bool set, bool attack1, bool attack2, bool attack3, float defending, int manaAdd, int playerNum)
+    void RpcAttackOptions(int enemy, bool set, bool attack1, bool attack2, bool attack3, float defending, int manaAdd, int playerNum)
     {
         ManaAdder(manaAdd);
         characterNumber = playerNum;
 
         AttackButtonsOnOff(set);
-        float newDamage;
-        if (defending > 0f)
-        {
-            newDamage = hit / defending;
-        }
-        else
-        {
-            newDamage = hit;
-        }
 
         if (attack1 == false && attack2 == false && attack3 == false)
         {
-            myOpponent.TakeDamage(newDamage, enemy);
+            myOpponent.TakeDamage(sourceDamage, enemy, defending);
         }
         else
         {
             if (attack1 == true)
             {
-                myOpponent.TakeDamage(newDamage, 1);
+                myOpponent.TakeDamage(sourceDamage, 1, defending);
             }
 
             if (attack2 == true)
             {
-                myOpponent.TakeDamage(newDamage, 2);
+                myOpponent.TakeDamage(sourceDamage, 2, defending);
             }
 
             if (attack3 == true)
             {
-                myOpponent.TakeDamage(newDamage, 3);
+                myOpponent.TakeDamage(sourceDamage, 3, defending);
 
             }
         }
     }
 
+    
     //used to check if an enemy character is defending or not
-    void DefendChecker(int target)
+    [Command]
+    void CmdDefendChecker(int target)
     {
         int playerNum = characterNumber;
         int playerNum2 = characterNumber + 1;
@@ -613,7 +620,6 @@ public class PlayerScript : NetworkBehaviour
 
         if (target == 1)
         {
-            float hit = damage;
             bool set = false;
 
             int theDefending = 0;
@@ -648,12 +654,11 @@ public class PlayerScript : NetworkBehaviour
                 }
             }
 
-            RpcAttackOptions(hit, 1f, set, attack1, attack2, attack3, theDefending, playerNum, playerNum2);
+            RpcAttackOptions(1, set, attack1, attack2, attack3, theDefending, playerNum, playerNum2);
         }
 
         if (target == 2)
         {
-            float hit = damage;
             bool set = false;
 
             int theDefending = 0;
@@ -688,12 +693,11 @@ public class PlayerScript : NetworkBehaviour
                 }
             }
 
-            RpcAttackOptions(hit, 2f, set, attack1, attack2, attack3, theDefending, playerNum, playerNum2);
+            RpcAttackOptions(2, set, attack1, attack2, attack3, theDefending, playerNum, playerNum2);
         }
 
         if (target == 3)
         {
-            float hit = damage;
             bool set = false;
 
             int theDefending = 0;
@@ -728,7 +732,7 @@ public class PlayerScript : NetworkBehaviour
                 }
             }
 
-            RpcAttackOptions(hit, 3f, set, attack1, attack2, attack3, theDefending, playerNum, playerNum2);
+            RpcAttackOptions(3, set, attack1, attack2, attack3, theDefending, playerNum, playerNum2);
         }
     }
 
@@ -791,18 +795,84 @@ public class PlayerScript : NetworkBehaviour
     }
 
     //decreases character health
-    void TakeDamage(float damage, float enemy)
+    void TakeDamage(float damage, int enemy, float defending)
     {
         switch (enemy)
         {
-            case 1f:
-                health -= damage;
+            case 1:
+                finalDamage = 0f;
+                float myDamage = damage;
+                float myDefence = defenceRating;
+                float modifier = myDamage / myDefence;
+                if (modifier < 1.0f)
+                {
+                    finalDamage = modifier * myDamage;
+                }
+                else
+                {
+                    finalDamage = myDamage;
+                }
+
+                if (defending > 0f)
+                {
+                    finalDamage = damage / defending;
+                }
+                else
+                {
+                    finalDamage = damage;
+                }
+
+                health -= finalDamage;
                 break;
-            case 2f:
-                health2 -= damage;
+            case 2:
+                finalDamage = 0f;
+                float myDamage2 = damage;
+                float myDefence2 = defenceRating2;
+                float modifier2 = myDamage2 / myDefence2;
+                if (modifier2 < 1.0f)
+                {
+                    finalDamage = modifier2 * myDamage2;
+                }
+                else
+                {
+                    finalDamage = myDamage2;
+                }
+
+                if (defending > 0f)
+                {
+                    finalDamage = damage / defending;
+                }
+                else
+                {
+                    finalDamage = damage;
+                }
+
+                health -= finalDamage;
                 break;
-            case 3f:
-                health3 -= damage;
+            case 3:
+                finalDamage = 0f;
+                float myDamage3 = damage;
+                float myDefence3 = defenceRating3;
+                float modifier3 = myDamage3 / myDefence3;
+                if (modifier3 < 1.0f)
+                {
+                    finalDamage = modifier3 * myDamage3;
+                }
+                else
+                {
+                    finalDamage = myDamage3;
+                }
+
+                if (defending > 0f)
+                {
+                    finalDamage = damage / defending;
+                }
+                else
+                {
+                    finalDamage = damage;
+                }
+
+                health -= finalDamage;
                 break;
         }
 
