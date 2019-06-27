@@ -1121,20 +1121,26 @@ MonoBehaviour:
   mana: 0
   isDefending: 0
   isDead: 0
-  attackRating: 50
-  defenceRating: 50
+  attackRating: 20
+  defenceRating: 60
+  characterName: 
+  myExp: 0
   health2: 100
   mana2: 0
   isDefending2: 0
   isDead2: 0
-  attackRating2: 40
-  defenceRating2: 80
+  attackRating2: 80
+  defenceRating2: 50
+  characterName2: 
+  myExp2: 0
   health3: 100
   mana3: 0
   isDefending3: 0
   isDead3: 0
-  attackRating3: 24
-  defenceRating3: 100
+  attackRating3: 40
+  defenceRating3: 120
+  characterName3: 
+  myExp3: 0
   playerName: {fileID: 3166526725623924576}
   name: 
   textPosition: {x: 0, y: 0, z: 0}

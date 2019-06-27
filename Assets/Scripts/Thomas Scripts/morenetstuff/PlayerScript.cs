@@ -916,17 +916,45 @@ public class PlayerScript : NetworkBehaviour
     }
 
     [Command]
-    void CmdSpecialAttack(float percent, float baseDamage)
+    void CmdSpecialAttack(float percent)
     {
+        float baseDamage = 0f;
+        switch (characterNumber)
+        {
+            case 1:
+                baseDamage = attackRating;
+                break;
+            case 2:
+                baseDamage = attackRating2;
+                break;
+            case 3:
+                baseDamage = attackRating3;
+                break;
+        }
+
         float increase = (baseDamage / 100f) * percent;
-        float setDamage = increase * baseDamage;
+        float setDamage = increase + baseDamage;
     }
 
     [Command]
-    void CmdSpecialDefence(float percent, float baseDefence)
+    void CmdSpecialDefence(float percent)
     {
+        float baseDefence = 0f;
+        switch (characterNumber)
+        {
+            case 1:
+                baseDefence = defenceRating;
+                break;
+            case 2:
+                baseDefence = defenceRating2;
+                break;
+            case 3:
+                baseDefence = defenceRating3;
+                break;
+        }
+
         float increase = (baseDefence / 100f) * percent;
-        float setDefence = increase * baseDefence;
+        float setDefence = increase + baseDefence;
     }
 
     //decreases character health
@@ -951,58 +979,31 @@ public class PlayerScript : NetworkBehaviour
             float myDamage = sourceDamage;
             float myDefence = defenceRating;
             float modifier = myDamage / myDefence;
-            if (modifier < 1.0f)
-            {
-                sourceDamage = modifier * myDamage;
-            }
-            else
-            {
-                sourceDamage = myDamage;
-            }
-            //ModifierDamage(modifier, myDamage);
-            //DefenceModify(defending);
+            ModifierDamage(modifier, myDamage, defending);
             this.health -= sourceDamage;
         }
 
         if (enemy == 2)
         {
             float myDamage = sourceDamage;
-            float myDefence = defenceRating;
+            float myDefence = defenceRating2;
             float modifier = myDamage / myDefence;
-            if (modifier < 1.0f)
-            {
-                sourceDamage = modifier * myDamage;
-            }
-            else
-            {
-                sourceDamage = myDamage;
-            }
-            //ModifierDamage(modifier, myDamage);
-            //DefenceModify(defending);
+            ModifierDamage(modifier, myDamage, defending);
             this.health2 -= sourceDamage;
         }
 
         if (enemy == 3)
         {
             float myDamage = sourceDamage;
-            float myDefence = defenceRating;
+            float myDefence = defenceRating3;
             float modifier = myDamage / myDefence;
-            if (modifier < 1.0f)
-            {
-                sourceDamage = modifier * myDamage;
-            }
-            else
-            {
-                sourceDamage = myDamage;
-            }
-            //ModifierDamage(modifier, myDamage);
-            //DefenceModify(defending);
+            ModifierDamage(modifier, myDamage, defending);
             this.health3 -= sourceDamage;
         }
     }
 
     //changes attack damage depending on the defending character defenceRating
-    void ModifierDamage(float modify, float theDamage)
+    void ModifierDamage(float modify, float theDamage, float defenders)
     {
         if (modify < 1.0f)
         {
@@ -1012,14 +1013,13 @@ public class PlayerScript : NetworkBehaviour
         {
             finalDamage = theDamage;
         }
-    }
 
-    void DefenceModify(float defenders)
-    {
         if (defenders > 0f)
         {
-            finalDamage = finalDamage / defenders;
+            finalDamage /= defenders;
         }
+
+        sourceDamage = finalDamage;
     }
 
     //Button Stuff
