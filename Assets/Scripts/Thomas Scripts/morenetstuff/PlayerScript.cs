@@ -167,9 +167,25 @@ public class PlayerScript : NetworkBehaviour
             CmdCharacterLoop();
 
             SpecialButtonActive(characterNumber);
+
+            CmdArrow(isMyTurn);
         }
     }
 
+    //turns character arrow on and off
+    [Command]
+    void CmdArrow(bool turnBool)
+    {
+        RpcArrow(turnBool);
+    }
+
+    [ClientRpc]
+    void RpcArrow(bool turnBool)
+    {
+        characterArrow.SetActive(turnBool);
+    }
+
+    //sets starting health for characters health bar
     [Command]
     void CmdBaseHealthSetter(float num, float num2, float num3)
     {
@@ -329,7 +345,8 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
-    void ButtonChecker() //Checks which opponents can be attacked
+    //Checks which opponents can be attacked
+    void ButtonChecker()
     {
         if (myOpponent.isDead == true)
         {
@@ -592,7 +609,7 @@ public class PlayerScript : NetworkBehaviour
 
     //used to apply damage to enemy characters
     [ClientRpc]
-    void RpcAttackOptions(float damage, int enemy, bool set, bool attack1, bool attack2, bool attack3, float defending, int manaAdd, int playerNum)
+    void RpcAttackOptions(int enemy, bool set, bool attack1, bool attack2, bool attack3, float defending, int manaAdd, int playerNum)
     {
         ManaAdder(manaAdd);
         characterNumber = playerNum;
@@ -601,23 +618,23 @@ public class PlayerScript : NetworkBehaviour
 
         if (attack1 == false && attack2 == false && attack3 == false)
         {
-            myOpponent.TakeDamage(damage, enemy, defending);
+            myOpponent.TakeDamage(enemy, defending, manaAdd);
         }
         else
         {
             if (attack1 == true)
             {
-                myOpponent.TakeDamage(damage, 1, defending);
+                myOpponent.TakeDamage(1, defending, manaAdd);
             }
 
             if (attack2 == true)
             {
-                myOpponent.TakeDamage(damage, 2, defending);
+                myOpponent.TakeDamage(2, defending, manaAdd);
             }
 
             if (attack3 == true)
             {
-                myOpponent.TakeDamage(damage, 3, defending);
+                myOpponent.TakeDamage(3, defending, manaAdd);
 
             }
         }
@@ -637,7 +654,6 @@ public class PlayerScript : NetworkBehaviour
 
         if (target == 1)
         {
-            sourceDamage = this.attackRating;
             bool set = false;
 
             int theDefending = 0;
@@ -672,12 +688,11 @@ public class PlayerScript : NetworkBehaviour
                 }
             }
 
-            RpcAttackOptions(sourceDamage, 1, set, attack1, attack2, attack3, theDefending, playerNum, playerNum2);
+            RpcAttackOptions(1, set, attack1, attack2, attack3, theDefending, playerNum, playerNum2);
         }
 
         if (target == 2)
         {
-            sourceDamage = this.attackRating2;
             bool set = false;
 
             int theDefending = 0;
@@ -712,12 +727,11 @@ public class PlayerScript : NetworkBehaviour
                 }
             }
 
-            RpcAttackOptions(sourceDamage, 2, set, attack1, attack2, attack3, theDefending, playerNum, playerNum2);
+            RpcAttackOptions(2, set, attack1, attack2, attack3, theDefending, playerNum, playerNum2);
         }
 
         if (target == 3)
         {
-            sourceDamage = this.attackRating3;
             bool set = false;
 
             int theDefending = 0;
@@ -752,7 +766,7 @@ public class PlayerScript : NetworkBehaviour
                 }
             }
 
-            RpcAttackOptions(sourceDamage, 3, set, attack1, attack2, attack3, theDefending, playerNum, playerNum2);
+            RpcAttackOptions(3, set, attack1, attack2, attack3, theDefending, playerNum, playerNum2);
         }
     }
 
@@ -813,41 +827,80 @@ public class PlayerScript : NetworkBehaviour
                 break;
         }
     }
+
     //decreases character health
-    void TakeDamage(float damage, int enemy, float defending)
+    void TakeDamage(int enemy, float defending, int character)
     {
-        finalDamage = 0f;
+        sourceDamage = 0f;
+        switch (character)
+        {
+            case 1:
+                sourceDamage = myOpponent.attackRating;
+                break;
+            case 2:
+                sourceDamage = myOpponent.attackRating2;
+                break;
+            case 3:
+                sourceDamage = myOpponent.attackRating3;
+                break;
+        }
+
         if (enemy == 1)
         {
-            float myDamage = damage;
+            float myDamage = sourceDamage;
             float myDefence = defenceRating;
             float modifier = myDamage / myDefence;
-            ModifierDamage(modifier, myDamage);
-            DefenceModify(defending);
-            this.health -= finalDamage;
+            if (modifier < 1.0f)
+            {
+                sourceDamage = modifier * myDamage;
+            }
+            else
+            {
+                sourceDamage = myDamage;
+            }
+            //ModifierDamage(modifier, myDamage);
+            //DefenceModify(defending);
+            this.health -= sourceDamage;
         }
 
         if (enemy == 2)
         {
-            float myDamage = damage;
+            float myDamage = sourceDamage;
             float myDefence = defenceRating;
             float modifier = myDamage / myDefence;
-            ModifierDamage(modifier, myDamage);
-            DefenceModify(defending);
-            this.health2 -= finalDamage;
+            if (modifier < 1.0f)
+            {
+                sourceDamage = modifier * myDamage;
+            }
+            else
+            {
+                sourceDamage = myDamage;
+            }
+            //ModifierDamage(modifier, myDamage);
+            //DefenceModify(defending);
+            this.health2 -= sourceDamage;
         }
 
         if (enemy == 3)
         {
-            float myDamage = damage;
+            float myDamage = sourceDamage;
             float myDefence = defenceRating;
             float modifier = myDamage / myDefence;
-            ModifierDamage(modifier, myDamage);
-            DefenceModify(defending);
-            this.health3 -= finalDamage;
+            if (modifier < 1.0f)
+            {
+                sourceDamage = modifier * myDamage;
+            }
+            else
+            {
+                sourceDamage = myDamage;
+            }
+            //ModifierDamage(modifier, myDamage);
+            //DefenceModify(defending);
+            this.health3 -= sourceDamage;
         }
     }
 
+    //changes attack damage depending on the defending character defenceRating
     void ModifierDamage(float modify, float theDamage)
     {
         if (modify < 1.0f)
@@ -868,6 +921,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //Button Stuff
     void AttackButtonsOnOff(bool set)
     {
         enemyButton1.SetActive(set);
@@ -878,6 +932,7 @@ public class PlayerScript : NetworkBehaviour
         enemyButton3.transform.localPosition = new Vector3(0f, -150f, 0f);
     }
 
+    //More Button Stuff
     void SpecialButtonsOnOff(bool set)
     {
         specialButton.SetActive(set);
