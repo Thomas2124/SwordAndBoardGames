@@ -16,6 +16,8 @@ public class PlayerScript : NetworkBehaviour
     public bool isDead;
     public float attackRating = 10f;
     public float defenceRating = 30f;
+    public string characterName;
+    public float myExp;
 
     //Character 2
     [Header("Character 2")]
@@ -26,6 +28,8 @@ public class PlayerScript : NetworkBehaviour
     public bool isDead2;
     public float attackRating2 = 25f;
     public float defenceRating2 = 50f;
+    public string characterName2;
+    public float myExp2;
 
     //Character 3
     [Header("Character 3")]
@@ -36,6 +40,8 @@ public class PlayerScript : NetworkBehaviour
     public bool isDead3;
     public float attackRating3 = 40f;
     public float defenceRating3 = 60f;
+    public string characterName3;
+    public float myExp3;
 
     [Header("Player Name")]
     public GameObject playerName;
@@ -100,7 +106,11 @@ public class PlayerScript : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            
+            if (SaveSystem.LoadPlayer() != null)
+            {
+                CmdLoadData();
+            }
+
             isWinner = false;
             isDead = false;
             isDead2 = false;
@@ -170,6 +180,42 @@ public class PlayerScript : NetworkBehaviour
 
             CmdArrow(isMyTurn);
         }
+    }
+
+    [Command]
+    void CmdLoadData()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+
+        //Character 1
+        string name1 = data.characterName;
+        float theExp1 = data.exp;
+
+        //Character 2
+        string name2 = data.characterName2;
+        float theExp2 = data.exp2;
+
+        //Character 3
+        string name3 = data.characterName3;
+        float theExp3 = data.exp3;
+
+        RpcLoadData(name1, name2, name3, theExp1, theExp2, theExp3);
+    }
+
+    [ClientRpc]
+    void RpcLoadData(string name1, string name2, string name3, float theExp1, float theExp2, float theExp3)
+    {
+        //Character 1
+        characterName = name1;
+        myExp = theExp1;
+
+        //Character 2
+        characterName2 = name2;
+        myExp2 = theExp2;
+
+        //Character 3
+        characterName3 = name3;
+        myExp3 = theExp3;
     }
 
     //turns character arrow on and off
@@ -814,18 +860,73 @@ public class PlayerScript : NetworkBehaviour
         switch (number)
         {
             case 1:
+                CharacterSpecialMove(characterName);
                 this.mana = 0f;
                 this.characterNumber += 1;
                 break;
             case 2:
+                CharacterSpecialMove(characterName2);
                 this.mana2 = 0f;
                 this.characterNumber += 1;
                 break;
             case 3:
+                CharacterSpecialMove(characterName3);
                 this.mana3 = 0f;
                 this.characterNumber += 1;
                 break;
         }
+    }
+
+    void CharacterSpecialMove(string charaName)
+    {
+        string theName = charaName;
+        switch (theName)
+        {
+            case "fishman":
+                break;
+            case "werewolf":
+                break;
+            case "bukkake Slime":
+                break;
+            case "dragonoid":
+                break;
+            case "golem":
+                break;
+            case "catperson":
+                break;
+            case "angel":
+                break;
+            case "devil":
+                break;
+            case "orge":
+                break;
+            case "gargoyle":
+                break;
+            case "garuda":
+                break;
+            case "loxodon":
+                break;
+            case "minotaur":
+                break;
+            case "spiderperson":
+                break;
+            case "hobnoblin":
+                break;
+        }
+    }
+
+    [Command]
+    void CmdSpecialAttack(float percent, float baseDamage)
+    {
+        float increase = (baseDamage / 100f) * percent;
+        float setDamage = increase * baseDamage;
+    }
+
+    [Command]
+    void CmdSpecialDefence(float percent, float baseDefence)
+    {
+        float increase = (baseDefence / 100f) * percent;
+        float setDefence = increase * baseDefence;
     }
 
     //decreases character health
