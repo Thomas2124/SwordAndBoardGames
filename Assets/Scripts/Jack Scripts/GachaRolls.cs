@@ -6,22 +6,38 @@ using UnityEngine.UI;
 public class GachaRolls : MonoBehaviour
 {
     //Gacha Variables
-    private int ranNum;
-    private string rarityRolled;
-    public string[] characterlistSR;
+    private int ranNum;                     //generated number that represents the character pulled         
+    public string[] characterlistSR;        //lists of the characters in their respective rarity
     public string[] characterlistR;
     public string[] characterlistUC;
     public string[] characterlistC;
-    public List<string> characterRolled;
-    private bool normRoll;
+    public List<string> characterRolled;    //character names pulled during the current roll
+    private bool normRoll;                  //affects what kind of summary page is shown
+
+    //Obtained? Variables
+    public bool fishman = false;
+    public bool werewolf = false;
+    public bool bukkakeSlime = false;
+    public bool dragonoid = false;
+    public bool golem = false;
+    public bool catperson = false;
+    public bool angel = false;
+    public bool devil = false;
+    public bool orge = false;
+    public bool gargoyle = false;
+    public bool garuda = false;
+    public bool loxodon = false;
+    public bool minotaur = false;
+    public bool spiderperson = false;
+    public bool hobnoblin = false;
 
     //Result Variables
-    public Text raceText;
-    public Image resultSprite;
-    public Image resultRarity;
-    public Sprite[] characterSprite;
-    public Sprite[] rarity;
-    public GameObject[] normSummary;
+    public Text raceText;                   //the name of the character pulled displayed
+    public Image resultSprite;              //the sprite image of pulled character displayed
+    public Image resultRarity;              //the rarity image of pulled character displayed
+    public Sprite[] characterSprite;        //corresponding character sprite data
+    public Sprite[] rarity;                 //corresponding rarity sprite data
+    public GameObject[] normSummary;        //normal roll summary page, how many images to show
 
 
     //Level Up Variables
@@ -36,7 +52,7 @@ public class GachaRolls : MonoBehaviour
     public float devil_exp;
     public float orge_exp;
     public float gargoyle_exp;
-    public float garuda_exp;
+    public float garuda_exp; 
     public float loxodon_exp;
     public float minotaur_exp;
     public float spiderperson_exp;
@@ -45,13 +61,13 @@ public class GachaRolls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (ExpSaveSystem.LoadPlayer() == null)
+        if (GachaSaveSystem.LoadPlayer() == null)
         {
 
         }
         else
         {
-            ExpSaver expData = ExpSaveSystem.LoadPlayer();
+            GachaExpList expData = GachaSaveSystem.LoadPlayer();
             fishman_exp = expData.fishman_exp;
             werewolf_exp = expData.werewolf_exp;
             bukkakeSlime_exp = expData.bukkakeSlime_exp;
@@ -68,12 +84,6 @@ public class GachaRolls : MonoBehaviour
             spiderperson_exp = expData.spiderperson_exp;
             hobnoblin_exp = expData.hobnoblin_exp;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void NormalRoll()
@@ -115,6 +125,7 @@ public class GachaRolls : MonoBehaviour
 
     public void Results()
     {
+        //the results of the pull are generated 
         resultSprite.GetComponent<Image>().sprite = characterSprite[ranNum];
         raceText.text = characterRolled[0];
         resultRarity.GetComponent<Image>().sprite = rarity[0];
@@ -132,56 +143,177 @@ public class GachaRolls : MonoBehaviour
             switch (checkname)
             {
                 case "fishman":
-                    fishman_exp += expGained;
+                    if(fishman == true)
+                    {
+                        fishman_exp += expGained;
+                    }
+                    else
+                    {
+                        fishman = true;
+                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                        //add to obtained list (talk with thomas)
+                    }
                     break;
                 case "werewolf":
-                    werewolf_exp += expGained;
+                    if (werewolf == true)
+                    {
+                        werewolf_exp += expGained;
+                    }
+                    else
+                    {
+                        werewolf = true;
+                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                    }
                     break;
                 case "bukkake Slime":
-                    bukkakeSlime_exp += expGained;
+                    if (bukkakeSlime == true)
+                    {
+                        bukkakeSlime_exp += expGained;
+                    }
+                    else
+                    {
+                        bukkakeSlime = true;
+                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                    }
                     break;
                 case "dragonoid":
-                    dragonoid_exp += expGained;
+                    if (dragonoid == true)
+                    {
+                        dragonoid_exp += expGained;
+                    }
+                    else
+                    {
+                        dragonoid = true;
+                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                    }
                     break;
                 case "golem":
-                    golem_exp += expGained;
+                    if (golem == true)
+                    {
+                        golem_exp += expGained;
+                    }
+                    else
+                    {
+                        golem = true;
+                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                    }
                     break;
                 case "catperson":
-                    catperson_exp += expGained;
+                    if (catperson == true)
+                    {
+                        catperson_exp += expGained;
+                    }
+                    else
+                    {
+                        catperson = true;
+                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                    }
                     break;
                 case "angel":
-                    angel_exp += expGained;
+                    if (angel == true)
+                    {
+                        angel_exp += expGained;
+                    }
+                    else
+                    {
+                        angel = true;
+                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                    }
                     break;
                 case "devil":
-                    devil_exp += expGained;
+                    if (devil == true)
+                    {
+                        devil_exp += expGained;
+                    }
+                    else
+                    {
+                        devil = true;
+                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                    }
                     break;
                 case "orge":
-                    orge_exp += expGained;
+                    if (orge == true)
+                    {
+                        orge_exp += expGained;
+                    }
+                    else
+                    {
+                        orge = true;
+                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                    }
                     break;
                 case "gargoyle":
-                    gargoyle_exp += expGained;
+                    if (gargoyle == true)
+                    {
+                        gargoyle_exp += expGained;
+                    }
+                    else
+                    {
+                        gargoyle = true;
+                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                    }
                     break;
                 case "garuda":
-                    garuda_exp += expGained;
+                    if (garuda == true)
+                    {
+                        garuda_exp += expGained;
+                    }
+                    else
+                    {
+                        garuda = true;
+                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                    }
                     break;
                 case "loxodon":
-                    loxodon_exp += expGained;
+                    if (loxodon == true)
+                    {
+                        loxodon_exp += expGained;
+                    }
+                    else
+                    {
+                        loxodon = true;
+                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                    }
                     break;
                 case "minotaur":
-                    minotaur_exp += expGained;
+                    if (minotaur == true)
+                    {
+                        minotaur_exp += expGained;
+                    }
+                    else
+                    {
+                        minotaur = true;
+                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                    }
                     break;
                 case "spiderperson":
-                    spiderperson_exp += expGained;
+                    if (spiderperson == true)
+                    {
+                        spiderperson_exp += expGained;
+                    }
+                    else
+                    {
+                        spiderperson = true;
+                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                    }
                     break;
                 case "hobnoblin":
-                    hobnoblin_exp += expGained;
+                    if (hobnoblin == true)
+                    {
+                        hobnoblin_exp += expGained;
+                    }
+                    else
+                    {
+                        hobnoblin = true;
+                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                    }
                     break;
             }
         }
 
+        //Saves the characters experience into the savefile
         GachaSaveSystem.SavePlayer(this);
 
         characterRolled.Clear();
-        //Saves the characters experience into the savefile
     }
 }
