@@ -5,10 +5,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class GachaSaveSystem
 {
-    public static void SavePlayer(GachaRolls expList)
+    public static void SavePlayer1(GachaRolls expList)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/newcharacterExp.this";
+        string path = Application.persistentDataPath + "/newcharacterExp3.this";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         GachaExpList expData = new GachaExpList(expList);
@@ -18,9 +18,9 @@ public static class GachaSaveSystem
 
     }
 
-    public static GachaExpList LoadPlayer()
+    public static GachaExpList LoadPlayer1()
     {
-        string path = Application.persistentDataPath + "/newcharacterExp.this";
+        string path = Application.persistentDataPath + "/newcharacterExp3.this";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();

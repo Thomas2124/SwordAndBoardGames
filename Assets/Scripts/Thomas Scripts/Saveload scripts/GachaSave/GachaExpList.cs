@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GachaExpList : MonoBehaviour
+[System.Serializable]
+public class GachaExpList
 {
     [Header("fishman")]
     public float fishman_exp;
@@ -51,8 +52,8 @@ public class GachaExpList : MonoBehaviour
 
     public GachaExpList(GachaRolls expList)
     {
-        ExpSaver expData = ExpSaveSystem.LoadPlayer();
-        fishman_exp = expList.fishman_exp + expData.fishman_exp;
+        //ExpSaver expData = ExpSaveSystem.LoadPlayer();
+        /*fishman_exp = expList.fishman_exp + expData.fishman_exp;
         werewolf_exp = expList.werewolf_exp + expData.werewolf_exp;
         bukkakeSlime_exp = expList.bukkakeSlime_exp + expData.bukkakeSlime_exp;
         dragonoid_exp = expList.dragonoid_exp + expData.dragonoid_exp;
@@ -66,6 +67,21 @@ public class GachaExpList : MonoBehaviour
         loxodon_exp = expList.loxodon_exp + expData.loxodon_exp;
         minotaur_exp = expList.minotaur_exp + expData.minotaur_exp;
         spiderperson_exp = expList.spiderperson_exp + expData.spiderperson_exp;
-        hobnoblin_exp = expList.hobnoblin_exp + expData.hobnoblin_exp;
+        hobnoblin_exp = expList.hobnoblin_exp + expData.hobnoblin_exp;*/
+        fishman_exp = expList.fishman_exp;
+        werewolf_exp = expList.werewolf_exp;
+        bukkakeSlime_exp = expList.bukkakeSlime_exp;
+        dragonoid_exp = expList.dragonoid_exp;
+        golem_exp = expList.golem_exp;
+        catperson_exp = expList.catperson_exp;
+        angel_exp = expList.angel_exp;
+        devil_exp = expList.devil_exp;
+        orge_exp = expList.orge_exp;
+        gargoyle_exp = expList.gargoyle_exp;
+        garuda_exp = expList.garuda_exp;
+        loxodon_exp = expList.loxodon_exp;
+        minotaur_exp = expList.minotaur_exp;
+        spiderperson_exp = expList.spiderperson_exp;
+        hobnoblin_exp = expList.hobnoblin_exp;
     }
 }
