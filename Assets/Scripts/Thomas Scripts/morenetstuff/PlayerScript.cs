@@ -929,6 +929,7 @@ public class PlayerScript : NetworkBehaviour
             case "dragonoid":
                 break;
             case "golem":
+                percent = 25f;
                 break;
             case "catperson":
                 percent = 25f;
@@ -943,14 +944,18 @@ public class PlayerScript : NetworkBehaviour
                 AttackButtonsOnOff(true);
                 break;
             case "orge":
+                percent = 25f;
                 break;
             case "gargoyle":
+                percent = 25f;
                 break;
             case "garuda":
                 break;
             case "loxodon":
+                percent = 25f;
                 break;
             case "minotaur":
+                percent = 25f;
                 break;
             case "spiderperson":
                 break;
@@ -1004,18 +1009,22 @@ public class PlayerScript : NetworkBehaviour
         switch (characterNumber)
         {
             case 1:
+                isDefending = true;
                 baseDefence = defenceRating;
                 break;
             case 2:
+                isDefending2 = true;
                 baseDefence = defenceRating2;
                 break;
             case 3:
+                isDefending3 = true;
                 baseDefence = defenceRating3;
                 break;
         }
 
-        float increase = (baseDefence / 100f) * percent;
-        float setDefence = increase + baseDefence;
+        float increase = baseDefence / 100f;
+        float increase2 = increase * percent;
+        float setDefence = increase2 + baseDefence;
     }
 
     //decreases character health
