@@ -19,6 +19,8 @@ public class PlayerScript : NetworkBehaviour
     public string characterName;
     public float myExp;
 
+    float startDefence;
+
     //Character 2
     [Header("Character 2")]
     [SyncVar]
@@ -31,6 +33,8 @@ public class PlayerScript : NetworkBehaviour
     public string characterName2;
     public float myExp2;
 
+    float startDefence2;
+
     //Character 3
     [Header("Character 3")]
     [SyncVar]
@@ -42,6 +46,8 @@ public class PlayerScript : NetworkBehaviour
     public float defenceRating3 = 60f;
     public string characterName3;
     public float myExp3;
+
+    float startDefence3;
 
     [Header("Player Name")]
     public GameObject playerName;
@@ -58,6 +64,7 @@ public class PlayerScript : NetworkBehaviour
     public float baseHealth2;
     public float baseHealth3;
     public float sourceDamage;
+    public bool isSpecial;
 
     [Header("Character Objects")]
     public GameObject character1;
@@ -81,6 +88,8 @@ public class PlayerScript : NetworkBehaviour
     public Image specialBar;
     public Image specialBar2;
     public Image specialBar3;
+
+    public float percent;
 
     [Header("Turn Stuff")]
     [SyncVar]
@@ -190,14 +199,17 @@ public class PlayerScript : NetworkBehaviour
         //Character 1
         string name1 = data.characterName;
         float theExp1 = data.exp;
+        startDefence = defenceRating;
 
         //Character 2
         string name2 = data.characterName2;
         float theExp2 = data.exp2;
+        startDefence = defenceRating2;
 
         //Character 3
         string name3 = data.characterName3;
         float theExp3 = data.exp3;
+        startDefence = defenceRating3;
 
         RpcLoadData(name1, name2, name3, theExp1, theExp2, theExp3);
     }
@@ -640,17 +652,38 @@ public class PlayerScript : NetworkBehaviour
 
     public void Attack1()
     {
-        CmdDefendChecker(1);
+        if (isSpecial == true)
+        {
+            CmdSpecialAttack(percent, 1);
+        }
+        else
+        {
+            CmdDefendChecker(1);
+        }
     }
 
     public void Attack2()
     {
-        CmdDefendChecker(2);
+        if (isSpecial == true)
+        {
+            CmdSpecialAttack(percent, 2);
+        }
+        else
+        {
+            CmdDefendChecker(2);
+        }
     }
 
     public void Attack3()
     {
-        CmdDefendChecker(3);
+        if (isSpecial == true)
+        {
+            CmdSpecialAttack(percent, 3);
+        }
+        else
+        {
+            CmdDefendChecker(3);
+        }
     }
 
     //used to apply damage to enemy characters
@@ -879,12 +912,17 @@ public class PlayerScript : NetworkBehaviour
 
     void CharacterSpecialMove(string charaName)
     {
+        isSpecial = true;
         string theName = charaName;
         switch (theName)
         {
             case "fishman":
+                percent = 10f;
+                AttackButtonsOnOff(true);
                 break;
             case "werewolf":
+                percent = 50f;
+                AttackButtonsOnOff(true);
                 break;
             case "bukkake Slime":
                 break;
@@ -893,10 +931,16 @@ public class PlayerScript : NetworkBehaviour
             case "golem":
                 break;
             case "catperson":
+                percent = 25f;
+                AttackButtonsOnOff(true);
                 break;
             case "angel":
+                percent = 100f;
+                AttackButtonsOnOff(true);
                 break;
             case "devil":
+                percent = 75f;
+                AttackButtonsOnOff(true);
                 break;
             case "orge":
                 break;
@@ -911,13 +955,16 @@ public class PlayerScript : NetworkBehaviour
             case "spiderperson":
                 break;
             case "hobnoblin":
+                percent = 25f;
+                AttackButtonsOnOff(true);
                 break;
         }
     }
 
     [Command]
-    void CmdSpecialAttack(float percent)
+    void CmdSpecialAttack(float percent, int enemy)
     {
+        isSpecial = false;
         float baseDamage = 0f;
         switch (characterNumber)
         {
@@ -932,8 +979,22 @@ public class PlayerScript : NetworkBehaviour
                 break;
         }
 
-        float increase = (baseDamage / 100f) * percent;
-        float setDamage = increase + baseDamage;
+        float increase = baseDamage / 100f;
+        float increase2 = increase * percent;
+        float setDamage = increase2 + baseDamage;
+
+        switch (enemy)
+        {
+            case 1:
+                myOpponent.health -= setDamage;
+                break;
+            case 2:
+                myOpponent.health2 -= setDamage;
+                break;
+            case 3:
+                myOpponent.health3 -= setDamage;
+                break;
+        }
     }
 
     [Command]
