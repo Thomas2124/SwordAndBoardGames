@@ -62,13 +62,13 @@ public class GachaRolls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (GachaSaveSystem.LoadPlayer() == null)
+        if (GachaSaveSystem.LoadPlayer1() == null)
         {
-
+            
         }
         else
         {
-            GachaExpList expData = GachaSaveSystem.LoadPlayer();
+            GachaExpList expData = GachaSaveSystem.LoadPlayer1();
             fishman_exp = expData.fishman_exp;
             werewolf_exp = expData.werewolf_exp;
             bukkakeSlime_exp = expData.bukkakeSlime_exp;
@@ -327,7 +327,7 @@ public class GachaRolls : MonoBehaviour
         }
 
         //Saves the characters experience into the savefile
-        GachaSaveSystem.SavePlayer(this);
+        GachaSaveSystem.SavePlayer1(this);
 
         characterRolled.Clear();
     }
