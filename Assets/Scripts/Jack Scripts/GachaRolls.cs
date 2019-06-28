@@ -11,7 +11,7 @@ public class GachaRolls : MonoBehaviour
     public string[] characterlistR;
     public string[] characterlistUC;
     public string[] characterlistC;
-    public List<string> characterRolled;    //character names pulled during the current roll
+    public List<string> characterRolled; //character names pulled during the current roll
     private bool normRoll;                  //affects what kind of summary page is shown
 
     //Obtained? Variables
@@ -57,6 +57,7 @@ public class GachaRolls : MonoBehaviour
     public float minotaur_exp;
     public float spiderperson_exp;
     public float hobnoblin_exp;
+    private string selectedCharacter;
 
     // Start is called before the first frame update
     void Start()
@@ -150,8 +151,8 @@ public class GachaRolls : MonoBehaviour
                     else
                     {
                         fishman = true;
-                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
-                        //add to obtained list (talk with thomas)
+                        selectedCharacter = checkname;
+                        CheckName();
                     }
                     break;
                 case "werewolf":
@@ -162,7 +163,8 @@ public class GachaRolls : MonoBehaviour
                     else
                     {
                         werewolf = true;
-                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                        selectedCharacter = checkname;
+                        CheckName();
                     }
                     break;
                 case "bukkake Slime":
@@ -173,7 +175,8 @@ public class GachaRolls : MonoBehaviour
                     else
                     {
                         bukkakeSlime = true;
-                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                        selectedCharacter = checkname;
+                        CheckName();
                     }
                     break;
                 case "dragonoid":
@@ -184,7 +187,8 @@ public class GachaRolls : MonoBehaviour
                     else
                     {
                         dragonoid = true;
-                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                        selectedCharacter = checkname;
+                        CheckName();
                     }
                     break;
                 case "golem":
@@ -195,7 +199,8 @@ public class GachaRolls : MonoBehaviour
                     else
                     {
                         golem = true;
-                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                        selectedCharacter = checkname;
+                        CheckName();
                     }
                     break;
                 case "catperson":
@@ -206,7 +211,8 @@ public class GachaRolls : MonoBehaviour
                     else
                     {
                         catperson = true;
-                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                        selectedCharacter = checkname;
+                        CheckName();
                     }
                     break;
                 case "angel":
@@ -217,7 +223,8 @@ public class GachaRolls : MonoBehaviour
                     else
                     {
                         angel = true;
-                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                        selectedCharacter = checkname;
+                        CheckName();
                     }
                     break;
                 case "devil":
@@ -228,7 +235,8 @@ public class GachaRolls : MonoBehaviour
                     else
                     {
                         devil = true;
-                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                        selectedCharacter = checkname;
+                        CheckName();
                     }
                     break;
                 case "orge":
@@ -239,7 +247,8 @@ public class GachaRolls : MonoBehaviour
                     else
                     {
                         orge = true;
-                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                        selectedCharacter = checkname;
+                        CheckName();
                     }
                     break;
                 case "gargoyle":
@@ -250,7 +259,8 @@ public class GachaRolls : MonoBehaviour
                     else
                     {
                         gargoyle = true;
-                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                        selectedCharacter = checkname;
+                        CheckName();
                     }
                     break;
                 case "garuda":
@@ -261,7 +271,8 @@ public class GachaRolls : MonoBehaviour
                     else
                     {
                         garuda = true;
-                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                        selectedCharacter = checkname;
+                        CheckName();
                     }
                     break;
                 case "loxodon":
@@ -272,7 +283,8 @@ public class GachaRolls : MonoBehaviour
                     else
                     {
                         loxodon = true;
-                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                        selectedCharacter = checkname;
+                        CheckName();
                     }
                     break;
                 case "minotaur":
@@ -283,7 +295,8 @@ public class GachaRolls : MonoBehaviour
                     else
                     {
                         minotaur = true;
-                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                        selectedCharacter = checkname;
+                        CheckName();
                     }
                     break;
                 case "spiderperson":
@@ -294,7 +307,8 @@ public class GachaRolls : MonoBehaviour
                     else
                     {
                         spiderperson = true;
-                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                        selectedCharacter = checkname;
+                        CheckName();
                     }
                     break;
                 case "hobnoblin":
@@ -305,7 +319,8 @@ public class GachaRolls : MonoBehaviour
                     else
                     {
                         hobnoblin = true;
-                        GetComponent<PlayerCharacterList>().myCharacters.Add(checkname);
+                        selectedCharacter = checkname;
+                        CheckName();
                     }
                     break;
             }
@@ -315,5 +330,21 @@ public class GachaRolls : MonoBehaviour
         GachaSaveSystem.SavePlayer(this);
 
         characterRolled.Clear();
+    }
+
+    public void CheckName()
+    {
+        foreach(string item in GetComponent<PlayerCharacterList>().myCharacters)
+        {
+            string selected = item;
+            if (selected == selectedCharacter)
+            {
+
+            }
+            else
+            {
+                GetComponent<PlayerCharacterList>().myCharacters.Add(selectedCharacter);
+            }
+        }
     }
 }
