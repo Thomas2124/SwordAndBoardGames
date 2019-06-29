@@ -18,6 +18,7 @@ public class PlayerScript : NetworkBehaviour
     public float defenceRating = 30f;
     public string characterName;
     public float myExp;
+    public float startingDefence;
 
     float startDefence;
 
@@ -32,6 +33,7 @@ public class PlayerScript : NetworkBehaviour
     public float defenceRating2 = 50f;
     public string characterName2;
     public float myExp2;
+    public float startingDefence2;
 
     float startDefence2;
 
@@ -46,6 +48,7 @@ public class PlayerScript : NetworkBehaviour
     public float defenceRating3 = 60f;
     public string characterName3;
     public float myExp3;
+    public float startingDefence3;
 
     float startDefence3;
 
@@ -115,15 +118,17 @@ public class PlayerScript : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            if (SaveSystem.LoadPlayer() != null)
-            {
-                CmdLoadData();
-            }
 
             isWinner = false;
             isDead = false;
             isDead2 = false;
             isDead3 = false;
+
+            if (SaveSystem.LoadPlayer() != null)
+            {
+                CmdLoadData();
+            }
+
             connectID = NetworkServer.connections.Count;
             if (connectID == 1)
             {
@@ -134,6 +139,9 @@ public class PlayerScript : NetworkBehaviour
                 isMyTurn = false;
             }
 
+            startingDefence = defenceRating;
+            startingDefence2 = defenceRating2;
+            startingDefence3 = defenceRating3;
             characterNumber = 1;
             playerButton.SetActive(isMyTurn);
             defendButton.SetActive(isMyTurn);
@@ -218,16 +226,16 @@ public class PlayerScript : NetworkBehaviour
     void RpcLoadData(string name1, string name2, string name3, float theExp1, float theExp2, float theExp3)
     {
         //Character 1
-        characterName = name1;
-        myExp = theExp1;
+        this.characterName = name1;
+        this.myExp = theExp1;
 
         //Character 2
-        characterName2 = name2;
-        myExp2 = theExp2;
+        this.characterName2 = name2;
+        this.myExp2 = theExp2;
 
         //Character 3
-        characterName3 = name3;
-        myExp3 = theExp3;
+        this.characterName3 = name3;
+        this.myExp3 = theExp3;
     }
 
     //turns character arrow on and off
@@ -425,41 +433,44 @@ public class PlayerScript : NetworkBehaviour
     //check if a character is able to use their special attack
     void SpecialButtonActive(int number)
     {
-        switch (number)
+        if (isMyTurn == true)
         {
-            case 1:
-                if (mana >= 100f)
-                {
-                    SpecialButtonsOnOff(true);
-                }
-                else
-                {
-                    SpecialButtonsOnOff(false);
-                }
-                break;
-            case 2:
-                if (mana2 >= 100f)
-                {
-                    SpecialButtonsOnOff(true);
-                }
-                else
-                {
-                    SpecialButtonsOnOff(false);
-                }
-                break;
-            case 3:
-                if (mana3 >= 100f)
-                {
-                    SpecialButtonsOnOff(true);
-                }
-                else
-                {
-                    SpecialButtonsOnOff(false);
-                }
-                break;
-            default:
-                specialButton.SetActive(false);
-                break;
+            switch (number)
+            {
+                case 1:
+                    if (mana >= 100f)
+                    {
+                        SpecialButtonsOnOff(true);
+                    }
+                    else
+                    {
+                        SpecialButtonsOnOff(false);
+                    }
+                    break;
+                case 2:
+                    if (mana2 >= 100f)
+                    {
+                        SpecialButtonsOnOff(true);
+                    }
+                    else
+                    {
+                        SpecialButtonsOnOff(false);
+                    }
+                    break;
+                case 3:
+                    if (mana3 >= 100f)
+                    {
+                        SpecialButtonsOnOff(true);
+                    }
+                    else
+                    {
+                        SpecialButtonsOnOff(false);
+                    }
+                    break;
+                default:
+                    specialButton.SetActive(false);
+                    break;
+            }
         }
     }
 
@@ -502,22 +513,39 @@ public class PlayerScript : NetworkBehaviour
         myBool = false;
         enemyBool = true;
         int myNum = 1;
-        RpcTurnSetter(myBool, enemyBool, myNum);
+        float num1 = startingDefence;
+        float num2 = startingDefence2;
+        float num3 = startingDefence3;
+        RpcTurnSetter(myBool, enemyBool, myNum, num1, num2, num3);
     }
 
     [ClientRpc]
-    void RpcTurnSetter(bool myBool, bool enemyBool, int num)
+    void RpcTurnSetter(bool myBool, bool enemyBool, int num, float def1, float def2, float def3)
     {
         this.isMyTurn = myBool;
         myOpponent.isMyTurn = enemyBool;
         this.characterNumber = num;
         myOpponent.characterNumber = num;
-        if (this.isMyTurn == true)
+        myOpponent.TurnStart();
+        /*if (this.name != name)
         {
-            this.isDefending = false;
-            this.isDefending2 = false;
-            this.isDefending3 = false;
-        }
+            this.isDefending = myBool;
+            this.isDefending2 = myBool;
+            this.isDefending3 = myBool;
+            this.defenceRating = def1;
+            this.defenceRating2 = def2;
+            this.defenceRating3 = def3;
+        }*/
+    }
+
+    void TurnStart()
+    {
+        this.isDefending = false;
+        this.isDefending2 = false;
+        this.isDefending3 = false;
+        this.defenceRating = startingDefence;
+        this.defenceRating2 = startingDefence2;
+        this.defenceRating3 = startingDefence3;
     }
 
     //set position of players specialbar
@@ -719,7 +747,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
-    
+
     //used to check if an enemy character is defending or not
     [Command]
     void CmdDefendChecker(int target)
@@ -895,23 +923,21 @@ public class PlayerScript : NetworkBehaviour
             case 1:
                 CharacterSpecialMove(characterName);
                 this.mana = 0f;
-                this.characterNumber += 1;
                 break;
             case 2:
                 CharacterSpecialMove(characterName2);
                 this.mana2 = 0f;
-                this.characterNumber += 1;
                 break;
             case 3:
                 CharacterSpecialMove(characterName3);
                 this.mana3 = 0f;
-                this.characterNumber += 1;
                 break;
         }
     }
 
     void CharacterSpecialMove(string charaName)
     {
+        percent = 0f;
         isSpecial = true;
         string theName = charaName;
         switch (theName)
@@ -925,11 +951,14 @@ public class PlayerScript : NetworkBehaviour
                 AttackButtonsOnOff(true);
                 break;
             case "bukkake Slime":
+                percent = 25f;
+                CmdSpecialDefence(percent);
                 break;
             case "dragonoid":
                 break;
             case "golem":
                 percent = 25f;
+                CmdSpecialDefence(percent);
                 break;
             case "catperson":
                 percent = 25f;
@@ -945,17 +974,21 @@ public class PlayerScript : NetworkBehaviour
                 break;
             case "orge":
                 percent = 25f;
+                CmdSpecialDefence(percent);
                 break;
             case "gargoyle":
                 percent = 25f;
+                CmdSpecialDefence(percent);
                 break;
             case "garuda":
                 break;
             case "loxodon":
                 percent = 25f;
+                CmdSpecialDefence(percent);
                 break;
             case "minotaur":
                 percent = 25f;
+                CmdSpecialDefence(percent);
                 break;
             case "spiderperson":
                 break;
@@ -969,37 +1002,35 @@ public class PlayerScript : NetworkBehaviour
     [Command]
     void CmdSpecialAttack(float percent, int enemy)
     {
-        isSpecial = false;
-        float baseDamage = 0f;
+        sourceDamage = 0f;
         switch (characterNumber)
         {
             case 1:
-                baseDamage = attackRating;
+                sourceDamage = attackRating;
                 break;
             case 2:
-                baseDamage = attackRating2;
+                sourceDamage = attackRating2;
                 break;
             case 3:
-                baseDamage = attackRating3;
+                sourceDamage = attackRating3;
                 break;
         }
 
-        float increase = baseDamage / 100f;
+        float increase = sourceDamage / 100f;
         float increase2 = increase * percent;
-        float setDamage = increase2 + baseDamage;
+        sourceDamage += increase2;
 
-        switch (enemy)
-        {
-            case 1:
-                myOpponent.health -= setDamage;
-                break;
-            case 2:
-                myOpponent.health2 -= setDamage;
-                break;
-            case 3:
-                myOpponent.health3 -= setDamage;
-                break;
-        }
+        isSpecial = false;
+        AttackButtonsOnOff(false);
+        characterNumber += 1;
+
+        RpcSpecialAttack(sourceDamage, enemy);
+    }
+
+    [ClientRpc]
+    void RpcSpecialAttack(float damage, float enemy)
+    {
+        myOpponent.TakeSpecialDamage(enemy, damage);
     }
 
     [Command]
@@ -1024,7 +1055,44 @@ public class PlayerScript : NetworkBehaviour
 
         float increase = baseDefence / 100f;
         float increase2 = increase * percent;
-        float setDefence = increase2 + baseDefence;
+        baseDefence += increase2;
+
+        characterNumber += 1;
+
+        RpcSpecialDefence(baseDefence, characterNumber);
+    }
+
+    [ClientRpc]
+    void RpcSpecialDefence(float increase, int playerNum)
+    {
+        switch (characterNumber)
+        {
+            case 1:
+                this.defenceRating = increase;
+                break;
+            case 2:
+                this.defenceRating2 = increase;
+                break;
+            case 3:
+                this.defenceRating3 = increase;
+                break;
+        }
+    }
+
+    void TakeSpecialDamage(float enemy, float damage)
+    {
+        switch (enemy)
+        {
+            case 1:
+                health -= damage;
+                break;
+            case 2:
+                health2 -= damage;
+                break;
+            case 3:
+                health3 -= damage;
+                break;
+        }
     }
 
     //decreases character health
