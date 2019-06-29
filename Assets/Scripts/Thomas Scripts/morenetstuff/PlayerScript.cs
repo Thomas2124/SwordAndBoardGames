@@ -540,12 +540,24 @@ public class PlayerScript : NetworkBehaviour
 
     void TurnStart()
     {
-        this.isDefending = false;
-        this.isDefending2 = false;
-        this.isDefending3 = false;
-        this.defenceRating = startingDefence;
-        this.defenceRating2 = startingDefence2;
-        this.defenceRating3 = startingDefence3;
+        CmdTurnStart(false, startingDefence, startingDefence2, startingDefence3);
+    }
+
+    [Command]
+    void CmdTurnStart(bool mybool, float def1, float def2, float def3)
+    {
+        RpcTurnStart(mybool, def1, def2, def3);
+    }
+
+    [ClientRpc]
+    void RpcTurnStart(bool mybool, float def1, float def2, float def3)
+    {
+        this.isDefending = mybool;
+        this.isDefending2 = mybool;
+        this.isDefending3 = mybool;
+        this.defenceRating = def1;
+        this.defenceRating2 = def2;
+        this.defenceRating3 = def3;
     }
 
     //set position of players specialbar
