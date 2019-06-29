@@ -102,6 +102,8 @@ public class PlayerScript : NetworkBehaviour
     [SyncVar]
     public int connectID;
 
+    public bool isFishman;
+
     //Temp Variables
     float tempDamage;
     string tempName;
@@ -527,15 +529,6 @@ public class PlayerScript : NetworkBehaviour
         this.characterNumber = num;
         myOpponent.characterNumber = num;
         myOpponent.TurnStart();
-        /*if (this.name != name)
-        {
-            this.isDefending = myBool;
-            this.isDefending2 = myBool;
-            this.isDefending3 = myBool;
-            this.defenceRating = def1;
-            this.defenceRating2 = def2;
-            this.defenceRating3 = def3;
-        }*/
     }
 
     void TurnStart()
@@ -694,7 +687,14 @@ public class PlayerScript : NetworkBehaviour
     {
         if (isSpecial == true)
         {
-            CmdSpecialAttack(percent, 1);
+            if (isFishman == true)
+            {
+                CmdFishSpecial(percent, 1);
+            }
+            else
+            {
+                CmdSpecialAttack(percent, 1);
+            }
         }
         else
         {
@@ -706,7 +706,14 @@ public class PlayerScript : NetworkBehaviour
     {
         if (isSpecial == true)
         {
-            CmdSpecialAttack(percent, 2);
+            if (isFishman == true)
+            {
+                CmdFishSpecial(percent, 2);
+            }
+            else
+            {
+                CmdSpecialAttack(percent, 2);
+            }
         }
         else
         {
@@ -718,7 +725,14 @@ public class PlayerScript : NetworkBehaviour
     {
         if (isSpecial == true)
         {
-            CmdSpecialAttack(percent, 3);
+            if (isFishman == true)
+            {
+                CmdFishSpecial(percent, 3);
+            }
+            else
+            {
+                CmdSpecialAttack(percent, 3);
+            }
         }
         else
         {
@@ -955,7 +969,8 @@ public class PlayerScript : NetworkBehaviour
         switch (theName)
         {
             case "fishman":
-                percent = 10f;
+                percent = 20f;
+                isFishman = true;
                 AttackButtonsOnOff(true);
                 break;
             case "werewolf":
@@ -963,13 +978,12 @@ public class PlayerScript : NetworkBehaviour
                 AttackButtonsOnOff(true);
                 break;
             case "bukkake Slime":
-                percent = 25f;
-                CmdSpecialDefence(percent);
+                CmdSlimeSpecial();
                 break;
             case "dragonoid":
                 break;
             case "golem":
-                percent = 25f;
+                percent = 100f;
                 CmdSpecialDefence(percent);
                 break;
             case "catperson":
@@ -989,17 +1003,17 @@ public class PlayerScript : NetworkBehaviour
                 CmdSpecialDefence(percent);
                 break;
             case "gargoyle":
-                percent = 25f;
+                percent = 50f;
                 CmdSpecialDefence(percent);
                 break;
             case "garuda":
                 break;
             case "loxodon":
-                percent = 25f;
+                percent = 75f;
                 CmdSpecialDefence(percent);
                 break;
             case "minotaur":
-                percent = 25f;
+                percent = 50f;
                 CmdSpecialDefence(percent);
                 break;
             case "spiderperson":
@@ -1011,6 +1025,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //code for special attack
     [Command]
     void CmdSpecialAttack(float percent, int enemy)
     {
@@ -1034,10 +1049,13 @@ public class PlayerScript : NetworkBehaviour
 
         isSpecial = false;
         AttackButtonsOnOff(false);
+
         characterNumber += 1;
 
         RpcSpecialAttack(sourceDamage, enemy);
     }
+
+
 
     [ClientRpc]
     void RpcSpecialAttack(float damage, float enemy)
@@ -1045,6 +1063,7 @@ public class PlayerScript : NetworkBehaviour
         myOpponent.TakeSpecialDamage(enemy, damage);
     }
 
+    //code for special defence move
     [Command]
     void CmdSpecialDefence(float percent)
     {
@@ -1068,7 +1087,7 @@ public class PlayerScript : NetworkBehaviour
         float increase = baseDefence / 100f;
         float increase2 = increase * percent;
         baseDefence += increase2;
-
+        isSpecial = false;
         characterNumber += 1;
 
         RpcSpecialDefence(baseDefence, characterNumber);
@@ -1091,6 +1110,178 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //special move for fishman
+    [Command]
+    void CmdFishSpecial(float number, int enemy)
+    {
+        float baseAttack = 0f;
+        float baseDefence = 0f;
+
+        switch (characterNumber)
+        {
+            case 1:
+                isDefending = true;
+                baseDefence = defenceRating;
+                baseAttack = attackRating;
+                break;
+            case 2:
+                isDefending2 = true;
+                baseDefence = defenceRating2;
+                baseAttack = attackRating2;
+                break;
+            case 3:
+                isDefending3 = true;
+                baseDefence = defenceRating3;
+                baseAttack = attackRating3;
+                break;
+        }
+
+        float increase = baseAttack / 100f;
+        float increase2 = increase * number;
+        baseAttack += increase2;
+
+        float increase3 = baseDefence / 100f;
+        float increase4 = increase * number;
+        baseDefence += increase4;
+
+        RpcFishSpecial(baseDefence, baseAttack, enemy, characterNumber);
+        AttackButtonsOnOff(false);
+    }
+
+    [ClientRpc]
+    void RpcFishSpecial(float defence, float attack, int enemy, float character)
+    {
+        switch (character)
+        {
+            case 1:
+                defenceRating = defence;
+                break;
+            case 2:
+                defenceRating2 = defence;
+                break;
+            case 3:
+                defenceRating3 = defence;
+                break;
+        }
+
+        switch (enemy)
+        {
+            case 1:
+                myOpponent.health -= attack;
+                break;
+            case 2:
+                myOpponent.health2 -= attack;
+                break;
+            case 3:
+                myOpponent.health3 -= attack;
+                break;
+        }
+
+        isSpecial = false;
+        isFishman = false;
+        characterNumber += 1;
+    }
+
+    [Command]
+    void CmdSlimeSpecial()
+    {
+        int randomNum = Random.Range(1, 50);
+
+        if (randomNum >= 20 && randomNum < 30)
+        {
+            int counter = 0;
+            if (myOpponent.isDead == false)
+            {
+                counter += 1;
+            }
+
+            if (myOpponent.isDead2 == false)
+            {
+                counter += 1;
+            }
+
+            if (myOpponent.isDead3 == false)
+            {
+                counter += 1;
+            }
+
+            int enemyPick = Random.Range(1, counter);
+            RpcSlimeSpecial(enemyPick);
+        }
+        else
+        {
+            switch (characterNumber)
+            {
+                case 1:
+                    float value = health / 100f;
+                    health -= value * 20f;
+                    break;
+                case 2:
+                    float value2 = health2 / 100f;
+                    health2 -= value2 * 20f;
+                    break;
+                case 3:
+                    float value3 = health3 / 100f;
+                    health3 -= value3 * 20f;
+                    break;
+            }
+        }
+
+        characterNumber += 1;
+    }
+
+    [ClientRpc]
+    void RpcSlimeSpecial(int num)
+    {
+        switch (num)
+        {
+            case 1:
+                if (myOpponent.isDead == false)
+                {
+                    myOpponent.health = 0f;
+                }
+                else if (myOpponent.isDead2 == false)
+                {
+                    myOpponent.health2 = 0f;
+                }
+                else
+                {
+                    myOpponent.health3 = 0f;
+                }
+                break;
+            case 2:
+                if (myOpponent.isDead2 == false)
+                {
+                    myOpponent.health2 = 0f;
+                }
+                else if (myOpponent.isDead == false)
+                {
+                    myOpponent.health = 0f;
+                }
+                else
+                {
+                    myOpponent.health3 = 0f;
+                }
+                break;
+            case 3:
+                if (myOpponent.isDead3 == false)
+                {
+                    myOpponent.health3 = 0f;
+                }
+                else if (myOpponent.isDead2 == false)
+                {
+                    myOpponent.health2 = 0f;
+                }
+                else
+                {
+                    myOpponent.health = 0f;
+                }
+                break;
+        }
+    }
+
+
+    //take damage for special attacks only
     void TakeSpecialDamage(float enemy, float damage)
     {
         switch (enemy)
