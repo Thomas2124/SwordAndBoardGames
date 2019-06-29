@@ -120,7 +120,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3419355764041805077}
-        m_MethodName: CallCmdSpecial
+        m_MethodName: Special
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1125,6 +1125,7 @@ MonoBehaviour:
   defenceRating: 60
   characterName: 
   myExp: 0
+  startingDefence: 0
   health2: 100
   mana2: 0
   isDefending2: 0
@@ -1133,6 +1134,7 @@ MonoBehaviour:
   defenceRating2: 50
   characterName2: 
   myExp2: 0
+  startingDefence2: 0
   health3: 100
   mana3: 0
   isDefending3: 0
@@ -1141,6 +1143,10 @@ MonoBehaviour:
   defenceRating3: 120
   characterName3: 
   myExp3: 0
+  startingDefence3: 0
+  skip: 0
+  skip2: 0
+  skip3: 0
   playerName: {fileID: 3166526725623924576}
   name: 
   textPosition: {x: 0, y: 0, z: 0}
@@ -1149,6 +1155,7 @@ MonoBehaviour:
   baseHealth2: 0
   baseHealth3: 0
   sourceDamage: 0
+  isSpecial: 0
   character1: {fileID: 6171179580346686866}
   character2: {fileID: 9050356880270935159}
   character3: {fileID: 4441658597577353061}
@@ -1158,9 +1165,6 @@ MonoBehaviour:
   enemyButton1: {fileID: 1746198920771459628}
   enemyButton2: {fileID: 7481695664177084619}
   enemyButton3: {fileID: 1924461646732217484}
-  senemyButton1: {fileID: 0}
-  senemyButton2: {fileID: 0}
-  senemyButton3: {fileID: 0}
   myOpponent: {fileID: 0}
   characterArrow: {fileID: 1650950051312365850}
   healthBar: {fileID: 3774677198499070519}
@@ -1169,9 +1173,13 @@ MonoBehaviour:
   specialBar: {fileID: 865083122571446489}
   specialBar2: {fileID: 5074544143733889389}
   specialBar3: {fileID: 5129905564502816744}
+  percent: 0
   characterNumber: 0
   isMyTurn: 0
   connectID: 0
+  isFishman: 0
+  isDragnoid: 0
+  isGaruda: 0
   once: 0
 --- !u!114 &3419355764041805076
 MonoBehaviour:

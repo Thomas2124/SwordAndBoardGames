@@ -20,8 +20,6 @@ public class PlayerScript : NetworkBehaviour
     public float myExp;
     public float startingDefence;
 
-    float startDefence;
-
     //Character 2
     [Header("Character 2")]
     [SyncVar]
@@ -34,8 +32,6 @@ public class PlayerScript : NetworkBehaviour
     public string characterName2;
     public float myExp2;
     public float startingDefence2;
-
-    float startDefence2;
 
     //Character 3
     [Header("Character 3")]
@@ -50,7 +46,9 @@ public class PlayerScript : NetworkBehaviour
     public float myExp3;
     public float startingDefence3;
 
-    float startDefence3;
+    public bool skip = false;
+    public bool skip2 = false;
+    public bool skip3 = false;
 
     [Header("Player Name")]
     public GameObject playerName;
@@ -103,6 +101,9 @@ public class PlayerScript : NetworkBehaviour
     public int connectID;
 
     public bool isFishman;
+    public bool isDragnoid;
+    public bool isGaruda;
+    public bool isSpider;
 
     //Temp Variables
     float tempDamage;
@@ -209,17 +210,14 @@ public class PlayerScript : NetworkBehaviour
         //Character 1
         string name1 = data.characterName;
         float theExp1 = data.exp;
-        startDefence = defenceRating;
 
         //Character 2
         string name2 = data.characterName2;
         float theExp2 = data.exp2;
-        startDefence = defenceRating2;
 
         //Character 3
         string name3 = data.characterName3;
         float theExp3 = data.exp3;
-        startDefence = defenceRating3;
 
         RpcLoadData(name1, name2, name3, theExp1, theExp2, theExp3);
     }
@@ -285,37 +283,40 @@ public class PlayerScript : NetworkBehaviour
             characterArrow.SetActive(true);
             if (characterNumber == 1)
             {
-                if (isDead == false)
+                if (isDead == false && skip == false)
                 {
                     ArrowSetter(1);
                     characterArrow.transform.localPosition = arrowPosition;
                 }
                 else
                 {
+                    skip = false;
                     characterNumber += 1;
                 }
             }
             else if (characterNumber == 2)
             {
-                if (isDead2 == false)
+                if (isDead2 == false && skip2 == false)
                 {
                     ArrowSetter(2);
                     characterArrow.transform.localPosition = arrowPosition;
                 }
                 else
                 {
+                    skip2 = false;
                     characterNumber += 1;
                 }
             }
             else if (characterNumber == 3)
             {
-                if (isDead3 == false)
+                if (isDead3 == false && skip3 == false)
                 {
                     ArrowSetter(3);
                     characterArrow.transform.localPosition = arrowPosition;
                 }
                 else
                 {
+                    skip3 = false;
                     characterNumber += 1;
                 }
             }
@@ -515,14 +516,11 @@ public class PlayerScript : NetworkBehaviour
         myBool = false;
         enemyBool = true;
         int myNum = 1;
-        float num1 = startingDefence;
-        float num2 = startingDefence2;
-        float num3 = startingDefence3;
-        RpcTurnSetter(myBool, enemyBool, myNum, num1, num2, num3);
+        RpcTurnSetter(myBool, enemyBool, myNum);
     }
 
     [ClientRpc]
-    void RpcTurnSetter(bool myBool, bool enemyBool, int num, float def1, float def2, float def3)
+    void RpcTurnSetter(bool myBool, bool enemyBool, int num)
     {
         this.isMyTurn = myBool;
         myOpponent.isMyTurn = enemyBool;
@@ -551,6 +549,8 @@ public class PlayerScript : NetworkBehaviour
         this.defenceRating = def1;
         this.defenceRating2 = def2;
         this.defenceRating3 = def3;
+        this.isGaruda = mybool;
+        this.isSpecial = mybool;
     }
 
     //set position of players specialbar
@@ -677,7 +677,7 @@ public class PlayerScript : NetworkBehaviour
             AttackOptions();
         }
     }
-
+    
     void AttackOptions()
     {
         AttackButtonsOnOff(true);
@@ -685,11 +685,20 @@ public class PlayerScript : NetworkBehaviour
 
     public void Attack1()
     {
+        AttackButtonsOnOff(false);
         if (isSpecial == true)
         {
             if (isFishman == true)
             {
                 CmdFishSpecial(percent, 1);
+            }
+            else if(isDragnoid == true)
+            {
+                CmdDragonoidSpecial(1);
+            }
+            else if (isSpider == true)
+            {
+                CmdSpiderSpecial(1);
             }
             else
             {
@@ -704,11 +713,20 @@ public class PlayerScript : NetworkBehaviour
 
     public void Attack2()
     {
+        AttackButtonsOnOff(false);
         if (isSpecial == true)
         {
             if (isFishman == true)
             {
                 CmdFishSpecial(percent, 2);
+            }
+            else if (isDragnoid == true)
+            {
+                CmdDragonoidSpecial(2);
+            }
+            else if (isSpider == true)
+            {
+                CmdSpiderSpecial(2);
             }
             else
             {
@@ -723,11 +741,20 @@ public class PlayerScript : NetworkBehaviour
 
     public void Attack3()
     {
+        AttackButtonsOnOff(false);
         if (isSpecial == true)
         {
             if (isFishman == true)
             {
                 CmdFishSpecial(percent, 3);
+            }
+            else if (isDragnoid == true)
+            {
+                CmdDragonoidSpecial(3);
+            }
+            else if (isSpider == true)
+            {
+                CmdSpiderSpecial(3);
             }
             else
             {
@@ -780,6 +807,7 @@ public class PlayerScript : NetworkBehaviour
     {
         int playerNum = characterNumber;
         int playerNum2 = characterNumber + 1;
+        AttackButtonsOnOff(false);
 
         bool defend1 = myOpponent.isDefending;
         bool defend2 = myOpponent.isDefending2;
@@ -930,32 +958,31 @@ public class PlayerScript : NetworkBehaviour
                 this.characterNumber += 1;
                 break;
         }
+        AttackButtonsOnOff(false);
     }
 
     //Special move option
-    [Command]
-    public void CmdSpecial()
+    public void Special()
     {
         SpecialButtonsOnOff(false);
         int number = characterNumber;
-        RpcSpecial(number);
+        addSpecial(number);
     }
 
-    [ClientRpc]
-    void RpcSpecial(int number)
+    void addSpecial(int number)
     {
         switch (number)
         {
             case 1:
-                CharacterSpecialMove(characterName);
+                this.CharacterSpecialMove(characterName);
                 this.mana = 0f;
                 break;
             case 2:
-                CharacterSpecialMove(characterName2);
+                this.CharacterSpecialMove(characterName2);
                 this.mana2 = 0f;
                 break;
             case 3:
-                CharacterSpecialMove(characterName3);
+                this.CharacterSpecialMove(characterName3);
                 this.mana3 = 0f;
                 break;
         }
@@ -981,6 +1008,8 @@ public class PlayerScript : NetworkBehaviour
                 CmdSlimeSpecial();
                 break;
             case "dragonoid":
+                isDragnoid = true;
+                AttackButtonsOnOff(true);
                 break;
             case "golem":
                 percent = 100f;
@@ -1007,6 +1036,9 @@ public class PlayerScript : NetworkBehaviour
                 CmdSpecialDefence(percent);
                 break;
             case "garuda":
+                isGaruda = true;
+                characterNumber += 1;
+                AttackButtonsOnOff(false);
                 break;
             case "loxodon":
                 percent = 75f;
@@ -1017,6 +1049,8 @@ public class PlayerScript : NetworkBehaviour
                 CmdSpecialDefence(percent);
                 break;
             case "spiderperson":
+                isSpider = true;
+                AttackButtonsOnOff(true);
                 break;
             case "hobnoblin":
                 percent = 25f;
@@ -1051,7 +1085,6 @@ public class PlayerScript : NetworkBehaviour
         AttackButtonsOnOff(false);
 
         characterNumber += 1;
-
         RpcSpecialAttack(sourceDamage, enemy);
     }
 
@@ -1089,7 +1122,7 @@ public class PlayerScript : NetworkBehaviour
         baseDefence += increase2;
         isSpecial = false;
         characterNumber += 1;
-
+        AttackButtonsOnOff(false);
         RpcSpecialDefence(baseDefence, characterNumber);
     }
 
@@ -1145,12 +1178,12 @@ public class PlayerScript : NetworkBehaviour
         baseDefence += increase4;
 
         RpcFishSpecial(baseDefence, baseAttack, enemy, characterNumber);
-        AttackButtonsOnOff(false);
     }
 
     [ClientRpc]
     void RpcFishSpecial(float defence, float attack, int enemy, float character)
     {
+        AttackButtonsOnOff(false);
         switch (character)
         {
             case 1:
@@ -1180,6 +1213,7 @@ public class PlayerScript : NetworkBehaviour
         isSpecial = false;
         isFishman = false;
         characterNumber += 1;
+        AttackButtonsOnOff(false);
     }
 
     [Command]
@@ -1228,6 +1262,7 @@ public class PlayerScript : NetworkBehaviour
         }
 
         characterNumber += 1;
+        AttackButtonsOnOff(false);
     }
 
     [ClientRpc]
@@ -1280,6 +1315,63 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    [Command]
+    void CmdDragonoidSpecial(int num)
+    {
+        characterNumber += 1;
+        RpcDragonoidSpecial(num);
+    }
+
+    [ClientRpc]
+    void RpcDragonoidSpecial(int num)
+    {
+        AttackButtonsOnOff(false);
+        isDragnoid = false;
+        isSpecial = false;
+        switch (num)
+        {
+            case 1:
+                myOpponent.skip = true;
+                break;
+            case 2:
+                myOpponent.skip2 = true;
+                break;
+            case 3:
+                myOpponent.skip3 = true;
+                break;
+        }
+    }
+
+    [Command]
+    void CmdSpiderSpecial(int num)
+    {
+        characterNumber += 1;
+
+        RpcSpiderSpecial(num, myOpponent.mana, myOpponent.mana2, myOpponent.mana3);
+    }
+
+    [ClientRpc]
+    void RpcSpiderSpecial(int num, float mVal, float mVal2, float mVal3)
+    {
+        AttackButtonsOnOff(false);
+        isSpider = false;
+        isSpecial = false;
+        switch (num)
+        {
+            case 1:
+                float value = mVal / 100f;
+                myOpponent.mana -= value * 25f;
+                break;
+            case 2:
+                float value2 = mVal2 / 100f;
+                myOpponent.mana2 -= value2 * 25f;
+                break;
+            case 3:
+                float value3 = mVal3 / 100f;
+                myOpponent.mana3 -= value3 * 25f;
+                break;
+        }
+    }
 
     //take damage for special attacks only
     void TakeSpecialDamage(float enemy, float damage)
@@ -1287,13 +1379,34 @@ public class PlayerScript : NetworkBehaviour
         switch (enemy)
         {
             case 1:
-                health -= damage;
+                if (myOpponent.characterName == "garuda" && myOpponent.isGaruda == true)
+                {
+
+                }
+                else
+                {
+                    health -= damage;
+                }
                 break;
             case 2:
-                health2 -= damage;
+                if (myOpponent.characterName2 == "garuda" && myOpponent.isGaruda == true)
+                {
+
+                }
+                else
+                {
+                    health2 -= damage;
+                }
                 break;
             case 3:
-                health3 -= damage;
+                if (myOpponent.characterName3 == "garuda" && myOpponent.isGaruda == true)
+                {
+
+                }
+                else
+                {
+                    health3 -= damage;
+                }
                 break;
         }
     }
@@ -1315,7 +1428,7 @@ public class PlayerScript : NetworkBehaviour
                 break;
         }
 
-        if (enemy == 1)
+        if (enemy == 1 && myOpponent.characterName != "garuda" && myOpponent.isGaruda == false)
         {
             float myDamage = sourceDamage;
             float myDefence = defenceRating;
@@ -1324,7 +1437,7 @@ public class PlayerScript : NetworkBehaviour
             this.health -= sourceDamage;
         }
 
-        if (enemy == 2)
+        if (enemy == 2 && myOpponent.characterName2 != "garuda" && myOpponent.isGaruda == false)
         {
             float myDamage = sourceDamage;
             float myDefence = defenceRating2;
@@ -1333,7 +1446,7 @@ public class PlayerScript : NetworkBehaviour
             this.health2 -= sourceDamage;
         }
 
-        if (enemy == 3)
+        if (enemy == 3 && myOpponent.characterName3 != "garuda" && myOpponent.isGaruda == false)
         {
             float myDamage = sourceDamage;
             float myDefence = defenceRating3;
