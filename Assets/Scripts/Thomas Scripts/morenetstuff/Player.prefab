@@ -614,7 +614,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 13f2c94d862342c41a1cdbe186c29055, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0afa49c2e1c5f104da077265793c7c1b, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1117,6 +1117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theCharacterNames: []
+  theCharacterSprites: []
   isWinner: 0
   health: 100
   mana: 0
@@ -1203,6 +1204,23 @@ MonoBehaviour:
   minotaur_exp: 0
   spiderperson_exp: 0
   hobnoblin_exp: 0
+  fishman_Sprite: {fileID: 21300000, guid: 76018b5734d3fac46ac7f698d175fae0, type: 3}
+  werewolf_Sprite: {fileID: 21300000, guid: 81114389d22143c41a4503eb513c4a57, type: 3}
+  bukkakeSlime_Sprite: {fileID: 21300000, guid: d0743b572e7ffc04689f22f5d1a10cdf,
+    type: 3}
+  dragonoid_Sprite: {fileID: 21300000, guid: 2c97e7d7a5195454f930ac7b59b12a30, type: 3}
+  golem_Sprite: {fileID: 21300000, guid: 4797a1ba6a2e1d642a5e72e5d5df12e1, type: 3}
+  catperson_Sprite: {fileID: 21300000, guid: 26a5a6555392bff4491b4a61937e569e, type: 3}
+  angel_Sprite: {fileID: 21300000, guid: b1f62c6c1b96e1642a7fa1957cb67534, type: 3}
+  devil_Sprite: {fileID: 21300000, guid: 07f55ead77dcb9f4a9445f6042747330, type: 3}
+  orge_Sprite: {fileID: 21300000, guid: a86acb121da6da748bb558386ee5a455, type: 3}
+  gargoyle_Sprite: {fileID: 21300000, guid: ac7618f7130ee5c429a892194fa3bc4b, type: 3}
+  garuda_Sprite: {fileID: 21300000, guid: 0832b9a100ac89944bdd55fb32e089f2, type: 3}
+  loxodon_Sprite: {fileID: 21300000, guid: 4f23611aad06cb148bc67cec23ad3df9, type: 3}
+  minotaur_Sprite: {fileID: 21300000, guid: 3d34d8ec23fc3354d9c004302e15dd61, type: 3}
+  spiderperson_Sprite: {fileID: 21300000, guid: 14e645b71ba53e24f9d3929c1be39b29,
+    type: 3}
+  hobnoblin_Sprite: {fileID: 21300000, guid: 223edd483086f7c42a8e280a5ff89ad3, type: 3}
 --- !u!114 &3419355764041805076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1301,7 +1319,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 5f595f2ece35c754ea0da8e101408d79, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e64f3ec779ce08c46888077814097cce, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1449,7 +1467,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 13f2c94d862342c41a1cdbe186c29055, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0afa49c2e1c5f104da077265793c7c1b, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1966,7 +1984,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 13f2c94d862342c41a1cdbe186c29055, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0afa49c2e1c5f104da077265793c7c1b, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2040,7 +2058,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 5f595f2ece35c754ea0da8e101408d79, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e64f3ec779ce08c46888077814097cce, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2325,7 +2343,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 5f595f2ece35c754ea0da8e101408d79, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e64f3ec779ce08c46888077814097cce, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
