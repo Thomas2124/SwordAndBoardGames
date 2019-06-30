@@ -17,6 +17,7 @@ public class PlayerScript : NetworkBehaviour
     public float attackRating = 10f;
     public float defenceRating = 30f;
     public string characterName;
+    public int level;
     public float myExp;
     public float startingDefence;
 
@@ -30,6 +31,7 @@ public class PlayerScript : NetworkBehaviour
     public float attackRating2 = 25f;
     public float defenceRating2 = 50f;
     public string characterName2;
+    public int level2;
     public float myExp2;
     public float startingDefence2;
 
@@ -43,6 +45,7 @@ public class PlayerScript : NetworkBehaviour
     public float attackRating3 = 40f;
     public float defenceRating3 = 60f;
     public string characterName3;
+    public int level3;
     public float myExp3;
     public float startingDefence3;
 
@@ -52,11 +55,11 @@ public class PlayerScript : NetworkBehaviour
 
     public GameObject timerText;
 
-    [SyncVar]
+    /*[SyncVar]
     public int nextTime;
 
     [SyncVar]
-    public int turnTime;
+    public int turnTime;*/
 
     [Header("Player Name")]
     public GameObject playerName;
@@ -98,6 +101,7 @@ public class PlayerScript : NetworkBehaviour
     public Image specialBar2;
     public Image specialBar3;
 
+    public GameObject victoryText;
     public float percent;
 
     [Header("Turn Stuff")]
@@ -129,7 +133,7 @@ public class PlayerScript : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            turnTime = 5;
+            //turnTime = 60;
             isWinner = false;
             isDead = false;
             isDead2 = false;
@@ -138,6 +142,10 @@ public class PlayerScript : NetworkBehaviour
             if (SaveSystem.LoadPlayer() != null)
             {
                 CmdLoadData();
+            }
+            else
+            {
+                CmdStatSetter();
             }
 
             connectID = NetworkServer.connections.Count;
@@ -150,9 +158,6 @@ public class PlayerScript : NetworkBehaviour
                 isMyTurn = false;
             }
 
-            startingDefence = defenceRating;
-            startingDefence2 = defenceRating2;
-            startingDefence3 = defenceRating3;
             characterNumber = 1;
             playerButton.SetActive(isMyTurn);
             defendButton.SetActive(isMyTurn);
@@ -162,8 +167,10 @@ public class PlayerScript : NetworkBehaviour
             enemyButton3.SetActive(false);
             characterArrow.SetActive(false);
             timerText.SetActive(true);
+            victoryText.SetActive(false);
 
             timerText.transform.localPosition = new Vector3(0f, 250f, 0f);
+            victoryText.transform.localPosition = new Vector3(0f, 0f, 0f);
         }
         else if (!isLocalPlayer)
         {
@@ -175,6 +182,7 @@ public class PlayerScript : NetworkBehaviour
             enemyButton3.SetActive(false);
             characterArrow.SetActive(false);
             timerText.SetActive(false);
+            victoryText.SetActive(false);
         }
     }
 
@@ -183,36 +191,41 @@ public class PlayerScript : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            if (once == false)
-            {
-                CmdBaseHealthSetter(baseHealth1, baseHealth2, baseHealth3);
-            }
-
             CmdFindPLayers();
 
-            CmdHealthBar(health, health2, health3);
+            if (myOpponent != null && myOpponent.isWinner == false && this.isWinner == false)
+            {
+                if (once == false)
+                {
+                    CmdBaseHealthSetter(baseHealth1, baseHealth2, baseHealth3);
+                }
 
-            CmdSpecialBar(mana, mana2, mana3);
+                CmdHealthBar(health, health2, health3);
 
-            CmdNameSetter(tempName, tempPosition);
+                CmdSpecialBar(mana, mana2, mana3);
 
-            CmdCharacterPosition();
+                CmdNameSetter(tempName, tempPosition);
 
-            playerButton.SetActive(isMyTurn);
+                CmdCharacterPosition();
 
-            defendButton.SetActive(isMyTurn);
+                playerButton.SetActive(isMyTurn);
 
-            timerText.SetActive(isMyTurn);
+                defendButton.SetActive(isMyTurn);
 
-            CmdDeathChecker();
+                timerText.SetActive(isMyTurn);
 
-            ButtonChecker();
+                CmdDeathChecker(health, health2, health3);
 
-            CmdCharacterLoop();
+                ButtonChecker();
 
-            SpecialButtonActive(characterNumber);
+                CmdCharacterLoop();
 
-            CmdArrow(isMyTurn);
+                SpecialButtonActive(characterNumber);
+
+                CmdArrow(isMyTurn);
+
+                CmdTheWin();
+            }
 
             /*if (myOpponent != null)
             {
@@ -231,6 +244,56 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    [Command]
+    void CmdTheWin()
+    {
+        bool one = isDead;
+        bool two = isDead2;
+        bool three = isDead3;
+        bool four = myOpponent.isDead;
+        bool five = myOpponent.isDead2;
+        bool six = myOpponent.isDead3;
+        bool win1 = isWinner;
+        bool win2 = myOpponent.isWinner;
+
+        RpcTheWin(one, two, three, four, five, six, win1, win2);
+    }
+
+    [ClientRpc]
+    void RpcTheWin(bool one, bool two, bool three, bool four, bool five, bool six, bool win1, bool win2)
+    {
+        if (one == true && two == true && three == true || four == true && five == true && six == true)
+        {
+            this.victoryText.SetActive(true);
+            myOpponent.victoryText.SetActive(true);
+
+            if (win1 == true)
+            {
+                this.victoryText.transform.localPosition = new Vector3(450f, 0f, 0f);
+                this.victoryText.GetComponent<Text>().text = "Winner";
+            }
+            else
+            {
+                this.victoryText.transform.localPosition = new Vector3(450f, 0f, 0f);
+                this.victoryText.GetComponent<Text>().text = "Loser";
+            }
+
+            if (win2 == true)
+            {
+                myOpponent.victoryText.transform.localPosition = new Vector3(-450f, 0f, 0f);
+                myOpponent.victoryText.GetComponent<Text>().text = "Winner";
+            }
+            else
+            {
+                myOpponent.victoryText.transform.localPosition = new Vector3(-450f, 0f, 0f);
+                myOpponent.victoryText.GetComponent<Text>().text = "Loser";
+            }
+
+            this.characterArrow.SetActive(false);
+            myOpponent.characterArrow.SetActive(false);
+        }
+    }
+
     /*[Command]
     void CmdTimerStuff(int turnTime)
     {
@@ -244,39 +307,122 @@ public class PlayerScript : NetworkBehaviour
     }*/
 
     [Command]
+    void CmdStatSetter()
+    {
+        float levelGain = myExp / 100f;
+
+        if (levelGain < 1f)
+        {
+            level = 1;
+        }
+        else
+        {
+            level = Mathf.RoundToInt(levelGain);
+            float addHealth = level * 20;
+            float addAttack = level * 5;
+            float addDefence = level * 10;
+
+            health += addHealth;
+            attackRating += addAttack;
+            defenceRating += addDefence;
+        }
+
+        float levelGain2 = myExp2 / 100f;
+
+        if (levelGain2 < 1f)
+        {
+            level2 = 1;
+        }
+        else
+        {
+            level2 = Mathf.RoundToInt(levelGain2);
+            float addHealth = level * 20;
+            float addAttack = level * 5;
+            float addDefence = level * 10;
+
+            health2 += addHealth;
+            attackRating2 += addAttack;
+            defenceRating2 += addDefence;
+        }
+
+        float levelGain3 = myExp3 / 100f;
+
+        if (levelGain3 < 1f)
+        {
+            level3 = 1;
+        }
+        else
+        {
+            level3 = Mathf.RoundToInt(levelGain3);
+            float addHealth = level * 20;
+            float addAttack = level * 5;
+            float addDefence = level * 10;
+
+            health3 += addHealth;
+            attackRating3 += addAttack;
+            defenceRating3 += addDefence;
+        }
+
+
+        startingDefence = defenceRating;
+        startingDefence2 = defenceRating2;
+        startingDefence3 = defenceRating3;
+    }
+
+    [Command]
     void CmdLoadData()
     {
         PlayerData data = SaveSystem.LoadPlayer();
 
         //Character 1
         string name1 = data.characterName;
+        float health1 = data.health;
+        float attack1 = data.attackRating;
+        float defence1 = data.defenceRating;
         float theExp1 = data.exp;
 
         //Character 2
         string name2 = data.characterName2;
+        float health2 = data.health2;
+        float attack2 = data.attackRating2;
+        float defence2 = data.defenceRating2;
         float theExp2 = data.exp2;
 
         //Character 3
         string name3 = data.characterName3;
+        float health3 = data.health3;
+        float attack3= data.attackRating3;
+        float defence3 = data.defenceRating3;
         float theExp3 = data.exp3;
 
-        RpcLoadData(name1, name2, name3, theExp1, theExp2, theExp3);
+        RpcLoadData(name1, name2, name3, theExp1, theExp2, theExp3, health1, health2, health3, attack1, attack2, attack3, defence1, defence2, defence3);
     }
 
     [ClientRpc]
-    void RpcLoadData(string name1, string name2, string name3, float theExp1, float theExp2, float theExp3)
+    void RpcLoadData(string name1, string name2, string name3, float theExp1, float theExp2, float theExp3, float health, float health2, float health3, float attack, float attack2, float attack3, float defence, float defence2, float defence3)
     {
         //Character 1
         this.characterName = name1;
+        this.attackRating = attack;
+        this.defenceRating = defence;
+        this.health = health;
         this.myExp = theExp1;
 
         //Character 2
         this.characterName2 = name2;
+        this.attackRating2 = attack2;
+        this.defenceRating2 = defence2;
+        this.health2 = health2;
         this.myExp2 = theExp2;
 
         //Character 3
         this.characterName3 = name3;
+        this.attackRating3 = attack3;
+        this.defenceRating3 = defence3;
+        this.health3 = health3;
         this.myExp3 = theExp3;
+
+        this.CmdStatSetter();
     }
 
     //turns character arrow on and off
@@ -410,48 +556,73 @@ public class PlayerScript : NetworkBehaviour
 
     //Used to check if a character is dead and if the game is over
     [Command]
-    void CmdDeathChecker()
+    void CmdDeathChecker(float heal1, float heal2, float heal3)
     {
-        float heal1 = health;
-        float heal2 = health2;
-        float heal3 = health3;
-
-        RpcDeathChecker(heal1, heal2, heal3);
+        RpcDeathChecker(heal1, heal2, heal3, false, true);
     }
 
     [ClientRpc]
-    void RpcDeathChecker(float heal1, float heal2, float heal3)
+    void RpcDeathChecker(float heal1, float heal2, float heal3, bool off, bool on)
     {
         if (heal1 <= 0f)
         {
             this.health = 0f;
-            this.isDead = true;
-            this.character1.SetActive(false);
+            this.isDead = on;
+            this.character1.SetActive(off);
         }
 
         if (heal2 <= 0f)
         {
             this.health2 = 0f;
-            this.isDead2 = true;
-            this.character2.SetActive(false);
+            this.isDead2 = on;
+            this.character2.SetActive(off);
         }
 
         if (heal3 <= 0f)
         {
             this.health3 = 0f;
-            this.isDead3 = true;
-            this.character3.SetActive(false);
+            this.isDead3 = on;
+            this.character3.SetActive(off);
         }
 
-        if (this.isDead == true && this.isDead2 == true && this.isDead3 == true)
+        if (heal1 <= 0f && heal2 <= 0f && heal3 <= 0f)
         {
-            myOpponent.isWinner = true;
+            myOpponent.isWinner = on;
         }
 
-        if (this.isWinner == true)
+        if (this.isWinner == on || myOpponent.isWinner == on)
         {
-            this.gameObject.SetActive(false);
-            myOpponent.gameObject.SetActive(false);
+            this.AttackButtonsOnOff(off);
+            this.playerButton.SetActive(off);
+            this.defendButton.SetActive(off);
+            this.specialButton.SetActive(off);
+            this.character1.SetActive(off);
+            this.character2.SetActive(off);
+            this.character3.SetActive(off);
+            this.healthBar.enabled = off;
+            this.healthBar2.enabled = off;
+            this.healthBar3.enabled = off;
+            this.specialBar.enabled = off;
+            this.specialBar2.enabled = off;
+            this.specialBar3.enabled = off;
+            this.characterArrow.SetActive(off);
+
+            myOpponent.AttackButtonsOnOff(off);
+            myOpponent.playerButton.SetActive(off);
+            myOpponent.defendButton.SetActive(off);
+            myOpponent.specialButton.SetActive(off);
+            myOpponent.character1.SetActive(off);
+            myOpponent.character2.SetActive(off);
+            myOpponent.character3.SetActive(off);
+            myOpponent.healthBar.enabled = off;
+            myOpponent.healthBar2.enabled = off;
+            myOpponent.healthBar3.enabled = off;
+            myOpponent.specialBar.enabled = off;
+            myOpponent.specialBar2.enabled = off;
+            myOpponent.specialBar3.enabled = off;
+            myOpponent.characterArrow.SetActive(off);
+            //this.gameObject.SetActive(false);
+            //myOpponent.gameObject.SetActive(false);
         }
     }
 
@@ -596,7 +767,7 @@ public class PlayerScript : NetworkBehaviour
         this.defenceRating3 = def3;
         this.isGaruda = mybool;
         this.isSpecial = mybool;
-        this.turnTime = 5;
+        //this.turnTime = 60;
     }
 
     //set position of players specialbar
