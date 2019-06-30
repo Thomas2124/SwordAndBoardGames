@@ -50,6 +50,14 @@ public class PlayerScript : NetworkBehaviour
     public bool skip2 = false;
     public bool skip3 = false;
 
+    public GameObject timerText;
+
+    [SyncVar]
+    public int nextTime;
+
+    [SyncVar]
+    public int turnTime;
+
     [Header("Player Name")]
     public GameObject playerName;
     [SyncVar]
@@ -121,7 +129,7 @@ public class PlayerScript : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-
+            turnTime = 5;
             isWinner = false;
             isDead = false;
             isDead2 = false;
@@ -153,6 +161,9 @@ public class PlayerScript : NetworkBehaviour
             enemyButton2.SetActive(false);
             enemyButton3.SetActive(false);
             characterArrow.SetActive(false);
+            timerText.SetActive(true);
+
+            timerText.transform.localPosition = new Vector3(0f, 250f, 0f);
         }
         else if (!isLocalPlayer)
         {
@@ -163,6 +174,7 @@ public class PlayerScript : NetworkBehaviour
             enemyButton2.SetActive(false);
             enemyButton3.SetActive(false);
             characterArrow.SetActive(false);
+            timerText.SetActive(false);
         }
     }
 
@@ -190,6 +202,8 @@ public class PlayerScript : NetworkBehaviour
 
             defendButton.SetActive(isMyTurn);
 
+            timerText.SetActive(isMyTurn);
+
             CmdDeathChecker();
 
             ButtonChecker();
@@ -199,8 +213,35 @@ public class PlayerScript : NetworkBehaviour
             SpecialButtonActive(characterNumber);
 
             CmdArrow(isMyTurn);
+
+            /*if (myOpponent != null)
+            {
+                if (System.DateTime.Now.Second >= nextTime && isMyTurn == true)
+                {
+                    nextTime = System.DateTime.Now.Second + 1;
+                    turnTime -= 1;
+                    CmdTimerStuff(turnTime);
+                }
+
+                if (turnTime <= 0)
+                {
+                    characterNumber = 4;
+                }
+            }*/
         }
     }
+
+    /*[Command]
+    void CmdTimerStuff(int turnTime)
+    {
+        RpcTimerStuff(turnTime);
+    }
+
+    [ClientRpc]
+    void RpcTimerStuff(int turnTime)
+    {
+        timerText.GetComponent<Text>().text = turnTime.ToString();
+    }*/
 
     [Command]
     void CmdLoadData()
@@ -516,6 +557,10 @@ public class PlayerScript : NetworkBehaviour
         myBool = false;
         enemyBool = true;
         int myNum = 1;
+        AttackButtonsOnOff(false);
+        playerButton.SetActive(false);
+        defendButton.SetActive(false);
+        specialButton.SetActive(false);
         RpcTurnSetter(myBool, enemyBool, myNum);
     }
 
@@ -551,6 +596,7 @@ public class PlayerScript : NetworkBehaviour
         this.defenceRating3 = def3;
         this.isGaruda = mybool;
         this.isSpecial = mybool;
+        this.turnTime = 5;
     }
 
     //set position of players specialbar
