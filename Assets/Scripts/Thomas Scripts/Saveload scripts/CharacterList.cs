@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterList : MonoBehaviour
 {
@@ -163,17 +164,20 @@ public class CharacterList : MonoBehaviour
     public int hobnoblin_level = 1;
     public float hobnoblin_exp = 0f;
 
-    public GameObject firstPlace;
-    public GameObject secondPlace;
-    public GameObject thirdPlace;
+    //public GameObject firstPlace;
+    //public GameObject secondPlace;
+    //public GameObject thirdPlace;
+    public GameObject saveButton;
     // Start is called before the first frame update
     void Awake()
     {
-        checkerScript = GameObject.Find("EGO place getter").GetComponent<PlaceChecker>();
+        //checkerScript = GameObject.Find("EGO place getter").GetComponent<PlaceChecker>();
         pickedCharacter = false;
         pick1 = true;
         pick2 = false;
         pick3 = false;
+        saveButton.SetActive(false);
+
         if (ExpSaveSystem.LoadPlayer() == null)
         {
             
@@ -202,7 +206,7 @@ public class CharacterList : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        firstPlace = checkerScript.firstCharacter;
+        /*firstPlace = checkerScript.firstCharacter;
         secondPlace = checkerScript.secondCharacter;
         thirdPlace = checkerScript.thirdCharacter;
 
@@ -227,10 +231,11 @@ public class CharacterList : MonoBehaviour
         if (firstPlace != null && secondPlace != null && thirdPlace != null)
         {
             SaveStats();
-        }
-        /*if (pick1 == true)
+        }*/
+
+        if (pick1 == true)
         {
-           if (pickedCharacter == true)
+            if (pickedCharacter == true)
             {
                 ReplaceStats(1, n, h, a, d, l, e);
                 pick2 = true;
@@ -258,7 +263,16 @@ public class CharacterList : MonoBehaviour
                 pickedCharacter = false;
                 pick3 = false;
             }
-        }*/
+        }
+
+        if (pick1 == false && pick2 == false  && pick3 == false)
+        {
+            saveButton.SetActive(true);
+        }
+        else
+        {
+            saveButton.SetActive(false);
+        }
     }
 
     void CharacterSetter(string characterTag, int myNum)
@@ -314,14 +328,10 @@ public class CharacterList : MonoBehaviour
         }
     }
 
-    void Character1Stats()
-    {
-
-    }
-
     public void SaveStats() //Saves data
     {
         SaveSystem.SavePlayer(this);
+        SceneManager.LoadScene("TL_TestLocalMultiplayer");
     }
 
     public void ReplaceStats(int number, string n, float h, float a, float d, int l, float e)

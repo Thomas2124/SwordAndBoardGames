@@ -1116,6 +1116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a2285b777bce14aa6d6b04988d13e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  theCharacterNames: []
   isWinner: 0
   health: 100
   mana: 0
@@ -1187,6 +1188,21 @@ MonoBehaviour:
   isGaruda: 0
   isSpider: 0
   once: 0
+  fishman_exp: 0
+  werewolf_exp: 0
+  bukkakeSlime_exp: 0
+  dragonoid_exp: 0
+  golem_exp: 0
+  catperson_exp: 0
+  angel_exp: 0
+  devil_exp: 0
+  orge_exp: 0
+  gargoyle_exp: 0
+  garuda_exp: 0
+  loxodon_exp: 0
+  minotaur_exp: 0
+  spiderperson_exp: 0
+  hobnoblin_exp: 0
 --- !u!114 &3419355764041805076
 MonoBehaviour:
   m_ObjectHideFlags: 0

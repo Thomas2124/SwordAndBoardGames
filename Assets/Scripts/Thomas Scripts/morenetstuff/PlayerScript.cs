@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : NetworkBehaviour
 {
+    public List<string> theCharacterNames;
     public bool isWinner;
     //Character 1
     [Header("Character 1")]
@@ -91,7 +93,7 @@ public class PlayerScript : NetworkBehaviour
     public GameObject enemyButton2;
     public GameObject enemyButton3;
     public PlayerScript myOpponent;
-
+    //public GameObject menuButton;
     [Header("Player Bars/Images")]
     public GameObject characterArrow;
     public Image healthBar;
@@ -128,6 +130,22 @@ public class PlayerScript : NetworkBehaviour
     bool attackPressed;
     public bool once = false;
 
+    public float fishman_exp;
+    public float werewolf_exp;
+    public float bukkakeSlime_exp;
+    public float dragonoid_exp;
+    public float golem_exp;
+    public float catperson_exp;
+    public float angel_exp;
+    public float devil_exp;
+    public float orge_exp;
+    public float gargoyle_exp;
+    public float garuda_exp;
+    public float loxodon_exp;
+    public float minotaur_exp;
+    public float spiderperson_exp;
+    public float hobnoblin_exp;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -146,6 +164,26 @@ public class PlayerScript : NetworkBehaviour
             else
             {
                 CmdStatSetter();
+            }
+
+            if (ExpSaveSystem.LoadPlayer() != null)
+            {
+                ExpSaver expData = ExpSaveSystem.LoadPlayer();
+                fishman_exp = expData.fishman_exp;
+                werewolf_exp = expData.werewolf_exp;
+                bukkakeSlime_exp = expData.bukkakeSlime_exp;
+                dragonoid_exp = expData.dragonoid_exp;
+                golem_exp = expData.golem_exp;
+                catperson_exp = expData.catperson_exp;
+                angel_exp = expData.angel_exp;
+                devil_exp = expData.devil_exp;
+                orge_exp = expData.orge_exp;
+                gargoyle_exp = expData.gargoyle_exp;
+                garuda_exp = expData.garuda_exp;
+                loxodon_exp = expData.loxodon_exp;
+                minotaur_exp = expData.minotaur_exp;
+                spiderperson_exp = expData.spiderperson_exp;
+                hobnoblin_exp = expData.hobnoblin_exp;
             }
 
             connectID = NetworkServer.connections.Count;
@@ -167,7 +205,8 @@ public class PlayerScript : NetworkBehaviour
             enemyButton3.SetActive(false);
             characterArrow.SetActive(false);
             timerText.SetActive(true);
-            victoryText.SetActive(false);
+            //victoryText.SetActive(false);
+            //menuButton.SetActive(false);
 
             timerText.transform.localPosition = new Vector3(0f, 250f, 0f);
             victoryText.transform.localPosition = new Vector3(0f, 0f, 0f);
@@ -183,6 +222,7 @@ public class PlayerScript : NetworkBehaviour
             characterArrow.SetActive(false);
             timerText.SetActive(false);
             victoryText.SetActive(false);
+            //menuButton.SetActive(false);
         }
     }
 
@@ -271,6 +311,61 @@ public class PlayerScript : NetworkBehaviour
             {
                 this.victoryText.transform.localPosition = new Vector3(450f, 0f, 0f);
                 this.victoryText.GetComponent<Text>().text = "Winner";
+
+                foreach (string item in theCharacterNames)
+                {
+                    string theName = item;
+                    switch (theName)
+                    {
+                        case "fishman":
+                            this.fishman_exp += 50f;
+                            break;
+                        case "werewolf":
+                            this.werewolf_exp += 50f;
+                            break;
+                        case "bukkake Slime":
+                            this.bukkakeSlime_exp += 50f;
+                            break;
+                        case "dragonoid":
+                            this.dragonoid_exp += 50f;
+                            break;
+                        case "golem":
+                            this.golem_exp += 50f;
+                            break;
+                        case "catperson":
+                            this.catperson_exp += 50f;
+                            break;
+                        case "angel":
+                            this.angel_exp += 50f;
+                            break;
+                        case "devil":
+                            this.devil_exp += 50f;
+                            break;
+                        case "orge":
+                            this.orge_exp += 50f;
+                            break;
+                        case "gargoyle":
+                            this.gargoyle_exp += 50f;
+                            break;
+                        case "garuda":
+                            this.garuda_exp += 50f;
+                            break;
+                        case "loxodon":
+                            this.loxodon_exp += 50f;
+                            break;
+                        case "minotaur":
+                            this.minotaur_exp += 50f;
+                            break;
+                        case "spiderperson":
+                            this.spiderperson_exp += 50f;
+                            break;
+                        case "hobnoblin":
+                            this.hobnoblin_exp += 50f;
+                            break;
+                    }
+                }
+
+                ExpSaveSystem.SavePlayer(this);
             }
             else
             {
@@ -282,6 +377,61 @@ public class PlayerScript : NetworkBehaviour
             {
                 myOpponent.victoryText.transform.localPosition = new Vector3(-450f, 0f, 0f);
                 myOpponent.victoryText.GetComponent<Text>().text = "Winner";
+
+                foreach (string item in theCharacterNames)
+                {
+                    string theName = item;
+                    switch (theName)
+                    {
+                        case "fishman":
+                            myOpponent.fishman_exp += 50f;
+                            break;
+                        case "werewolf":
+                            myOpponent.werewolf_exp += 50f;
+                            break;
+                        case "bukkake Slime":
+                            myOpponent.bukkakeSlime_exp += 50f;
+                            break;
+                        case "dragonoid":
+                            myOpponent.dragonoid_exp += 50f;
+                            break;
+                        case "golem":
+                            myOpponent.golem_exp += 50f;
+                            break;
+                        case "catperson":
+                            myOpponent.catperson_exp += 50f;
+                            break;
+                        case "angel":
+                            myOpponent.angel_exp += 50f;
+                            break;
+                        case "devil":
+                            myOpponent.devil_exp += 50f;
+                            break;
+                        case "orge":
+                            myOpponent.orge_exp += 50f;
+                            break;
+                        case "gargoyle":
+                            myOpponent.gargoyle_exp += 50f;
+                            break;
+                        case "garuda":
+                            myOpponent.garuda_exp += 50f;
+                            break;
+                        case "loxodon":
+                            myOpponent.loxodon_exp += 50f;
+                            break;
+                        case "minotaur":
+                            myOpponent.minotaur_exp += 50f;
+                            break;
+                        case "spiderperson":
+                            myOpponent.spiderperson_exp += 50f;
+                            break;
+                        case "hobnoblin":
+                            myOpponent.hobnoblin_exp += 50f;
+                            break;
+                    }
+                }
+
+                ExpSaveSystem.SavePlayer(myOpponent);
             }
             else
             {
@@ -289,10 +439,19 @@ public class PlayerScript : NetworkBehaviour
                 myOpponent.victoryText.GetComponent<Text>().text = "Loser";
             }
 
+            //this.menuButton.SetActive(true);
+            //myOpponent.menuButton.SetActive(true);
             this.characterArrow.SetActive(false);
             myOpponent.characterArrow.SetActive(false);
         }
     }
+
+    /*public void BackToCharacterScreen()
+    {
+        SceneManager.LoadScene("TL_TestLocalMultiplayer");
+        //NetworkManager manager = GetComponent<NetworkManager>();
+        //manager.StopServer();
+    }*/
 
     /*[Command]
     void CmdTimerStuff(int turnTime)
@@ -391,7 +550,7 @@ public class PlayerScript : NetworkBehaviour
         //Character 3
         string name3 = data.characterName3;
         float health3 = data.health3;
-        float attack3= data.attackRating3;
+        float attack3 = data.attackRating3;
         float defence3 = data.defenceRating3;
         float theExp3 = data.exp3;
 
@@ -407,6 +566,7 @@ public class PlayerScript : NetworkBehaviour
         this.defenceRating = defence;
         this.health = health;
         this.myExp = theExp1;
+        this.theCharacterNames.Add(this.characterName);
 
         //Character 2
         this.characterName2 = name2;
@@ -414,6 +574,7 @@ public class PlayerScript : NetworkBehaviour
         this.defenceRating2 = defence2;
         this.health2 = health2;
         this.myExp2 = theExp2;
+        this.theCharacterNames.Add(this.characterName2);
 
         //Character 3
         this.characterName3 = name3;
@@ -421,6 +582,7 @@ public class PlayerScript : NetworkBehaviour
         this.defenceRating3 = defence3;
         this.health3 = health3;
         this.myExp3 = theExp3;
+        this.theCharacterNames.Add(this.characterName3);
 
         this.CmdStatSetter();
     }

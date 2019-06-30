@@ -50,7 +50,7 @@ public class ExpSaver
     [Header("hobnoblin")]
     public float hobnoblin_exp;
 
-    public ExpSaver(BattleManager myList)
+    public ExpSaver(PlayerScript myList)
     {
         fishman_exp = myList.fishman_exp;
         werewolf_exp = myList.werewolf_exp;
