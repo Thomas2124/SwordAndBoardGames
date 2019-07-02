@@ -64,6 +64,21 @@ public class PlayerScript : NetworkBehaviour
     [SyncVar]
     public int turnTime;*/
 
+    //public Sprite thisCharacterSprite1;
+    //public Sprite thisCharacterSprite2;
+    //public Sprite thisCharacterSprite3;
+
+    //public Sprite enemyCharacterSprite1;
+    //public Sprite enemyCharacterSprite2;
+    //public Sprite enemyCharacterSprite3;
+
+    [SyncVar]
+    public int thisCharacterSprite1;
+    [SyncVar]
+    public int thisCharacterSprite2;
+    [SyncVar]
+    public int thisCharacterSprite3;
+
     [Header("Player Name")]
     public GameObject playerName;
     [SyncVar]
@@ -85,6 +100,10 @@ public class PlayerScript : NetworkBehaviour
     public GameObject character1;
     public GameObject character2;
     public GameObject character3;
+
+    public GameObject character4;
+    public GameObject character5;
+    public GameObject character6;
 
     [Header("Player Turn Buttons")]
     public GameObject playerButton;
@@ -165,6 +184,8 @@ public class PlayerScript : NetworkBehaviour
     public Sprite spiderperson_Sprite;
     public Sprite hobnoblin_Sprite;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -225,6 +246,12 @@ public class PlayerScript : NetworkBehaviour
             characterArrow.SetActive(false);
             timerText.SetActive(true);
             victoryText.SetActive(false);
+            character1.SetActive(true);
+            character2.SetActive(true);
+            character3.SetActive(true);
+            character4.SetActive(true);
+            character5.SetActive(true);
+            character6.SetActive(true);
             //menuButton.SetActive(false);
 
             timerText.transform.localPosition = new Vector3(0f, 250f, 0f);
@@ -241,6 +268,12 @@ public class PlayerScript : NetworkBehaviour
             characterArrow.SetActive(false);
             timerText.SetActive(false);
             victoryText.SetActive(false);
+            character1.SetActive(false);
+            character2.SetActive(false);
+            character3.SetActive(false);
+            character4.SetActive(false);
+            character5.SetActive(false);
+            character6.SetActive(false);
             //menuButton.SetActive(false);
         }
     }
@@ -276,6 +309,8 @@ public class PlayerScript : NetworkBehaviour
 
                 CmdDeathChecker(health, health2, health3);
 
+                CmdGetSprites();
+
                 ButtonChecker();
 
                 CmdCharacterLoop();
@@ -305,6 +340,102 @@ public class PlayerScript : NetworkBehaviour
     }
 
     [Command]
+    void CmdGetSprites()
+    {
+        int num1 = myOpponent.thisCharacterSprite1;
+        int num2 = myOpponent.thisCharacterSprite2;
+        int num3 = myOpponent.thisCharacterSprite3;
+
+        RpcGetSprites(num1);
+        RpcGetSprites(num2);
+        RpcGetSprites(num3);
+    }
+
+    [ClientRpc]
+    void RpcGetSprites(int num)
+    {
+        Sprite spriteToUse = fishman_Sprite;
+        switch (num)
+        {
+            case 1:
+                spriteToUse = fishman_Sprite;
+
+                break;
+            case 2:
+                spriteToUse = werewolf_Sprite;
+
+                break;
+            case 3:
+                spriteToUse = bukkakeSlime_Sprite;
+
+                break;
+            case 4:
+                spriteToUse = dragonoid_Sprite;
+
+                break;
+            case 5:
+                spriteToUse = golem_Sprite;
+
+                break;
+            case 6:
+                spriteToUse = catperson_Sprite;
+
+                break;
+            case 7:
+                spriteToUse = angel_Sprite;
+
+                break;
+            case 8:
+                spriteToUse = devil_Sprite;
+
+                break;
+            case 9:
+                spriteToUse = orge_Sprite;
+
+                break;
+            case 10:
+                spriteToUse = gargoyle_Sprite;
+
+                break;
+            case 11:
+                spriteToUse = garuda_Sprite;
+
+                break;
+            case 12:
+                spriteToUse = loxodon_Sprite;
+
+                break;
+            case 13:
+                spriteToUse = minotaur_Sprite;
+
+                break;
+            case 14:
+                spriteToUse = spiderperson_Sprite;
+
+                break;
+            case 15:
+                spriteToUse = hobnoblin_Sprite;
+
+                break;
+        }
+
+        if (num == myOpponent.thisCharacterSprite1)
+        {
+            this.character4.GetComponent<Image>().sprite = spriteToUse;
+        }
+
+        if (num == myOpponent.thisCharacterSprite2)
+        {
+            this.character5.GetComponent<Image>().sprite = spriteToUse;
+        }
+
+        if (num == myOpponent.thisCharacterSprite3)
+        {
+            this.character6.GetComponent<Image>().sprite = spriteToUse;
+        }
+    }
+
+    [Command]
     void CmdCharacterSprites()
     {
         foreach (string item in theCharacterNames)
@@ -316,9 +447,11 @@ public class PlayerScript : NetworkBehaviour
     [ClientRpc]
     void RpcCharacterSprites(string name)
     {
+        int number = 0;
         switch (name)
         {
             case "fishman":
+                number = 1;
                 if (name == this.theCharacterNames[0])
                 {
                     this.theCharacterSprites[0].GetComponent<Image>().sprite = fishman_Sprite;
@@ -333,6 +466,7 @@ public class PlayerScript : NetworkBehaviour
                 }
                 break;
             case "werewolf":
+                number = 2;
                 if (name == this.theCharacterNames[0])
                 {
                     this.theCharacterSprites[0].GetComponent<Image>().sprite = werewolf_Sprite;
@@ -347,6 +481,7 @@ public class PlayerScript : NetworkBehaviour
                 }
                 break;
             case "bukkake Slime":
+                number = 3;
                 if (name == this.theCharacterNames[0])
                 {
                     this.theCharacterSprites[0].GetComponent<Image>().sprite = bukkakeSlime_Sprite;
@@ -362,6 +497,7 @@ public class PlayerScript : NetworkBehaviour
 
                 break;
             case "dragonoid":
+                number = 4;
                 if (name == this.theCharacterNames[0])
                 {
                     this.theCharacterSprites[0].GetComponent<Image>().sprite = dragonoid_Sprite;
@@ -377,6 +513,7 @@ public class PlayerScript : NetworkBehaviour
 
                 break;
             case "golem":
+                number = 5;
                 if (name == this.theCharacterNames[0])
                 {
                     this.theCharacterSprites[0].GetComponent<Image>().sprite = golem_Sprite;
@@ -392,6 +529,7 @@ public class PlayerScript : NetworkBehaviour
 
                 break;
             case "catperson":
+                number = 6;
                 if (name == this.theCharacterNames[0])
                 {
                     this.theCharacterSprites[0].GetComponent<Image>().sprite = catperson_Sprite;
@@ -407,6 +545,7 @@ public class PlayerScript : NetworkBehaviour
 
                 break;
             case "angel":
+                number = 7;
                 if (name == this.theCharacterNames[0])
                 {
                     this.theCharacterSprites[0].GetComponent<Image>().sprite = angel_Sprite;
@@ -422,6 +561,7 @@ public class PlayerScript : NetworkBehaviour
 
                 break;
             case "devil":
+                number = 8;
                 if (name == this.theCharacterNames[0])
                 {
                     this.theCharacterSprites[0].GetComponent<Image>().sprite = devil_Sprite;
@@ -437,6 +577,7 @@ public class PlayerScript : NetworkBehaviour
 
                 break;
             case "orge":
+                number = 9;
                 if (name == this.theCharacterNames[0])
                 {
                     this.theCharacterSprites[0].GetComponent<Image>().sprite = orge_Sprite;
@@ -452,6 +593,7 @@ public class PlayerScript : NetworkBehaviour
 
                 break;
             case "gargoyle":
+                number = 10;
                 if (name == this.theCharacterNames[0])
                 {
                     this.theCharacterSprites[0].GetComponent<Image>().sprite = gargoyle_Sprite;
@@ -467,6 +609,7 @@ public class PlayerScript : NetworkBehaviour
 
                 break;
             case "garuda":
+                number = 11;
                 if (name == this.theCharacterNames[0])
                 {
                     this.theCharacterSprites[0].GetComponent<Image>().sprite = garuda_Sprite;
@@ -482,6 +625,7 @@ public class PlayerScript : NetworkBehaviour
 
                 break;
             case "loxodon":
+                number = 12;
                 if (name == this.theCharacterNames[0])
                 {
                     this.theCharacterSprites[0].GetComponent<Image>().sprite = loxodon_Sprite;
@@ -497,6 +641,7 @@ public class PlayerScript : NetworkBehaviour
 
                 break;
             case "minotaur":
+                number = 13;
                 if (name == this.theCharacterNames[0])
                 {
                     this.theCharacterSprites[0].GetComponent<Image>().sprite = minotaur_Sprite;
@@ -512,6 +657,7 @@ public class PlayerScript : NetworkBehaviour
 
                 break;
             case "spiderperson":
+                number = 14;
                 if (name == this.theCharacterNames[0])
                 {
                     this.theCharacterSprites[0].GetComponent<Image>().sprite = spiderperson_Sprite;
@@ -527,6 +673,7 @@ public class PlayerScript : NetworkBehaviour
 
                 break;
             case "hobnoblin":
+                number = 15;
                 if (name == this.theCharacterNames[0])
                 {
                     this.theCharacterSprites[0].GetComponent<Image>().sprite = hobnoblin_Sprite;
@@ -541,6 +688,21 @@ public class PlayerScript : NetworkBehaviour
                 }
 
                 break;
+        }
+
+        if (name == this.theCharacterNames[0])
+        {
+            this.thisCharacterSprite1 = number;
+        }
+
+        if (name == this.theCharacterNames[1])
+        {
+            this.thisCharacterSprite2 = number;
+        }
+
+        if (name == this.theCharacterNames[2])
+        {
+            this.thisCharacterSprite3 = number;
         }
     }
 
@@ -1123,29 +1285,47 @@ public class PlayerScript : NetworkBehaviour
         Vector3 chara1 = Vector3.zero;
         Vector3 chara2 = Vector3.zero;
         Vector3 chara3 = Vector3.zero;
+        Vector3 chara4 = Vector3.zero;
+        Vector3 chara5 = Vector3.zero;
+        Vector3 chara6 = Vector3.zero;
 
         if (connectID == 1)
         {
             chara1 = new Vector3(-300f, 150f, 0f);
             chara2 = new Vector3(-300f, 0f, 0f);
             chara3 = new Vector3(-300f, -150f, 0f);
+            chara4 = new Vector3(300f, 150f, 0f);
+            chara5 = new Vector3(300f, 0f, 0f);
+            chara6 = new Vector3(300f, -150f, 0f);
         }
         else
         {
             chara1 = new Vector3(300f, 150f, 0f);
             chara2 = new Vector3(300f, 0f, 0f);
             chara3 = new Vector3(300f, -150f, 0f);
+            chara4 = new Vector3(-300f, 150f, 0f);
+            chara5 = new Vector3(-300f, 0f, 0f);
+            chara6 = new Vector3(-300f, -150f, 0f);
         }
 
-        RpcCharacterPosition(chara1, chara2, chara3);
+        RpcCharacterPosition(chara1, chara2, chara3, chara4, chara5, chara6);
     }
 
     [ClientRpc]
-    void RpcCharacterPosition(Vector3 chara1, Vector3 chara2, Vector3 chara3)
+    void RpcCharacterPosition(Vector3 chara1, Vector3 chara2, Vector3 chara3,Vector3 chara4, Vector3 chara5, Vector3 chara6)
     {
         character1.transform.localPosition = chara1;
         character2.transform.localPosition = chara2;
         character3.transform.localPosition = chara3;
+        character4.transform.localPosition = chara4;
+        character5.transform.localPosition = chara5;
+        character6.transform.localPosition = chara6;
+
+        //this.character4.GetComponent<Image>().sprite = myOpponent.character1.GetComponent<Image>().sprite;
+
+        //this.character5.GetComponent<Image>().sprite = myOpponent.character2.GetComponent<Image>().sprite;
+
+        //this.character6.GetComponent<Image>().sprite = myOpponent.character3.GetComponent<Image>().sprite;
     }
 
     //sets turn values for the player
