@@ -165,7 +165,7 @@ public class BattleManager : MonoBehaviour
                 }
             }
 
-            ExpSaveSystem.SavePlayer(this);
+            //ExpSaveSystem.SavePlayer(this);
             player1.GetComponent<Player1>().enabled = false;
             player2.GetComponent<Player2>().enabled = false;
             victoryText.text = "Player 1 Wins!";

@@ -3371,6 +3371,7 @@ MonoBehaviour:
   pick1: 0
   pick2: 0
   pick3: 0
+  checkerScript: {fileID: 0}
   characterName: 
   health: 200
   attackRating: 40
@@ -3485,6 +3486,7 @@ MonoBehaviour:
   hobnoblin_defenceRating: 30
   hobnoblin_level: 1
   hobnoblin_exp: 0
+  saveButton: {fileID: 1929917986}
 --- !u!4 &1874136011
 Transform:
   m_ObjectHideFlags: 0
