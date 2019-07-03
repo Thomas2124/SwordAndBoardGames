@@ -9,7 +9,7 @@ public class ArrayIsFullScritp : MonoBehaviour
 	public static bool gridThreeIsFull = false;
 	public static bool gridFourIsFull = false;
 	public static bool gridFiveIsFull = false;
-	public static bool gridUpgradeIsFull = false;		
+	public bool gridUpgradeIsFull = false;		
 	
 	//public GameObject[] upgradeGrid;
 	public GameObject gridFieldOne;
@@ -17,8 +17,7 @@ public class ArrayIsFullScritp : MonoBehaviour
 	public GameObject gridFieldThree;
 	public GameObject gridFieldFour;
 	public GameObject gridFieldFive;
-	public GameObject gridFieldReward;
-	public GameObject gridFieldUpgrade;
+	public GameObject gridFieldReward;	public GameObject gridFieldUpgrade;
 	
 	public GameObject[] childrenHunter;
     // Update is called once per frame
@@ -90,7 +89,7 @@ public class ArrayIsFullScritp : MonoBehaviour
 		}
 		    if(gridFieldFour.transform.childCount <= 10)
 		{
-			gridFourIsFull = false;
+			gridFourIsFull =  false;
 		}
 		
 		if(gridFieldFive.transform.childCount > 10)
