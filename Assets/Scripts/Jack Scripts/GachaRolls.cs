@@ -124,6 +124,24 @@ public class GachaRolls : MonoBehaviour
         }
     }
 
+    public void RiggedRoll()
+    {
+        characterRolled.Add(characterlistUC[4]);
+        characterRolled.Add(characterlistC[3]);
+        characterRolled.Add(characterlistC[4]);
+        //for the Tutorial by rigging what the player is first given
+        resultSprite.GetComponent<Image>().sprite = characterSprite[ranNum];
+        raceText.text = characterRolled[0];
+        resultRarity.GetComponent<Image>().sprite = rarity[0];
+
+        normSummary[0].SetActive(true);
+        normSummary[1].SetActive(true);
+        normSummary[2].SetActive(true);
+        normSummary[0].GetComponent<Image>().sprite = characterSprite[ranNum];
+        normSummary[1].GetComponent<Image>().sprite = characterSprite[ranNum];
+        normSummary[2].GetComponent<Image>().sprite = characterSprite[ranNum];
+    }
+
     public void Results()
     {
         //the results of the pull are generated 

@@ -57,12 +57,13 @@ public class PlayerScript : NetworkBehaviour
     public bool skip3 = false;
 
     public GameObject timerText;
+    public Sprite spriteToUse;
 
-    /*[SyncVar]
+    [SyncVar]
     public int nextTime;
 
     [SyncVar]
-    public int turnTime;*/
+    public int turnTime;
 
     //public Sprite thisCharacterSprite1;
     //public Sprite thisCharacterSprite2;
@@ -78,6 +79,13 @@ public class PlayerScript : NetworkBehaviour
     public int thisCharacterSprite2;
     [SyncVar]
     public int thisCharacterSprite3;
+
+    [SyncVar]
+    public int enemyCharacterSprite1;
+    [SyncVar]
+    public int enemyCharacterSprite2;
+    [SyncVar]
+    public int enemyCharacterSprite3;
 
     [Header("Player Name")]
     public GameObject playerName;
@@ -144,7 +152,7 @@ public class PlayerScript : NetworkBehaviour
     string tempName;
     Vector3 tempPosition = Vector3.zero;
     Vector3 arrowPosition = Vector3.zero;
-    GameObject[] enemy;
+    public GameObject[] enemy;
     bool bool1;
     bool bool2;
     bool attackPressed;
@@ -191,7 +199,7 @@ public class PlayerScript : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            //turnTime = 60;
+            turnTime = 60;
             isWinner = false;
             isDead = false;
             isDead2 = false;
@@ -322,8 +330,16 @@ public class PlayerScript : NetworkBehaviour
                 CmdTheWin();
             }
 
-            /*if (myOpponent != null)
+            /*if (myOpponent != null && isMyTurn == true)
             {
+                if (Mathf.Abs(nextTime - System.DateTime.Now.Second) < 3 || Mathf.Abs(nextTime - System.DateTime.Now.Second) > 3)
+                {
+                    if (System.DateTime.Now.Second < 55 && System.DateTime.Now.Second > 5)
+                    {
+                        nextTime = System.DateTime.Now.Second + 1;
+                    }
+                }
+
                 if (System.DateTime.Now.Second >= nextTime && isMyTurn == true)
                 {
                     nextTime = System.DateTime.Now.Second + 1;
@@ -331,7 +347,7 @@ public class PlayerScript : NetworkBehaviour
                     CmdTimerStuff(turnTime);
                 }
 
-                if (turnTime <= 0)
+                if (turnTime <= 1)
                 {
                     characterNumber = 4;
                 }
@@ -346,92 +362,108 @@ public class PlayerScript : NetworkBehaviour
         int num2 = myOpponent.thisCharacterSprite2;
         int num3 = myOpponent.thisCharacterSprite3;
 
-        RpcGetSprites(num1);
-        RpcGetSprites(num2);
-        RpcGetSprites(num3);
+        RpcNumberSetter(num1, num2, num3);
+
+        RpcGetSprites(this.enemyCharacterSprite1);
+        RpcGetSprites(this.enemyCharacterSprite2);
+        RpcGetSprites(this.enemyCharacterSprite3);
+    }
+
+    [ClientRpc]
+    void RpcNumberSetter(int num, int num2, int num3)
+    {
+        this.enemyCharacterSprite1 = num;
+        this.enemyCharacterSprite2 = num2;
+        this.enemyCharacterSprite3 = num3;
     }
 
     [ClientRpc]
     void RpcGetSprites(int num)
     {
         Sprite spriteToUse = fishman_Sprite;
+
         switch (num)
         {
             case 1:
-                spriteToUse = fishman_Sprite;
+                this.spriteToUse = fishman_Sprite;
 
                 break;
             case 2:
-                spriteToUse = werewolf_Sprite;
+                this.spriteToUse = werewolf_Sprite;
 
                 break;
             case 3:
-                spriteToUse = bukkakeSlime_Sprite;
+                this.spriteToUse = bukkakeSlime_Sprite;
 
                 break;
             case 4:
-                spriteToUse = dragonoid_Sprite;
+                this.spriteToUse = dragonoid_Sprite;
 
                 break;
             case 5:
-                spriteToUse = golem_Sprite;
+                this.spriteToUse = golem_Sprite;
 
                 break;
             case 6:
-                spriteToUse = catperson_Sprite;
+                this.spriteToUse = catperson_Sprite;
 
                 break;
             case 7:
-                spriteToUse = angel_Sprite;
+                this.spriteToUse = angel_Sprite;
 
                 break;
             case 8:
-                spriteToUse = devil_Sprite;
+                this.spriteToUse = devil_Sprite;
 
                 break;
             case 9:
-                spriteToUse = orge_Sprite;
+                this.spriteToUse = orge_Sprite;
 
                 break;
             case 10:
-                spriteToUse = gargoyle_Sprite;
+                this.spriteToUse = gargoyle_Sprite;
 
                 break;
             case 11:
-                spriteToUse = garuda_Sprite;
+                this.spriteToUse = garuda_Sprite;
 
                 break;
             case 12:
-                spriteToUse = loxodon_Sprite;
+                this.spriteToUse = loxodon_Sprite;
 
                 break;
             case 13:
-                spriteToUse = minotaur_Sprite;
+                this.spriteToUse = minotaur_Sprite;
 
                 break;
             case 14:
-                spriteToUse = spiderperson_Sprite;
+                this.spriteToUse = spiderperson_Sprite;
 
                 break;
             case 15:
-                spriteToUse = hobnoblin_Sprite;
+                this.spriteToUse = hobnoblin_Sprite;
 
                 break;
         }
 
-        if (num == myOpponent.thisCharacterSprite1)
+        if (num == this.enemyCharacterSprite1)
         {
-            this.character4.GetComponent<Image>().sprite = spriteToUse;
+            //this.enemyCharacterSprite1 = num;
+            this.character4.GetComponent<Image>().sprite = this.spriteToUse;
         }
-
-        if (num == myOpponent.thisCharacterSprite2)
+        else if (num == this.enemyCharacterSprite2)
         {
-            this.character5.GetComponent<Image>().sprite = spriteToUse;
+            //this.enemyCharacterSprite2 = num;
+            this.character5.GetComponent<Image>().sprite = this.spriteToUse;
         }
-
-        if (num == myOpponent.thisCharacterSprite3)
+        else if (num == this.enemyCharacterSprite3)
         {
-            this.character6.GetComponent<Image>().sprite = spriteToUse;
+            //this.enemyCharacterSprite3 = num;
+            this.character6.GetComponent<Image>().sprite = this.spriteToUse;
+        }
+        else
+        {
+
         }
     }
 
@@ -877,7 +909,7 @@ public class PlayerScript : NetworkBehaviour
         //manager.StopServer();
     }*/
 
-    /*[Command]
+    [Command]
     void CmdTimerStuff(int turnTime)
     {
         RpcTimerStuff(turnTime);
@@ -887,7 +919,7 @@ public class PlayerScript : NetworkBehaviour
     void RpcTimerStuff(int turnTime)
     {
         timerText.GetComponent<Text>().text = turnTime.ToString();
-    }*/
+    }
 
     [Command]
     void CmdStatSetter()
@@ -1374,7 +1406,8 @@ public class PlayerScript : NetworkBehaviour
         this.defenceRating3 = def3;
         this.isGaruda = mybool;
         this.isSpecial = mybool;
-        //this.turnTime = 60;
+        this.turnTime = 60;
+        this.nextTime = System.DateTime.Now.Second + 1;
     }
 
     //set position of players specialbar
