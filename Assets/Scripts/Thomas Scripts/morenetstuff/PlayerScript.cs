@@ -59,11 +59,11 @@ public class PlayerScript : NetworkBehaviour
     public GameObject timerText;
     public Sprite spriteToUse;
 
-    /*[SyncVar]
+    [SyncVar]
     public int nextTime;
 
     [SyncVar]
-    public int turnTime;*/
+    public int turnTime;
 
     //public Sprite thisCharacterSprite1;
     //public Sprite thisCharacterSprite2;
@@ -199,7 +199,7 @@ public class PlayerScript : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            //turnTime = 60;
+            turnTime = 60;
             isWinner = false;
             isDead = false;
             isDead2 = false;
@@ -330,8 +330,16 @@ public class PlayerScript : NetworkBehaviour
                 CmdTheWin();
             }
 
-            /*if (myOpponent != null)
+            /*if (myOpponent != null && isMyTurn == true)
             {
+                if (Mathf.Abs(nextTime - System.DateTime.Now.Second) < 3 || Mathf.Abs(nextTime - System.DateTime.Now.Second) > 3)
+                {
+                    if (System.DateTime.Now.Second < 55 && System.DateTime.Now.Second > 5)
+                    {
+                        nextTime = System.DateTime.Now.Second + 1;
+                    }
+                }
+
                 if (System.DateTime.Now.Second >= nextTime && isMyTurn == true)
                 {
                     nextTime = System.DateTime.Now.Second + 1;
@@ -339,7 +347,7 @@ public class PlayerScript : NetworkBehaviour
                     CmdTimerStuff(turnTime);
                 }
 
-                if (turnTime <= 0)
+                if (turnTime <= 1)
                 {
                     characterNumber = 4;
                 }
@@ -901,7 +909,7 @@ public class PlayerScript : NetworkBehaviour
         //manager.StopServer();
     }*/
 
-    /*[Command]
+    [Command]
     void CmdTimerStuff(int turnTime)
     {
         RpcTimerStuff(turnTime);
@@ -911,7 +919,7 @@ public class PlayerScript : NetworkBehaviour
     void RpcTimerStuff(int turnTime)
     {
         timerText.GetComponent<Text>().text = turnTime.ToString();
-    }*/
+    }
 
     [Command]
     void CmdStatSetter()
@@ -1398,7 +1406,8 @@ public class PlayerScript : NetworkBehaviour
         this.defenceRating3 = def3;
         this.isGaruda = mybool;
         this.isSpecial = mybool;
-        //this.turnTime = 60;
+        this.turnTime = 60;
+        this.nextTime = System.DateTime.Now.Second + 1;
     }
 
     //set position of players specialbar
