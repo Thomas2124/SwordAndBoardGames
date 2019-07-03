@@ -279,6 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8afd14410ef4684892bbe59c2909288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridUpgradeIsFull: 0
   gridFieldOne: {fileID: 1911966202}
   gridFieldTwo: {fileID: 738449588}
   gridFieldThree: {fileID: 2080104656}
@@ -509,7 +510,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 10.299988, y: 106.67}
+  m_AnchoredPosition: {x: 10.300003, y: 106.66999}
   m_SizeDelta: {x: -13.48, y: -260.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &18062380
@@ -2531,6 +2532,7 @@ GameObject:
   - component: {fileID: 72634992}
   - component: {fileID: 72634991}
   - component: {fileID: 72634990}
+  - component: {fileID: 72634994}
   - component: {fileID: 72634993}
   m_Layer: 5
   m_Name: Buy10.button
@@ -2602,8 +2604,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 35925454}
-        m_MethodName: BattleOpen
+      - m_Target: {fileID: 72634994}
+        m_MethodName: SceneSwitch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2666,6 +2668,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonSound: {fileID: 8300000, guid: 38f505e3a56d01442a9c18eec9d052bc, type: 3}
   source: {fileID: 2084911760}
+--- !u!114 &72634994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72634988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a3c2801ddf349b43b617d1a1ceac440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameOfScene: 
 --- !u!1 &77483908
 GameObject:
   m_ObjectHideFlags: 0
@@ -3197,7 +3212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 113.9, y: -0.0000038146973}
+  m_AnchoredPosition: {x: 113.899994, y: 0}
   m_SizeDelta: {x: -91.52, y: -8.31}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &90155954
@@ -15256,8 +15271,8 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -1.4, y: -0.0000013411}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: -1.3999939, y: 0}
   m_SizeDelta: {x: 6.77, y: 1.63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &590209135
@@ -19093,7 +19108,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3.65, y: 119.2}
+  m_AnchoredPosition: {x: 3.6500092, y: 119.2}
   m_SizeDelta: {x: -47.3, y: -245.08}
   m_Pivot: {x: 0.49999982, y: 0.49999997}
 --- !u!114 &749775026
@@ -19319,7 +19334,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000009536743}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: -8.47}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &751528022
@@ -22787,8 +22802,8 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 8.735001, y: -12.7}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 8.735016, y: -12.699997}
   m_SizeDelta: {x: 17.47, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &938931978
@@ -34586,7 +34601,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1441801873
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41432,7 +41447,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -70, y: -5}
   m_SizeDelta: {x: -130, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -42760,6 +42775,7 @@ GameObject:
   - component: {fileID: 1726031393}
   - component: {fileID: 1726031392}
   - component: {fileID: 1726031395}
+  - component: {fileID: 1726031396}
   m_Layer: 5
   m_Name: PvPbutton
   m_TagString: Untagged
@@ -42830,12 +42846,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 35925449}
-        m_MethodName: 
+      - m_Target: {fileID: 1726031396}
+        m_MethodName: SceneSwitch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -42894,6 +42910,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonSound: {fileID: 8300000, guid: 38f505e3a56d01442a9c18eec9d052bc, type: 3}
   source: {fileID: 2084911760}
+--- !u!114 &1726031396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726031390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a3c2801ddf349b43b617d1a1ceac440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameOfScene: 
 --- !u!1 &1727514770
 GameObject:
   m_ObjectHideFlags: 0
@@ -44296,6 +44325,7 @@ GameObject:
   - component: {fileID: 1761668453}
   - component: {fileID: 1761668452}
   - component: {fileID: 1761668451}
+  - component: {fileID: 1761668455}
   - component: {fileID: 1761668454}
   m_Layer: 5
   m_Name: Buy1.button
@@ -44367,8 +44397,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 35925454}
-        m_MethodName: BattleOpen
+      - m_Target: {fileID: 1761668455}
+        m_MethodName: SceneSwitch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -44431,6 +44461,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonSound: {fileID: 8300000, guid: 38f505e3a56d01442a9c18eec9d052bc, type: 3}
   source: {fileID: 2084911760}
+--- !u!114 &1761668455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761668449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a3c2801ddf349b43b617d1a1ceac440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameOfScene: 
 --- !u!1 &1763902471
 GameObject:
   m_ObjectHideFlags: 0
@@ -47414,8 +47457,8 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -6.1, y: -0.0000061691}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: -6.100006, y: 0}
   m_SizeDelta: {x: 8.31, y: -5.04}
   m_Pivot: {x: 0.49999818, y: 0.5000013}
 --- !u!114 &1872566828
