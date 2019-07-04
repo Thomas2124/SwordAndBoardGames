@@ -52,9 +52,11 @@ public class Upgrade : MonoBehaviour
             switch (selectedCharacter)
             {
                 case "fishman":
+                    Debug.Log(fishmanStarLevel);
                     if (fishmanStarLevel < 5)
                     {
                         fishmanStarLevel++;
+                        Debug.Log(fishmanStarLevel);
                     }
                     break;
                 case "werewolf":

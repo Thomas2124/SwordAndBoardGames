@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class UpgradeSelector : MonoBehaviour
 {
+    public GameObject slot;
+    public GameObject scharacter;
+
     public enum CharacterName
     {
         fishman,
@@ -32,9 +35,10 @@ public class UpgradeSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (GetComponent<ArrayIsFullScritp>())
+        //if (slot.GetComponent<ArrayIsFullScritp>().gridUpgradeIsFull == true)
         //{
-        //    GetComponent<Upgrade>().selectedCharacter = Name.ToString();
+        //    //GetComponent<Upgrade>().selectedCharacter += Name.ToString();
+
         //}
     }
 }  

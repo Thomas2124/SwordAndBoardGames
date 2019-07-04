@@ -154,7 +154,7 @@ public class GachaRolls : MonoBehaviour
 
     public void Levelup()
     {
-
+        Debug.Log(characterRolled);
         //Adds the experience from getting a duplicate character
         foreach(string item in characterRolled)
         {
@@ -363,6 +363,7 @@ public class GachaRolls : MonoBehaviour
             {
                 GetComponent<PlayerCharacterList>().myCharacters.Add(selectedCharacter);
             }
+            Debug.Log(GetComponent<PlayerCharacterList>().myCharacters);
         }
     }
 }
