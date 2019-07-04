@@ -20,6 +20,7 @@ public class PlayerScript : NetworkBehaviour
     public float attackRating = 10f;
     public float defenceRating = 30f;
     public string characterName;
+   
     public int level;
     public float myExp;
     public float startingDefence;
@@ -58,20 +59,13 @@ public class PlayerScript : NetworkBehaviour
 
     public GameObject timerText;
     public Sprite spriteToUse;
+    public Sprite setSprite;
 
     [SyncVar]
     public int nextTime;
 
     [SyncVar]
     public int turnTime;
-
-    //public Sprite thisCharacterSprite1;
-    //public Sprite thisCharacterSprite2;
-    //public Sprite thisCharacterSprite3;
-
-    //public Sprite enemyCharacterSprite1;
-    //public Sprite enemyCharacterSprite2;
-    //public Sprite enemyCharacterSprite3;
 
     [SyncVar]
     public int thisCharacterSprite1;
@@ -243,7 +237,7 @@ public class PlayerScript : NetworkBehaviour
             {
                 isMyTurn = false;
             }
-
+            
             characterNumber = 1;
             playerButton.SetActive(isMyTurn);
             defendButton.SetActive(isMyTurn);
@@ -251,7 +245,7 @@ public class PlayerScript : NetworkBehaviour
             enemyButton1.SetActive(false);
             enemyButton2.SetActive(false);
             enemyButton3.SetActive(false);
-            characterArrow.SetActive(false);
+            characterArrow.SetActive(true);
             timerText.SetActive(true);
             victoryText.SetActive(false);
             character1.SetActive(true);
@@ -292,7 +286,6 @@ public class PlayerScript : NetworkBehaviour
         if (isLocalPlayer)
         {
             CmdFindPLayers();
-
             if (myOpponent != null && myOpponent.isWinner == false && this.isWinner == false)
             {
                 if (once == false)
@@ -317,9 +310,9 @@ public class PlayerScript : NetworkBehaviour
 
                 CmdDeathChecker(health, health2, health3);
 
-                CmdGetSprites();
-
                 ButtonChecker();
+
+                CmdGetSprites(thisCharacterSprite1, thisCharacterSprite2, thisCharacterSprite3);
 
                 CmdCharacterLoop();
 
@@ -356,32 +349,24 @@ public class PlayerScript : NetworkBehaviour
     }
 
     [Command]
-    void CmdGetSprites()
+    void CmdGetSprites(int num1, int num2, int num3)
     {
-        int num1 = myOpponent.thisCharacterSprite1;
-        int num2 = myOpponent.thisCharacterSprite2;
-        int num3 = myOpponent.thisCharacterSprite3;
-
         RpcNumberSetter(num1, num2, num3);
-
-        RpcGetSprites(this.enemyCharacterSprite1);
-        RpcGetSprites(this.enemyCharacterSprite2);
-        RpcGetSprites(this.enemyCharacterSprite3);
     }
 
     [ClientRpc]
     void RpcNumberSetter(int num, int num2, int num3)
     {
-        this.enemyCharacterSprite1 = num;
-        this.enemyCharacterSprite2 = num2;
-        this.enemyCharacterSprite3 = num3;
+        myOpponent.enemyCharacterSprite1 = num;
+        myOpponent.enemyCharacterSprite2 = num2;
+        myOpponent.enemyCharacterSprite3 = num3;
+        myOpponent.TheSpriteSetter(num);
+        myOpponent.TheSpriteSetter(num2);
+        myOpponent.TheSpriteSetter(num3);
     }
 
-    [ClientRpc]
-    void RpcGetSprites(int num)
+    void TheSpriteSetter(int num)
     {
-        Sprite spriteToUse = fishman_Sprite;
-
         switch (num)
         {
             case 1:
@@ -446,31 +431,24 @@ public class PlayerScript : NetworkBehaviour
                 break;
         }
 
-        if (num == this.enemyCharacterSprite1)
+        if (num == enemyCharacterSprite1)
         {
-            //this.enemyCharacterSprite1 = num;
-            this.character4.GetComponent<Image>().sprite = this.spriteToUse;
+            character4.GetComponent<Image>().sprite = spriteToUse;
         }
-        else if (num == this.enemyCharacterSprite2)
+        else if (num == enemyCharacterSprite2)
         {
-            //this.enemyCharacterSprite2 = num;
-            this.character5.GetComponent<Image>().sprite = this.spriteToUse;
+            character5.GetComponent<Image>().sprite = spriteToUse;
         }
-        else if (num == this.enemyCharacterSprite3)
+        else if (num == enemyCharacterSprite3)
         {
-            //this.enemyCharacterSprite3 = num;
-            this.character6.GetComponent<Image>().sprite = this.spriteToUse;
-        }
-        else
-        {
-
+            character6.GetComponent<Image>().sprite = spriteToUse;
         }
     }
 
     [Command]
     void CmdCharacterSprites()
     {
-        foreach (string item in theCharacterNames)
+        foreach (string item in this.theCharacterNames)
         {
             RpcCharacterSprites(item);
         }
@@ -484,256 +462,81 @@ public class PlayerScript : NetworkBehaviour
         {
             case "fishman":
                 number = 1;
-                if (name == this.theCharacterNames[0])
-                {
-                    this.theCharacterSprites[0].GetComponent<Image>().sprite = fishman_Sprite;
-                }
-                else if (name == this.theCharacterNames[1])
-                {
-                    this.theCharacterSprites[1].GetComponent<Image>().sprite = fishman_Sprite;
-                }
-                else if (name == this.theCharacterNames[2])
-                {
-                    this.theCharacterSprites[2].GetComponent<Image>().sprite = fishman_Sprite;
-                }
+                setSprite = fishman_Sprite;
                 break;
             case "werewolf":
                 number = 2;
-                if (name == this.theCharacterNames[0])
-                {
-                    this.theCharacterSprites[0].GetComponent<Image>().sprite = werewolf_Sprite;
-                }
-                else if (name == this.theCharacterNames[1])
-                {
-                    this.theCharacterSprites[1].GetComponent<Image>().sprite = werewolf_Sprite;
-                }
-                else if (name == this.theCharacterNames[2])
-                {
-                    this.theCharacterSprites[2].GetComponent<Image>().sprite = werewolf_Sprite;
-                }
+                setSprite = werewolf_Sprite;
                 break;
             case "bukkake Slime":
                 number = 3;
-                if (name == this.theCharacterNames[0])
-                {
-                    this.theCharacterSprites[0].GetComponent<Image>().sprite = bukkakeSlime_Sprite;
-                }
-                else if (name == this.theCharacterNames[1])
-                {
-                    this.theCharacterSprites[1].GetComponent<Image>().sprite = bukkakeSlime_Sprite;
-                }
-                else if (name == this.theCharacterNames[2])
-                {
-                    this.theCharacterSprites[2].GetComponent<Image>().sprite = bukkakeSlime_Sprite;
-                }
-
+                setSprite = bukkakeSlime_Sprite;
                 break;
             case "dragonoid":
                 number = 4;
-                if (name == this.theCharacterNames[0])
-                {
-                    this.theCharacterSprites[0].GetComponent<Image>().sprite = dragonoid_Sprite;
-                }
-                else if (name == this.theCharacterNames[1])
-                {
-                    this.theCharacterSprites[1].GetComponent<Image>().sprite = dragonoid_Sprite;
-                }
-                else if (name == this.theCharacterNames[2])
-                {
-                    this.theCharacterSprites[2].GetComponent<Image>().sprite = dragonoid_Sprite;
-                }
-
+                setSprite = dragonoid_Sprite;
                 break;
             case "golem":
                 number = 5;
-                if (name == this.theCharacterNames[0])
-                {
-                    this.theCharacterSprites[0].GetComponent<Image>().sprite = golem_Sprite;
-                }
-                else if (name == this.theCharacterNames[1])
-                {
-                    this.theCharacterSprites[1].GetComponent<Image>().sprite = golem_Sprite;
-                }
-                else if (name == this.theCharacterNames[2])
-                {
-                    this.theCharacterSprites[2].GetComponent<Image>().sprite = golem_Sprite;
-                }
-
+                setSprite = golem_Sprite;
                 break;
             case "catperson":
                 number = 6;
-                if (name == this.theCharacterNames[0])
-                {
-                    this.theCharacterSprites[0].GetComponent<Image>().sprite = catperson_Sprite;
-                }
-                else if (name == this.theCharacterNames[1])
-                {
-                    this.theCharacterSprites[1].GetComponent<Image>().sprite = catperson_Sprite;
-                }
-                else if (name == this.theCharacterNames[2])
-                {
-                    this.theCharacterSprites[2].GetComponent<Image>().sprite = catperson_Sprite;
-                }
-
+                setSprite = catperson_Sprite;
                 break;
             case "angel":
                 number = 7;
-                if (name == this.theCharacterNames[0])
-                {
-                    this.theCharacterSprites[0].GetComponent<Image>().sprite = angel_Sprite;
-                }
-                else if (name == this.theCharacterNames[1])
-                {
-                    this.theCharacterSprites[1].GetComponent<Image>().sprite = angel_Sprite;
-                }
-                else if (name == this.theCharacterNames[2])
-                {
-                    this.theCharacterSprites[2].GetComponent<Image>().sprite = angel_Sprite;
-                }
-
+                setSprite = angel_Sprite;
                 break;
             case "devil":
                 number = 8;
-                if (name == this.theCharacterNames[0])
-                {
-                    this.theCharacterSprites[0].GetComponent<Image>().sprite = devil_Sprite;
-                }
-                else if (name == this.theCharacterNames[1])
-                {
-                    this.theCharacterSprites[1].GetComponent<Image>().sprite = devil_Sprite;
-                }
-                else if (name == this.theCharacterNames[2])
-                {
-                    this.theCharacterSprites[2].GetComponent<Image>().sprite = devil_Sprite;
-                }
-
+                setSprite = devil_Sprite;
                 break;
             case "orge":
                 number = 9;
-                if (name == this.theCharacterNames[0])
-                {
-                    this.theCharacterSprites[0].GetComponent<Image>().sprite = orge_Sprite;
-                }
-                else if (name == this.theCharacterNames[1])
-                {
-                    this.theCharacterSprites[1].GetComponent<Image>().sprite = orge_Sprite;
-                }
-                else if (name == this.theCharacterNames[2])
-                {
-                    this.theCharacterSprites[2].GetComponent<Image>().sprite = orge_Sprite;
-                }
-
+                setSprite = orge_Sprite;
                 break;
             case "gargoyle":
                 number = 10;
-                if (name == this.theCharacterNames[0])
-                {
-                    this.theCharacterSprites[0].GetComponent<Image>().sprite = gargoyle_Sprite;
-                }
-                else if (name == this.theCharacterNames[1])
-                {
-                    this.theCharacterSprites[1].GetComponent<Image>().sprite = gargoyle_Sprite;
-                }
-                else if (name == this.theCharacterNames[2])
-                {
-                    this.theCharacterSprites[2].GetComponent<Image>().sprite = gargoyle_Sprite;
-                }
-
+                setSprite = gargoyle_Sprite;
                 break;
             case "garuda":
                 number = 11;
-                if (name == this.theCharacterNames[0])
-                {
-                    this.theCharacterSprites[0].GetComponent<Image>().sprite = garuda_Sprite;
-                }
-                else if (name == this.theCharacterNames[1])
-                {
-                    this.theCharacterSprites[1].GetComponent<Image>().sprite = garuda_Sprite;
-                }
-                else if (name == this.theCharacterNames[2])
-                {
-                    this.theCharacterSprites[2].GetComponent<Image>().sprite = garuda_Sprite;
-                }
-
+                setSprite = garuda_Sprite;
                 break;
             case "loxodon":
                 number = 12;
-                if (name == this.theCharacterNames[0])
-                {
-                    this.theCharacterSprites[0].GetComponent<Image>().sprite = loxodon_Sprite;
-                }
-                else if (name == this.theCharacterNames[1])
-                {
-                    this.theCharacterSprites[1].GetComponent<Image>().sprite = loxodon_Sprite;
-                }
-                else if (name == this.theCharacterNames[2])
-                {
-                    this.theCharacterSprites[2].GetComponent<Image>().sprite = loxodon_Sprite;
-                }
-
+                setSprite = loxodon_Sprite;
                 break;
             case "minotaur":
                 number = 13;
-                if (name == this.theCharacterNames[0])
-                {
-                    this.theCharacterSprites[0].GetComponent<Image>().sprite = minotaur_Sprite;
-                }
-                else if (name == this.theCharacterNames[1])
-                {
-                    this.theCharacterSprites[1].GetComponent<Image>().sprite = minotaur_Sprite;
-                }
-                else if (name == this.theCharacterNames[2])
-                {
-                    this.theCharacterSprites[2].GetComponent<Image>().sprite = minotaur_Sprite;
-                }
-
+                setSprite = minotaur_Sprite;
                 break;
             case "spiderperson":
                 number = 14;
-                if (name == this.theCharacterNames[0])
-                {
-                    this.theCharacterSprites[0].GetComponent<Image>().sprite = spiderperson_Sprite;
-                }
-                else if (name == this.theCharacterNames[1])
-                {
-                    this.theCharacterSprites[1].GetComponent<Image>().sprite = spiderperson_Sprite;
-                }
-                else if (name == this.theCharacterNames[2])
-                {
-                    this.theCharacterSprites[2].GetComponent<Image>().sprite = spiderperson_Sprite;
-                }
-
+                setSprite = spiderperson_Sprite;
                 break;
             case "hobnoblin":
                 number = 15;
-                if (name == this.theCharacterNames[0])
-                {
-                    this.theCharacterSprites[0].GetComponent<Image>().sprite = hobnoblin_Sprite;
-                }
-                else if (name == this.theCharacterNames[1])
-                {
-                    this.theCharacterSprites[1].GetComponent<Image>().sprite = hobnoblin_Sprite;
-                }
-                else if (name == this.theCharacterNames[2])
-                {
-                    this.theCharacterSprites[2].GetComponent<Image>().sprite = hobnoblin_Sprite;
-                }
-
+                setSprite = hobnoblin_Sprite;
                 break;
         }
 
         if (name == this.theCharacterNames[0])
         {
+            this.theCharacterSprites[0].GetComponent<Image>().sprite = setSprite;
             this.thisCharacterSprite1 = number;
         }
 
         if (name == this.theCharacterNames[1])
         {
+            this.theCharacterSprites[1].GetComponent<Image>().sprite = setSprite;
             this.thisCharacterSprite2 = number;
         }
 
         if (name == this.theCharacterNames[2])
         {
+            this.theCharacterSprites[2].GetComponent<Image>().sprite = setSprite;
             this.thisCharacterSprite3 = number;
         }
     }
@@ -988,7 +791,6 @@ public class PlayerScript : NetworkBehaviour
     void CmdLoadData()
     {
         PlayerData data = SaveSystem.LoadPlayer();
-
         //Character 1
         string name1 = data.characterName;
         float health1 = data.health;
@@ -1190,6 +992,7 @@ public class PlayerScript : NetworkBehaviour
             this.health = 0f;
             this.isDead = on;
             this.character1.SetActive(off);
+            myOpponent.character4.SetActive(off);
         }
 
         if (heal2 <= 0f)
@@ -1197,6 +1000,7 @@ public class PlayerScript : NetworkBehaviour
             this.health2 = 0f;
             this.isDead2 = on;
             this.character2.SetActive(off);
+            myOpponent.character5.SetActive(off);
         }
 
         if (heal3 <= 0f)
@@ -1204,6 +1008,7 @@ public class PlayerScript : NetworkBehaviour
             this.health3 = 0f;
             this.isDead3 = on;
             this.character3.SetActive(off);
+            myOpponent.character6.SetActive(off);
         }
 
         if (heal1 <= 0f && heal2 <= 0f && heal3 <= 0f)
@@ -1220,6 +1025,9 @@ public class PlayerScript : NetworkBehaviour
             this.character1.SetActive(off);
             this.character2.SetActive(off);
             this.character3.SetActive(off);
+            this.character4.SetActive(off);
+            this.character5.SetActive(off);
+            this.character6.SetActive(off);
             this.healthBar.enabled = off;
             this.healthBar2.enabled = off;
             this.healthBar3.enabled = off;
@@ -1235,6 +1043,9 @@ public class PlayerScript : NetworkBehaviour
             myOpponent.character1.SetActive(off);
             myOpponent.character2.SetActive(off);
             myOpponent.character3.SetActive(off);
+            myOpponent.character4.SetActive(off);
+            myOpponent.character5.SetActive(off);
+            myOpponent.character6.SetActive(off);
             myOpponent.healthBar.enabled = off;
             myOpponent.healthBar2.enabled = off;
             myOpponent.healthBar3.enabled = off;
