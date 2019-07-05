@@ -199,14 +199,15 @@ public class PlayerScript : NetworkBehaviour
             isDead2 = false;
             isDead3 = false;
 
-            if (SaveSystem.LoadPlayer() != null)
+            CmdLoadData();
+            /*if (SaveSystem.LoadPlayer() != null)
             {
                 CmdLoadData();
             }
             else
             {
                 CmdStatSetter();
-            }
+            }*/
 
             if (ExpSaveSystem.LoadPlayer() != null)
             {
@@ -290,8 +291,8 @@ public class PlayerScript : NetworkBehaviour
             {
                 if (once == false)
                 {
-                    CmdBaseHealthSetter(baseHealth1, baseHealth2, baseHealth3);
                     CmdCharacterSprites();
+                    CmdBaseHealthSetter(baseHealth1, baseHealth2, baseHealth3);
                 }
 
                 CmdHealthBar(health, health2, health3);

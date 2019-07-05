@@ -354,6 +354,7 @@ public class GachaRolls : MonoBehaviour
     {
         foreach(string item in GetComponent<PlayerCharacterList>().myCharacters)
         {
+            Debug.Log(item);
             string selected = item;
             if (selected == selectedCharacter)
             {
@@ -363,7 +364,6 @@ public class GachaRolls : MonoBehaviour
             {
                 GetComponent<PlayerCharacterList>().myCharacters.Add(selectedCharacter);
             }
-            Debug.Log(GetComponent<PlayerCharacterList>().myCharacters);
         }
     }
 }
