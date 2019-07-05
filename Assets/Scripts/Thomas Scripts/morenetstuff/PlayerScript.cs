@@ -201,7 +201,7 @@ public class PlayerScript : NetworkBehaviour
 
             if (SaveSystem.LoadPlayer() != null)
             {
-                CmdLoadData();
+                LoadData();
             }
             else
             {
@@ -290,8 +290,8 @@ public class PlayerScript : NetworkBehaviour
             {
                 if (once == false)
                 {
+                    CharacterSprites();
                     CmdBaseHealthSetter(baseHealth1, baseHealth2, baseHealth3);
-                    CmdCharacterSprites();
                 }
 
                 CmdHealthBar(health, health2, health3);
@@ -445,13 +445,17 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
-    [Command]
-    void CmdCharacterSprites()
+    void CharacterSprites()
     {
-        foreach (string item in this.theCharacterNames)
-        {
-            RpcCharacterSprites(item);
-        }
+        CmdCharacterSprites(theCharacterNames[0]);
+        CmdCharacterSprites(theCharacterNames[1]);
+        CmdCharacterSprites(theCharacterNames[2]);
+    }
+
+    [Command]
+    void CmdCharacterSprites(string names)
+    {
+        RpcCharacterSprites(names);
     }
 
     [ClientRpc]
@@ -787,8 +791,7 @@ public class PlayerScript : NetworkBehaviour
         startingDefence3 = defenceRating3;
     }
 
-    [Command]
-    void CmdLoadData()
+    void LoadData()
     {
         PlayerData data = SaveSystem.LoadPlayer();
         //Character 1
@@ -812,7 +815,13 @@ public class PlayerScript : NetworkBehaviour
         float defence3 = data.defenceRating3;
         float theExp3 = data.exp3;
 
-        RpcLoadData(name1, name2, name3, theExp1, theExp2, theExp3, health1, health2, health3, attack1, attack2, attack3, defence1, defence2, defence3);
+        CmdLoadData(name1, name2, name3, theExp1, theExp2, theExp3, health1, health2, health3, attack1, attack2, attack3, defence1, defence2, defence3);
+    }
+
+    [Command]
+    void CmdLoadData(string name1, string name2, string name3, float theExp1, float theExp2, float theExp3, float health, float health2, float health3, float attack, float attack2, float attack3, float defence, float defence2, float defence3)
+    {
+        RpcLoadData(name1, name2, name3, theExp1, theExp2, theExp3, health, health2, health3, attack, attack2, attack3, defence, defence2, defence3);
     }
 
     [ClientRpc]
