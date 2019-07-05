@@ -6,6 +6,10 @@ using UnityEngine.Networking;
 
 public class ServerSpriteSetter : NetworkBehaviour
 {
+    /// <summary>
+    /// This Script is not being used.
+    /// </summary>
+
     public GameObject player1;
     public GameObject player2;
 

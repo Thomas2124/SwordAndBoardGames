@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerScript : NetworkBehaviour
 {
+    /// <summary>
+    /// This script is used for multiplayer.
+    /// </summary>
+
     public List<string> theCharacterNames;
     public List<GameObject> theCharacterSprites;
     public bool isWinner;
@@ -323,6 +327,7 @@ public class PlayerScript : NetworkBehaviour
                 CmdTheWin();
             }
 
+            //Timer
             /*if (myOpponent != null && isMyTurn == true)
             {
                 if (Mathf.Abs(nextTime - System.DateTime.Now.Second) < 3 || Mathf.Abs(nextTime - System.DateTime.Now.Second) > 3)
@@ -716,6 +721,7 @@ public class PlayerScript : NetworkBehaviour
         //manager.StopServer();
     }*/
 
+    //Sets time variable to UI text
     [Command]
     void CmdTimerStuff(int turnTime)
     {
@@ -728,6 +734,7 @@ public class PlayerScript : NetworkBehaviour
         timerText.GetComponent<Text>().text = turnTime.ToString();
     }
 
+    //add bonus stats to character base stats
     [Command]
     void CmdStatSetter()
     {
@@ -791,6 +798,7 @@ public class PlayerScript : NetworkBehaviour
         startingDefence3 = defenceRating3;
     }
 
+    //loads local players save file and collects information
     void LoadData()
     {
         PlayerData data = SaveSystem.LoadPlayer();
@@ -824,6 +832,7 @@ public class PlayerScript : NetworkBehaviour
         RpcLoadData(name1, name2, name3, theExp1, theExp2, theExp3, health, health2, health3, attack, attack2, attack3, defence, defence2, defence3);
     }
 
+    //sets script variables to file values
     [ClientRpc]
     void RpcLoadData(string name1, string name2, string name3, float theExp1, float theExp2, float theExp3, float health, float health2, float health3, float attack, float attack2, float attack3, float defence, float defence2, float defence3)
     {
@@ -947,7 +956,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
-    //Used to show the current active character
+    //Used to show the current active character during battle
     void ArrowSetter(int num)
     {
         if (connectID == 1)
@@ -1172,12 +1181,6 @@ public class PlayerScript : NetworkBehaviour
         character4.transform.localPosition = chara4;
         character5.transform.localPosition = chara5;
         character6.transform.localPosition = chara6;
-
-        //this.character4.GetComponent<Image>().sprite = myOpponent.character1.GetComponent<Image>().sprite;
-
-        //this.character5.GetComponent<Image>().sprite = myOpponent.character2.GetComponent<Image>().sprite;
-
-        //this.character6.GetComponent<Image>().sprite = myOpponent.character3.GetComponent<Image>().sprite;
     }
 
     //sets turn values for the player
@@ -1204,6 +1207,7 @@ public class PlayerScript : NetworkBehaviour
         myOpponent.TurnStart();
     }
 
+    //sets values at the start of a players turn
     void TurnStart()
     {
         CmdTurnStart(false, startingDefence, startingDefence2, startingDefence3);
@@ -1360,6 +1364,7 @@ public class PlayerScript : NetworkBehaviour
         AttackButtonsOnOff(true);
     }
 
+    //attack Top character
     public void Attack1()
     {
         AttackButtonsOnOff(false);
@@ -1388,6 +1393,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //attack Middle character
     public void Attack2()
     {
         AttackButtonsOnOff(false);
@@ -1416,6 +1422,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //attack Bottom character
     public void Attack3()
     {
         AttackButtonsOnOff(false);
@@ -1665,6 +1672,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //sets values for special move
     void CharacterSpecialMove(string charaName)
     {
         percent = 0f;
@@ -1764,7 +1772,6 @@ public class PlayerScript : NetworkBehaviour
         characterNumber += 1;
         RpcSpecialAttack(sourceDamage, enemy);
     }
-
 
 
     [ClientRpc]
@@ -1893,6 +1900,7 @@ public class PlayerScript : NetworkBehaviour
         AttackButtonsOnOff(false);
     }
 
+    //special move for Slime character
     [Command]
     void CmdSlimeSpecial()
     {
@@ -1992,6 +2000,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //special move for Dragonoid character
     [Command]
     void CmdDragonoidSpecial(int num)
     {
@@ -2019,6 +2028,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //special move for Spider character
     [Command]
     void CmdSpiderSpecial(int num)
     {
