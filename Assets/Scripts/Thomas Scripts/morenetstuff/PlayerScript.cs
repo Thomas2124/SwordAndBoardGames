@@ -325,31 +325,30 @@ public class PlayerScript : NetworkBehaviour
                 CmdArrow(isMyTurn);
 
                 CmdTheWin();
-            }
 
-            //Timer
-            /*if (myOpponent != null && isMyTurn == true)
-            {
-                if (Mathf.Abs(nextTime - System.DateTime.Now.Second) < 3 || Mathf.Abs(nextTime - System.DateTime.Now.Second) > 3)
+                //Timer
+                if (isMyTurn == true)
                 {
-                    if (System.DateTime.Now.Second < 55 && System.DateTime.Now.Second > 5)
+                    if (System.DateTime.Now.Second == 0)
+                    {
+                        nextTime = 1;
+                    }
+
+                    if (System.DateTime.Now.Second >= nextTime)
                     {
                         nextTime = System.DateTime.Now.Second + 1;
+
+                        turnTime -= 1;
+                        CmdTimerStuff(turnTime);
+                    }
+
+                    if (turnTime <= 1 || characterNumber > 3)
+                    {
+                        characterArrow.SetActive(false);
+                        CmdTurnSetter(bool1, bool2);
                     }
                 }
-
-                if (System.DateTime.Now.Second >= nextTime && isMyTurn == true)
-                {
-                    nextTime = System.DateTime.Now.Second + 1;
-                    turnTime -= 1;
-                    CmdTimerStuff(turnTime);
-                }
-
-                if (turnTime <= 1)
-                {
-                    characterNumber = 4;
-                }
-            }*/
+            }
         }
     }
 
@@ -948,11 +947,11 @@ public class PlayerScript : NetworkBehaviour
                     characterNumber += 1;
                 }
             }
-            else
+            /*else
             {
                 characterArrow.SetActive(false);
                 CmdTurnSetter(bool1, bool2);
-            }
+            }*/
         }
     }
 
@@ -1231,7 +1230,6 @@ public class PlayerScript : NetworkBehaviour
         this.isGaruda = mybool;
         this.isSpecial = mybool;
         this.turnTime = 60;
-        this.nextTime = System.DateTime.Now.Second + 1;
     }
 
     //set position of players specialbar
