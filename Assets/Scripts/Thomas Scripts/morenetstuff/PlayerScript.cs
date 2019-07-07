@@ -123,6 +123,7 @@ public class PlayerScript : NetworkBehaviour
     [Header("Player Bars/Images")]
     public GameObject characterArrow;
     public GameObject waitPanel;
+    //public GameObject background;
     public Image healthBar;
     public Image healthBar2;
     public Image healthBar3;
@@ -261,6 +262,7 @@ public class PlayerScript : NetworkBehaviour
             character4.SetActive(true);
             character5.SetActive(true);
             character6.SetActive(true);
+            //background.SetActive(true);
 
             if (connectID == 1)
             {
@@ -292,6 +294,7 @@ public class PlayerScript : NetworkBehaviour
             character5.SetActive(false);
             character6.SetActive(false);
             waitPanel.SetActive(false);
+            //background.SetActive(false);
             //menuButton.SetActive(false);
         }
     }
