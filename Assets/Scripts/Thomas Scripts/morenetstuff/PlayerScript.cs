@@ -122,6 +122,7 @@ public class PlayerScript : NetworkBehaviour
     //public GameObject menuButton;
     [Header("Player Bars/Images")]
     public GameObject characterArrow;
+    public GameObject waitPanel;
     public Image healthBar;
     public Image healthBar2;
     public Image healthBar3;
@@ -243,13 +244,15 @@ public class PlayerScript : NetworkBehaviour
             }
             
             characterNumber = 1;
+            //menuButton.SetActive(false);
+
             playerButton.SetActive(isMyTurn);
             defendButton.SetActive(isMyTurn);
             specialButton.SetActive(false);
             enemyButton1.SetActive(false);
             enemyButton2.SetActive(false);
             enemyButton3.SetActive(false);
-            characterArrow.SetActive(true);
+            characterArrow.SetActive(false);
             timerText.SetActive(true);
             victoryText.SetActive(false);
             character1.SetActive(true);
@@ -258,7 +261,15 @@ public class PlayerScript : NetworkBehaviour
             character4.SetActive(true);
             character5.SetActive(true);
             character6.SetActive(true);
-            //menuButton.SetActive(false);
+
+            if (connectID == 1)
+            {
+                waitPanel.SetActive(true);
+            }
+            else
+            {
+                waitPanel.SetActive(false);
+            }
 
             timerText.transform.localPosition = new Vector3(0f, 250f, 0f);
             victoryText.transform.localPosition = new Vector3(0f, 0f, 0f);
@@ -280,6 +291,7 @@ public class PlayerScript : NetworkBehaviour
             character4.SetActive(false);
             character5.SetActive(false);
             character6.SetActive(false);
+            waitPanel.SetActive(false);
             //menuButton.SetActive(false);
         }
     }
@@ -296,6 +308,18 @@ public class PlayerScript : NetworkBehaviour
                 {
                     CharacterSprites();
                     CmdBaseHealthSetter(baseHealth1, baseHealth2, baseHealth3);
+                    if (connectID == 1)
+                    {
+                        float flipNum = Random.Range(1f, 100f);
+                        if (flipNum <= 50f)
+                        {
+                            CmdCoinFlip(true, false);
+                        }
+                        else
+                        {
+                            CmdCoinFlip(false, true);
+                        }
+                    }
                 }
 
                 CmdHealthBar(health, health2, health3);
@@ -350,6 +374,20 @@ public class PlayerScript : NetworkBehaviour
                 }
             }
         }
+    }
+
+    [Command]
+    void CmdCoinFlip(bool set1, bool set2)
+    {
+        RpcCoinFlip(set1, set2);
+    }
+
+    [ClientRpc]
+    void RpcCoinFlip(bool set1, bool set2)
+    {
+        this.isMyTurn = set1;
+        myOpponent.isMyTurn = set2;
+        this.waitPanel.SetActive(false);
     }
 
     [Command]
