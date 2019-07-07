@@ -310,7 +310,8 @@ public class PlayerScript : NetworkBehaviour
                     CmdBaseHealthSetter(baseHealth1, baseHealth2, baseHealth3);
                     if (connectID == 1)
                     {
-                        float flipNum = Random.Range(1f, 100f);
+                        this.waitPanel.SetActive(false);
+                        /*float flipNum = Random.Range(1f, 100f);
                         if (flipNum <= 50f)
                         {
                             CmdCoinFlip(true, false);
@@ -318,7 +319,7 @@ public class PlayerScript : NetworkBehaviour
                         else
                         {
                             CmdCoinFlip(false, true);
-                        }
+                        }*/
                     }
                 }
 
@@ -387,7 +388,6 @@ public class PlayerScript : NetworkBehaviour
     {
         this.isMyTurn = set1;
         myOpponent.isMyTurn = set2;
-        this.waitPanel.SetActive(false);
     }
 
     [Command]
