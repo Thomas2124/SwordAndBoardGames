@@ -17,4 +17,10 @@ public class PlayerCharacterList : MonoBehaviour
     {
         
     }
+
+    public void Checker()
+    {
+        var result = string.Join(", ", myCharacters.ToArray());
+        Debug.Log(result);
+    }
 }

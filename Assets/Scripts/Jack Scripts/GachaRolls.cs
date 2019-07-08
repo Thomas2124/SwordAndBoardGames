@@ -12,7 +12,18 @@ public class GachaRolls : MonoBehaviour
     public string[] characterlistUC;
     public string[] characterlistC;
     public List<string> characterRolled; //character names pulled during the current roll
-    private bool normRoll;                  //affects what kind of summary page is shown
+
+    //Result Variables
+    public Text raceText;                   //the name of the character pulled displayed
+    public Image resultSprite;              //the sprite image of pulled character displayed
+    public Image resultRarity;              //the rarity image of pulled character displayed
+    public Sprite[] characterSpriteSR;        //corresponding character sprite data
+    public Sprite[] characterSpriteR;
+    public Sprite[] characterSpriteUC;
+    public Sprite[] characterSpriteC;
+    public Sprite[] rarity;                 //corresponding rarity sprite data
+    public GameObject[] normSummary;        //normal roll summary page, how many images to show
+    [SerializeField] private string selCharRarity;
 
     //Obtained? Variables
     public bool fishman = false;
@@ -30,66 +41,40 @@ public class GachaRolls : MonoBehaviour
     public bool minotaur = false;
     public bool spiderperson = false;
     public bool hobnoblin = false;
-
-    //Result Variables
-    public Text raceText;                   //the name of the character pulled displayed
-    public Image resultSprite;              //the sprite image of pulled character displayed
-    public Image resultRarity;              //the rarity image of pulled character displayed
-    public Sprite[] characterSprite;        //corresponding character sprite data
-    public Sprite[] rarity;                 //corresponding rarity sprite data
-    public GameObject[] normSummary;        //normal roll summary page, how many images to show
-
-
-    //Level Up Variables
-    private float expGained = 300f;
-    public float fishman_exp;
-    public float werewolf_exp;
-    public float bukkakeSlime_exp;
-    public float dragonoid_exp;
-    public float golem_exp;
-    public float catperson_exp;
-    public float angel_exp;
-    public float devil_exp;
-    public float orge_exp;
-    public float gargoyle_exp;
-    public float garuda_exp; 
-    public float loxodon_exp;
-    public float minotaur_exp;
-    public float spiderperson_exp;
-    public float hobnoblin_exp;
-    private string selectedCharacter;
+    public string selectedCharacter;
+    public GameObject obtainedCharacters;
+    public float rankBonus = .25f;
+    [SerializeField] private float commonLimit = 1.25f;
+    [SerializeField] private float uncommonLimit = 1.5f;
+    [SerializeField] private float rareLimit = 1.75f;
+    [SerializeField] private float superrareLimit = 2f;
+    
+    //Augmentation Variables c = 1.25 / uc = 1.5 / r = 1.75 / sr = 2
+    //                                                          
+    public float fishmanStarLevel = 1;
+    public float werewolfStarLevel = 1;
+    public float bukkakeSlimeStarLevel = 1;
+    public float dragonoidStarLevel = 1;
+    public float golemStarLevel = 1;
+    public float catpersonStarLevel = 1;
+    public float angelStarLevel = 1;
+    public float devilStarLevel = 1;
+    public float orgeStarLevel = 1;
+    public float gargoyleStarLevel = 1;
+    public float garudaStarLevel = 1;
+    public float loxodonStarLevel = 1;
+    public float minotaurStarLevel = 1;
+    public float spiderpersonStarLevel = 1;
+    public float hobnoblinStarLevel = 1;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (GachaSaveSystem.LoadPlayer1() == null)
-        {
-            
-        }
-        else
-        {
-            GachaExpList expData = GachaSaveSystem.LoadPlayer1();
-            fishman_exp = expData.fishman_exp;
-            werewolf_exp = expData.werewolf_exp;
-            bukkakeSlime_exp = expData.bukkakeSlime_exp;
-            dragonoid_exp = expData.dragonoid_exp;
-            golem_exp = expData.golem_exp;
-            catperson_exp = expData.catperson_exp;
-            angel_exp = expData.angel_exp;
-            devil_exp = expData.devil_exp;
-            orge_exp = expData.orge_exp;
-            gargoyle_exp = expData.gargoyle_exp;
-            garuda_exp = expData.garuda_exp;
-            loxodon_exp = expData.loxodon_exp;
-            minotaur_exp = expData.minotaur_exp;
-            spiderperson_exp = expData.spiderperson_exp;
-            hobnoblin_exp = expData.hobnoblin_exp;
-        }
+        
     }
 
     public void NormalRoll()
     {
-        normRoll = true;
         //rolls a random number to determine rarity class
         ranNum = Random.Range(0, 19);
         // rarity is split into a groups of varying chance to be selected
@@ -97,246 +82,419 @@ public class GachaRolls : MonoBehaviour
         {
             // randomly selects character within the array for the result
             //Super Rare
+            selCharRarity = "Super Rare";
             ranNum = Random.Range(0, characterlistSR.Length -1);
             characterRolled.Add(characterlistSR[ranNum]);
+            Debug.Log(characterlistSR[ranNum] + " is rolled");
             Results();
         }
         if (ranNum >= 1 && ranNum <= 3)
         {
             //Rare
+            selCharRarity = "Rare";
             ranNum = Random.Range(0, characterlistR.Length -1);
             characterRolled.Add(characterlistR[ranNum]);
+            Debug.Log(characterlistR[ranNum] + " is rolled");
             Results();
         }
         if (ranNum >= 4 && ranNum <= 9)
         {
             //Uncommon
+            selCharRarity = "Uncommon";
             ranNum = Random.Range(0, characterlistUC.Length -1);
             characterRolled.Add(characterlistUC[ranNum]);
+            Debug.Log(characterlistUC[ranNum] + " is rolled");
             Results();
         }
         if (ranNum >= 10 && ranNum <= 19)
         {
             //Commmon
+            selCharRarity = "Common";
             ranNum = Random.Range(0, characterlistC.Length -1);
             characterRolled.Add(characterlistC[ranNum]);
+            Debug.Log(characterlistC[ranNum] + " is rolled");
             Results();
         }
     }
 
     public void RiggedRoll()
     {
-        characterRolled.Add(characterlistUC[4]);
-        characterRolled.Add(characterlistC[3]);
-        characterRolled.Add(characterlistC[4]);
-        //for the Tutorial by rigging what the player is first given
-        resultSprite.GetComponent<Image>().sprite = characterSprite[ranNum];
-        raceText.text = characterRolled[0];
-        resultRarity.GetComponent<Image>().sprite = rarity[0];
+        //characterRolled.Add(characterlistUC[4]);
+        //characterRolled.Add(characterlistC[3]);
+        //characterRolled.Add(characterlistC[4]);
+        ////for the Tutorial by rigging what the player is first given
+        //resultSprite.GetComponent<Image>().sprite = characterSprite[ranNum];
+        //raceText.text = characterRolled[0];
+        //resultRarity.GetComponent<Image>().sprite = rarity[0];
 
-        normSummary[0].SetActive(true);
-        normSummary[1].SetActive(true);
-        normSummary[2].SetActive(true);
-        normSummary[0].GetComponent<Image>().sprite = characterSprite[ranNum];
-        normSummary[1].GetComponent<Image>().sprite = characterSprite[ranNum];
-        normSummary[2].GetComponent<Image>().sprite = characterSprite[ranNum];
+        //normSummary[0].SetActive(true);
+        //normSummary[1].SetActive(true);
+        //normSummary[2].SetActive(true);
+        //normSummary[0].GetComponent<Image>().sprite = characterSprite[ranNum];
+        //normSummary[1].GetComponent<Image>().sprite = characterSprite[ranNum];
+        //normSummary[2].GetComponent<Image>().sprite = characterSprite[ranNum];
     }
 
     public void Results()
     {
         //the results of the pull are generated 
-        resultSprite.GetComponent<Image>().sprite = characterSprite[ranNum];
-        raceText.text = characterRolled[0];
-        resultRarity.GetComponent<Image>().sprite = rarity[0];
-        normSummary[0].SetActive(true);
-        normSummary[0].GetComponent<Image>().sprite = characterSprite[ranNum];
+        switch (selCharRarity)
+        {
+            case "Super Rare":
+                Debug.Log("its a " + selCharRarity);
+                raceText.text = characterlistSR[ranNum];
+                resultSprite.GetComponent<Image>().sprite = characterSpriteSR[ranNum];
+                resultRarity.GetComponent<Image>().sprite = rarity[0];
+                normSummary[0].SetActive(true);
+                normSummary[0].GetComponent<Image>().sprite = characterSpriteSR[ranNum];
+                break;
+            case "Rare":
+                Debug.Log("its a " + selCharRarity);
+                raceText.text = characterlistR[ranNum];
+                resultSprite.GetComponent<Image>().sprite = characterSpriteR[ranNum];
+                resultRarity.GetComponent<Image>().sprite = rarity[1];
+                normSummary[0].SetActive(true);
+                normSummary[0].GetComponent<Image>().sprite = characterSpriteR[ranNum];
+                break;
+            case "Uncommon":
+                Debug.Log("its a " + selCharRarity);
+                raceText.text = characterlistUC[ranNum];
+                resultSprite.GetComponent<Image>().sprite = characterSpriteUC[ranNum];
+                resultRarity.GetComponent<Image>().sprite = rarity[2];
+                normSummary[0].SetActive(true);
+                normSummary[0].GetComponent<Image>().sprite = characterSpriteUC[ranNum];
+                break;
+            case "Common":
+                Debug.Log("its a " + selCharRarity);
+                raceText.text = characterlistC[ranNum];
+                resultSprite.GetComponent<Image>().sprite = characterSpriteC[ranNum];
+                resultRarity.GetComponent<Image>().sprite = rarity[3];
+                normSummary[0].SetActive(true);
+                normSummary[0].GetComponent<Image>().sprite = characterSpriteC[ranNum];
+                break;
+        }     
     }
 
     public void Levelup()
     {
-        Debug.Log(characterRolled);
+       
         //Adds the experience from getting a duplicate character
-        foreach(string item in characterRolled)
+        foreach (string item in characterRolled)
         {
             string checkname = item;
             switch (checkname)
             {
-                case "fishman":
+                case "Fishman":
                     if(fishman == true)
                     {
-                        fishman_exp += expGained;
+                        if(fishmanStarLevel < commonLimit)
+                        {
+                            fishmanStarLevel += rankBonus;
+                            Debug.Log("Rank UP!!!");
+                        }
+                        else
+                        {
+                            Debug.Log("MAXED!!!");
+                        }
                     }
                     else
                     {
                         fishman = true;
+                        Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
                     }
                     break;
-                case "werewolf":
+                case "Werewolf":
                     if (werewolf == true)
                     {
-                        werewolf_exp += expGained;
+                        if (werewolfStarLevel < uncommonLimit)
+                        {
+                            werewolfStarLevel += rankBonus;
+                            Debug.Log("Rank UP!!!");
+                        }
+                        else
+                        {
+                            Debug.Log("MAXED!!!");
+                        }
                     }
                     else
                     {
                         werewolf = true;
+                        Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
                     }
                     break;
-                case "bukkake Slime":
+                case "Bukkake Slime":
                     if (bukkakeSlime == true)
                     {
-                        bukkakeSlime_exp += expGained;
+                        if (bukkakeSlimeStarLevel < superrareLimit)
+                        {
+                            bukkakeSlimeStarLevel += rankBonus;
+                            Debug.Log("Rank UP!!!");
+                        }
+                        else
+                        {
+                            Debug.Log("MAXED!!!");
+                        }
                     }
                     else
                     {
                         bukkakeSlime = true;
+                        Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
                     }
                     break;
-                case "dragonoid":
+                case "Dragonoid":
                     if (dragonoid == true)
                     {
-                        dragonoid_exp += expGained;
+                        if (dragonoidStarLevel < uncommonLimit)
+                        {
+                            dragonoidStarLevel += rankBonus;
+                            Debug.Log("Rank UP!!!");
+                        }
+                        else
+                        {
+                            Debug.Log("MAXED!!!");
+                        }
                     }
                     else
                     {
                         dragonoid = true;
+                        Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
                     }
                     break;
-                case "golem":
+                case "Golem":
                     if (golem == true)
                     {
-                        golem_exp += expGained;
+                        if (golemStarLevel < superrareLimit)
+                        {
+                            golemStarLevel += rankBonus;
+                            Debug.Log("Rank UP!!!");
+                        }
+                        else
+                        {
+                            Debug.Log("MAXED!!!");
+                        }
                     }
                     else
                     {
                         golem = true;
+                        Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
                     }
                     break;
-                case "catperson":
+                case "Catperson":
                     if (catperson == true)
                     {
-                        catperson_exp += expGained;
+                        if (catpersonStarLevel < commonLimit)
+                        {
+                            catpersonStarLevel += rankBonus;
+                            Debug.Log("Rank UP!!!");
+                        }
+                        else
+                        {
+                            Debug.Log("MAXED!!!");
+                        }
                     }
                     else
                     {
                         catperson = true;
+                        Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
                     }
                     break;
-                case "angel":
+                case "Angel":
                     if (angel == true)
                     {
-                        angel_exp += expGained;
+                        if (angelStarLevel < superrareLimit)
+                        {
+                            angelStarLevel += rankBonus;
+                            Debug.Log("Rank UP!!!");
+                        }
+                        else
+                        {
+                            Debug.Log("MAXED!!!");
+                        }
                     }
                     else
                     {
                         angel = true;
+                        Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
                     }
                     break;
-                case "devil":
+                case "Devil":
                     if (devil == true)
                     {
-                        devil_exp += expGained;
+                        if (devilStarLevel < rareLimit)
+                        {
+                            devilStarLevel += rankBonus;
+                            Debug.Log("Rank UP!!!");
+                        }
+                        else
+                        {
+                            Debug.Log("MAXED!!!");
+                        }
                     }
                     else
                     {
                         devil = true;
+                        Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
                     }
                     break;
-                case "orge":
+                case "Orge":
                     if (orge == true)
                     {
-                        orge_exp += expGained;
+                        if (orgeStarLevel < commonLimit)
+                        {
+                            orgeStarLevel += rankBonus;
+                            Debug.Log("Rank UP!!!");
+                        }
+                        else
+                        {
+                            Debug.Log("MAXED!!!");
+                        }
                     }
                     else
                     {
                         orge = true;
+                        Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
                     }
                     break;
-                case "gargoyle":
+                case "Gargoyle":
                     if (gargoyle == true)
                     {
-                        gargoyle_exp += expGained;
+                        if (fishmanStarLevel < uncommonLimit)
+                        {
+                            gargoyleStarLevel += rankBonus;
+                            Debug.Log("Rank UP!!!");
+                        }
+                        else
+                        {
+                            Debug.Log("MAXED!!!");
+                        }
                     }
                     else
                     {
                         gargoyle = true;
+                        Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
                     }
                     break;
-                case "garuda":
+                case "Garuda":
                     if (garuda == true)
                     {
-                        garuda_exp += expGained;
+                        if (garudaStarLevel < commonLimit)
+                        {
+                            garudaStarLevel += rankBonus;
+                            Debug.Log("Rank UP!!!");
+                        }
+                        else
+                        {
+                            Debug.Log("MAXED!!!");
+                        }
                     }
                     else
                     {
                         garuda = true;
+                        Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
                     }
                     break;
-                case "loxodon":
+                case "Loxodon":
                     if (loxodon == true)
                     {
-                        loxodon_exp += expGained;
+                        if (loxodonStarLevel < rareLimit)
+                        {
+                            loxodonStarLevel += rankBonus;
+                            Debug.Log("Rank UP!!!");
+                        }
+                        else
+                        {
+                            Debug.Log("MAXED!!!");
+                        }
                     }
                     else
                     {
                         loxodon = true;
+                        Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
                     }
                     break;
-                case "minotaur":
+                case "Minotaur":
                     if (minotaur == true)
                     {
-                        minotaur_exp += expGained;
+                        if (minotaurStarLevel < uncommonLimit)
+                        {
+                            minotaurStarLevel += rankBonus;
+                            Debug.Log("Rank UP!!!");
+                        }
+                        else
+                        {
+                            Debug.Log("MAXED!!!");
+                        }
                     }
                     else
                     {
                         minotaur = true;
+                        Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
                     }
                     break;
-                case "spiderperson":
+                case "Spiderperson":
                     if (spiderperson == true)
                     {
-                        spiderperson_exp += expGained;
+                        if (spiderpersonStarLevel < rareLimit)
+                        {
+                            spiderpersonStarLevel += rankBonus;
+                            Debug.Log("Rank UP!!!");
+                        }
+                        else
+                        {
+                            Debug.Log("MAXED!!!");
+                        }
                     }
                     else
                     {
                         spiderperson = true;
+                        Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
                     }
                     break;
-                case "hobnoblin":
+                case "Hobnoblin":
                     if (hobnoblin == true)
                     {
-                        hobnoblin_exp += expGained;
+                        if (hobnoblinStarLevel < commonLimit)
+                        {
+                            hobnoblinStarLevel += rankBonus;
+                            Debug.Log("Rank UP!!!");
+                        }
+                        else
+                        {
+                            Debug.Log("MAXED!!!");
+                        }
                     }
                     else
                     {
                         hobnoblin = true;
+                        Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
                     }
@@ -344,26 +502,33 @@ public class GachaRolls : MonoBehaviour
             }
         }
 
-        //Saves the characters experience into the savefile
-        GachaSaveSystem.SavePlayer1(this);
-
+        PlayerPrefs.SetFloat("Fishman_StarRankBonus", fishmanStarLevel);
+        PlayerPrefs.SetFloat("BukkakeSlime_StarRankBonus", bukkakeSlimeStarLevel);
+        PlayerPrefs.SetFloat("Angel_StarRankBonus", angelStarLevel);
+        PlayerPrefs.SetFloat("Golem_StarRankBonus", golemStarLevel);
+        PlayerPrefs.SetFloat("Devil_StarRankBonus", devilStarLevel);
+        PlayerPrefs.SetFloat("Loxodon_StarRankBonus", loxodonStarLevel);
+        PlayerPrefs.SetFloat("Spiderperson_StarRankBonus", spiderpersonStarLevel);
+        PlayerPrefs.SetFloat("Minotaur_StarRankBonus", minotaurStarLevel);
+        PlayerPrefs.SetFloat("Gargoyle_StarRankBonus", gargoyleStarLevel);
+        PlayerPrefs.SetFloat("Dragonoid_StarRankBonus", dragonoidStarLevel);
+        PlayerPrefs.SetFloat("Werewolf_StarRankBonus", werewolfStarLevel);
+        PlayerPrefs.SetFloat("Catperson_StarRankBonus", catpersonStarLevel);
+        PlayerPrefs.SetFloat("Orge_StarRankBonus", orgeStarLevel);
+        PlayerPrefs.SetFloat("Garuda_StarRankBonus", garudaStarLevel);
+        PlayerPrefs.SetFloat("HobNoblin_StarRankBonus", hobnoblinStarLevel);
         characterRolled.Clear();
     }
 
     public void CheckName()
     {
-        foreach(string item in GetComponent<PlayerCharacterList>().myCharacters)
-        {
-            Debug.Log(item);
-            string selected = item;
-            if (selected == selectedCharacter)
-            {
-
-            }
-            else
-            {
-                GetComponent<PlayerCharacterList>().myCharacters.Add(selectedCharacter);
-            }
-        }
+        Debug.Log("you done goofed1");
+        Debug.Log(selectedCharacter + "is added");
+        obtainedCharacters.GetComponent<PlayerCharacterList>().myCharacters.Add(selectedCharacter);
+        //PlayerPrefs.SetString();
+        //foreach (string item in obtainedCharacters.GetComponent<PlayerCharacterList>().myCharacters)
+        //{
+        //    PlayerPrefs.SetString(item, item);
+        //}
     }
 }
