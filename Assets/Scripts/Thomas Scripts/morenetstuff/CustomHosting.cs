@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class CustomHosting : NetworkBehaviour
+public class CustomHosting : NetworkManager
 {
-    public string ipAddress;
-    public Button StartHostButton;
-    public Button JoinGameButton;
-    public Button DisconnectButton;
-
     public void SetupHost()
     {
         SetPort();
@@ -24,6 +20,13 @@ public class CustomHosting : NetworkBehaviour
         NetworkManager.singleton.StartClient();
     }
 
+
+    public void BackToMenuButton()
+    {
+        NetworkManager.Shutdown();
+        SceneManager.LoadScene("Thomas_CharacterScene");
+    }
+
     void SetPort()
     {
         NetworkManager.singleton.networkPort = 7777;
@@ -31,6 +34,7 @@ public class CustomHosting : NetworkBehaviour
 
     void SetIPAddress()
     {
+        string ipAddress = GameObject.Find("InputFieldIPAddress").transform.Find("Text").GetComponent<Text>().text;
         NetworkManager.singleton.networkAddress = ipAddress;
     }
 
@@ -42,22 +46,25 @@ public class CustomHosting : NetworkBehaviour
         }
         else
         {
-
+            LevelScene();
         }
     }
 
     void MenuScene()
     {
-        StartHostButton.onClick.RemoveAllListeners();
-        StartHostButton.onClick.AddListener(SetupHost);
+        GameObject.Find("HostButton").GetComponent<Button>().onClick.RemoveAllListeners();
+        GameObject.Find("HostButton").GetComponent<Button>().onClick.AddListener(this.SetupHost);
 
-        JoinGameButton.onClick.RemoveAllListeners();
-        JoinGameButton.onClick.AddListener(JoinGame);
+        GameObject.Find("JoinButton").GetComponent<Button>().onClick.RemoveAllListeners();
+        GameObject.Find("JoinButton").GetComponent<Button>().onClick.AddListener(this.JoinGame);
+
+        GameObject.Find("BackButton").GetComponent<Button>().onClick.RemoveAllListeners();
+        GameObject.Find("BackButton").GetComponent<Button>().onClick.AddListener(this.BackToMenuButton);
     }
 
     void LevelScene()
     {
-        DisconnectButton.onClick.RemoveAllListeners();
-        DisconnectButton.onClick.AddListener(NetworkManager.singleton.StopHost);
+        GameObject.Find("DisconnectButton").GetComponent<Button>().onClick.RemoveAllListeners();
+        GameObject.Find("DisconnectButton").GetComponent<Button>().onClick.AddListener(NetworkManager.singleton.StopHost);
     }
 }

@@ -15,9 +15,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Jack_Scene.unity
     guid: 5f756e82d94970a488af01e46a984a40
   - enabled: 1
-    path: Assets/Scenes/Thomas Scenes/Thomas_CharacterScene.unity
+    path: Assets/Scenes/Thomas Scenes/Network Scenes/Thomas_CharacterScene.unity
     guid: 99b275013cef3fe44969fe70a42f4586
   - enabled: 1
-    path: Assets/Scenes/Thomas Scenes/TL_TestLocalMultiplayer.unity
+    path: Assets/Scenes/Thomas Scenes/Network Scenes/NetworkMenuScene.unity
+    guid: 0459682361d645b4792bf9d529ec8fa3
+  - enabled: 1
+    path: Assets/Scenes/Thomas Scenes/Network Scenes/TL_TestLocalMultiplayer.unity
     guid: 959f6e300ee623148ab2fb661a2ce0f1
   m_configObjects: {}

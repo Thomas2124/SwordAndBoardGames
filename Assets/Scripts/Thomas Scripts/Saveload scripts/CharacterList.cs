@@ -331,7 +331,7 @@ public class CharacterList : MonoBehaviour
     public void SaveStats() //Saves data
     {
         SaveSystem.SavePlayer(this);
-        SceneManager.LoadScene("TL_TestLocalMultiplayer");
+        SceneManager.LoadScene("NetworkMenuScene");
     }
 
     public void ReplaceStats(int number, string n, float h, float a, float d, int l, float e)
