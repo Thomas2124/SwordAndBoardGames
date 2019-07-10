@@ -192,6 +192,7 @@ public class PlayerScript : NetworkBehaviour
     public Sprite spiderperson_Sprite;
     public Sprite hobnoblin_Sprite;
 
+    float flipNum;
 
 
     // Start is called before the first frame update
@@ -204,6 +205,7 @@ public class PlayerScript : NetworkBehaviour
             isDead = false;
             isDead2 = false;
             isDead3 = false;
+            characterNumber = 1;
 
             if (SaveSystem.LoadPlayer() != null)
             {
@@ -237,14 +239,12 @@ public class PlayerScript : NetworkBehaviour
             connectID = NetworkServer.connections.Count;
             if (connectID == 1)
             {
-                isMyTurn = true;
+                waitPanel.SetActive(true);
             }
             else
             {
-                isMyTurn = false;
+                waitPanel.SetActive(false);
             }
-            
-            characterNumber = 1;
             //menuButton.SetActive(false);
 
             playerButton.SetActive(isMyTurn);
@@ -263,15 +263,6 @@ public class PlayerScript : NetworkBehaviour
             character5.SetActive(true);
             character6.SetActive(true);
             //background.SetActive(true);
-
-            if (connectID == 1)
-            {
-                waitPanel.SetActive(true);
-            }
-            else
-            {
-                waitPanel.SetActive(false);
-            }
 
             timerText.transform.localPosition = new Vector3(0f, 250f, 0f);
             victoryText.transform.localPosition = new Vector3(0f, 0f, 0f);
@@ -311,10 +302,11 @@ public class PlayerScript : NetworkBehaviour
                 {
                     CharacterSprites();
                     CmdBaseHealthSetter(baseHealth1, baseHealth2, baseHealth3);
+
                     if (connectID == 1)
                     {
                         this.waitPanel.SetActive(false);
-                        /*float flipNum = Random.Range(1f, 100f);
+                        flipNum = Random.Range(1f, 100f);
                         if (flipNum <= 50f)
                         {
                             CmdCoinFlip(true, false);
@@ -322,7 +314,7 @@ public class PlayerScript : NetworkBehaviour
                         else
                         {
                             CmdCoinFlip(false, true);
-                        }*/
+                        }
                     }
                 }
 
@@ -346,7 +338,7 @@ public class PlayerScript : NetworkBehaviour
 
                 CmdGetSprites(thisCharacterSprite1, thisCharacterSprite2, thisCharacterSprite3);
 
-                CmdCharacterLoop();
+                CmdCharacterLoop(isMyTurn);
 
                 SpecialButtonActive(characterNumber);
 
@@ -937,9 +929,8 @@ public class PlayerScript : NetworkBehaviour
 
     //Used to progress through players character
     [Command]
-    void CmdCharacterLoop()
+    void CmdCharacterLoop(bool myBool)
     {
-        bool myBool = isMyTurn;
         RpcCharacterLoop(myBool);
     }
 
@@ -1654,12 +1645,15 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    public void Defending()
+    {
+        CmdDefending(true, characterNumber);
+    }
+
     //Defending Option
     [Command]
-    public void CmdDefending()
+    void CmdDefending(bool defend, int number)
     {
-        bool defend = true;
-        int number = characterNumber;
         RpcDefending(defend, number);
     }
 
