@@ -3025,10 +3025,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1da83b2f4b136d04b8d6601ce3221c2b, type: 3}
   - {fileID: 21300000, guid: 1da83b2f4b136d04b8d6601ce3221c2b, type: 3}
   rarity:
-  - {fileID: 21300000, guid: 459badc7b83e5c945a765e649c3cfe77, type: 3}
-  - {fileID: 21300000, guid: 459badc7b83e5c945a765e649c3cfe77, type: 3}
-  - {fileID: 21300000, guid: 459badc7b83e5c945a765e649c3cfe77, type: 3}
-  - {fileID: 21300000, guid: 459badc7b83e5c945a765e649c3cfe77, type: 3}
+  - {fileID: 21300000, guid: 4bf31f018e5831c4ea35f80e0b22f50b, type: 3}
+  - {fileID: 21300000, guid: aa34d4b3d9f8e984fba71d711189e793, type: 3}
+  - {fileID: 21300000, guid: aa05c7da4eb0085419db78feac3094e1, type: 3}
+  - {fileID: 21300000, guid: da87861df09c6bd4bb28956ca1b9f5c0, type: 3}
   normSummary:
   - {fileID: 651658231}
   - {fileID: 0}
@@ -3036,6 +3036,12 @@ MonoBehaviour:
   - {fileID: 79424361}
   - {fileID: 248443736}
   selCharRarity: 
+  summaryText:
+  - {fileID: 507241318}
+  - {fileID: 1663359457}
+  - {fileID: 247836874}
+  - {fileID: 695950797}
+  - {fileID: 1256699366}
   fishman: 0
   werewolf: 0
   bukkakeSlime: 0
@@ -3058,21 +3064,21 @@ MonoBehaviour:
   uncommonLimit: 1.5
   rareLimit: 1.75
   superrareLimit: 2
-  fishmanStarLevel: 4
-  werewolfStarLevel: 3
+  fishmanStarLevel: 1
+  werewolfStarLevel: 1
   bukkakeSlimeStarLevel: 1
-  dragonoidStarLevel: 3
+  dragonoidStarLevel: 1
   golemStarLevel: 1
-  catpersonStarLevel: 4
+  catpersonStarLevel: 1
   angelStarLevel: 1
-  devilStarLevel: 2
-  orgeStarLevel: 4
-  gargoyleStarLevel: 3
-  garudaStarLevel: 4
-  loxodonStarLevel: 2
-  minotaurStarLevel: 3
-  spiderpersonStarLevel: 2
-  hobnoblinStarLevel: 4
+  devilStarLevel: 1
+  orgeStarLevel: 1
+  gargoyleStarLevel: 1
+  garudaStarLevel: 1
+  loxodonStarLevel: 1
+  minotaurStarLevel: 1
+  spiderpersonStarLevel: 1
+  hobnoblinStarLevel: 1
 --- !u!4 &1668075068
 Transform:
   m_ObjectHideFlags: 0
@@ -3311,7 +3317,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.061401702, y: 0.29280245}
   m_AnchorMax: {x: 0.96800005, y: 0.8303678}
-  m_AnchoredPosition: {x: -12.600024, y: 13}
+  m_AnchoredPosition: {x: -12.600037, y: 13}
   m_SizeDelta: {x: 4.4000244, y: 1.699997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1876229750
@@ -3423,8 +3429,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.22559884, y: 0.30525818}
   m_AnchorMax: {x: 0.4117907, y: 0.6702255}
-  m_AnchoredPosition: {x: 55, y: 13.239}
-  m_SizeDelta: {x: 628, y: 47}
+  m_AnchoredPosition: {x: 79.100006, y: -0.000030517578}
+  m_SizeDelta: {x: 505, y: -23.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2011014430
 MonoBehaviour:
@@ -3446,7 +3452,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4bf31f018e5831c4ea35f80e0b22f50b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3480,7 +3486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2018108304
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3502,7 +3508,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.31462502, y: 0.335}
   m_AnchorMax: {x: 0.68322915, y: 0.66400003}
-  m_AnchoredPosition: {x: 2.0724, y: 0.54181}
+  m_AnchoredPosition: {x: 2.0723877, y: 0.5418091}
   m_SizeDelta: {x: 1212.3, y: 724.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2018108305
@@ -3914,7 +3920,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.19619663, y: 0.038000003}
   m_AnchorMax: {x: 0.47900003, y: 0.17521577}
-  m_AnchoredPosition: {x: 2, y: -26.993958}
+  m_AnchoredPosition: {x: 2, y: -26.994019}
   m_SizeDelta: {x: 5.4, y: -52.488}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2126921541

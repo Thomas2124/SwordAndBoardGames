@@ -24,6 +24,7 @@ public class GachaRolls : MonoBehaviour
     public Sprite[] rarity;                 //corresponding rarity sprite data
     public GameObject[] normSummary;        //normal roll summary page, how many images to show
     [SerializeField] private string selCharRarity;
+    public Text[] summaryText;
 
     //Obtained? Variables
     public bool fishman = false;
@@ -190,16 +191,19 @@ public class GachaRolls : MonoBehaviour
                         if(fishmanStarLevel < commonLimit)
                         {
                             fishmanStarLevel += rankBonus;
+                            summaryText[0].text = "Rank UP!!!";
                             Debug.Log("Rank UP!!!");
                         }
                         else
                         {
+                            summaryText[0].text = "MAXED!!!";
                             Debug.Log("MAXED!!!");
                         }
                     }
                     else
                     {
                         fishman = true;
+                        summaryText[0].text = "NEW!!!";
                         Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
@@ -211,16 +215,19 @@ public class GachaRolls : MonoBehaviour
                         if (werewolfStarLevel < uncommonLimit)
                         {
                             werewolfStarLevel += rankBonus;
+                            summaryText[0].text = "Rank UP!!!";
                             Debug.Log("Rank UP!!!");
                         }
                         else
                         {
+                            summaryText[0].text = "MAXED!!!";
                             Debug.Log("MAXED!!!");
                         }
                     }
                     else
                     {
                         werewolf = true;
+                        summaryText[0].text = "NEW!!!";
                         Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
@@ -232,16 +239,19 @@ public class GachaRolls : MonoBehaviour
                         if (bukkakeSlimeStarLevel < superrareLimit)
                         {
                             bukkakeSlimeStarLevel += rankBonus;
+                            summaryText[0].text = "Rank UP!!!";
                             Debug.Log("Rank UP!!!");
                         }
                         else
                         {
+                            summaryText[0].text = "MAXED!!!";
                             Debug.Log("MAXED!!!");
                         }
                     }
                     else
                     {
                         bukkakeSlime = true;
+                        summaryText[0].text = "NEW!!!";
                         Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
@@ -253,16 +263,19 @@ public class GachaRolls : MonoBehaviour
                         if (dragonoidStarLevel < uncommonLimit)
                         {
                             dragonoidStarLevel += rankBonus;
+                            summaryText[0].text = "Rank UP!!!";
                             Debug.Log("Rank UP!!!");
                         }
                         else
                         {
+                            summaryText[0].text = "MAXED!!!";
                             Debug.Log("MAXED!!!");
                         }
                     }
                     else
                     {
                         dragonoid = true;
+                        summaryText[0].text = "NEW!!!";
                         Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
@@ -274,16 +287,19 @@ public class GachaRolls : MonoBehaviour
                         if (golemStarLevel < superrareLimit)
                         {
                             golemStarLevel += rankBonus;
+                            summaryText[0].text = "Rank UP!!!";
                             Debug.Log("Rank UP!!!");
                         }
                         else
                         {
+                            summaryText[0].text = "MAXED!!!";
                             Debug.Log("MAXED!!!");
                         }
                     }
                     else
                     {
                         golem = true;
+                        summaryText[0].text = "NEW!!!";
                         Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
@@ -295,16 +311,19 @@ public class GachaRolls : MonoBehaviour
                         if (catpersonStarLevel < commonLimit)
                         {
                             catpersonStarLevel += rankBonus;
+                            summaryText[0].text = "Rank UP!!!";
                             Debug.Log("Rank UP!!!");
                         }
                         else
                         {
+                            summaryText[0].text = "MAXED!!!";
                             Debug.Log("MAXED!!!");
                         }
                     }
                     else
                     {
                         catperson = true;
+                        summaryText[0].text = "NEW!!!";
                         Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
@@ -316,16 +335,19 @@ public class GachaRolls : MonoBehaviour
                         if (angelStarLevel < superrareLimit)
                         {
                             angelStarLevel += rankBonus;
+                            summaryText[0].text = "Rank UP!!!";
                             Debug.Log("Rank UP!!!");
                         }
                         else
                         {
+                            summaryText[0].text = "MAXED!!!";
                             Debug.Log("MAXED!!!");
                         }
                     }
                     else
                     {
                         angel = true;
+                        summaryText[0].text = "NEW!!!";
                         Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
@@ -337,16 +359,19 @@ public class GachaRolls : MonoBehaviour
                         if (devilStarLevel < rareLimit)
                         {
                             devilStarLevel += rankBonus;
+                            summaryText[0].text = "Rank UP!!!";
                             Debug.Log("Rank UP!!!");
                         }
                         else
                         {
+                            summaryText[0].text = "MAXED!!!";
                             Debug.Log("MAXED!!!");
                         }
                     }
                     else
                     {
                         devil = true;
+                        summaryText[0].text = "NEW!!!";
                         Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
@@ -358,16 +383,19 @@ public class GachaRolls : MonoBehaviour
                         if (orgeStarLevel < commonLimit)
                         {
                             orgeStarLevel += rankBonus;
+                            summaryText[0].text = "Rank UP!!!";
                             Debug.Log("Rank UP!!!");
                         }
                         else
                         {
+                            summaryText[0].text = "MAXED!!!";
                             Debug.Log("MAXED!!!");
                         }
                     }
                     else
                     {
                         orge = true;
+                        summaryText[0].text = "NEW!!!";
                         Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
@@ -379,16 +407,19 @@ public class GachaRolls : MonoBehaviour
                         if (fishmanStarLevel < uncommonLimit)
                         {
                             gargoyleStarLevel += rankBonus;
+                            summaryText[0].text = "Rank UP!!!";
                             Debug.Log("Rank UP!!!");
                         }
                         else
                         {
+                            summaryText[0].text = "MAXED!!!";
                             Debug.Log("MAXED!!!");
                         }
                     }
                     else
                     {
                         gargoyle = true;
+                        summaryText[0].text = "NEW!!!";
                         Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
@@ -400,16 +431,19 @@ public class GachaRolls : MonoBehaviour
                         if (garudaStarLevel < commonLimit)
                         {
                             garudaStarLevel += rankBonus;
+                            summaryText[0].text = "Rank UP!!!";
                             Debug.Log("Rank UP!!!");
                         }
                         else
                         {
+                            summaryText[0].text = "MAXED!!!";
                             Debug.Log("MAXED!!!");
                         }
                     }
                     else
                     {
                         garuda = true;
+                        summaryText[0].text = "NEW!!!";
                         Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
@@ -421,16 +455,19 @@ public class GachaRolls : MonoBehaviour
                         if (loxodonStarLevel < rareLimit)
                         {
                             loxodonStarLevel += rankBonus;
+                            summaryText[0].text = "Rank UP!!!";
                             Debug.Log("Rank UP!!!");
                         }
                         else
                         {
+                            summaryText[0].text = "MAXED!!!";
                             Debug.Log("MAXED!!!");
                         }
                     }
                     else
                     {
                         loxodon = true;
+                        summaryText[0].text = "NEW!!!";
                         Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
@@ -442,16 +479,19 @@ public class GachaRolls : MonoBehaviour
                         if (minotaurStarLevel < uncommonLimit)
                         {
                             minotaurStarLevel += rankBonus;
+                            summaryText[0].text = "Rank UP!!!";
                             Debug.Log("Rank UP!!!");
                         }
                         else
                         {
+                            summaryText[0].text = "MAXED!!!";
                             Debug.Log("MAXED!!!");
                         }
                     }
                     else
                     {
                         minotaur = true;
+                        summaryText[0].text = "NEW!!!";
                         Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
@@ -463,16 +503,19 @@ public class GachaRolls : MonoBehaviour
                         if (spiderpersonStarLevel < rareLimit)
                         {
                             spiderpersonStarLevel += rankBonus;
+                            summaryText[0].text = "Rank UP!!!";
                             Debug.Log("Rank UP!!!");
                         }
                         else
                         {
+                            summaryText[0].text = "MAXED!!!";
                             Debug.Log("MAXED!!!");
                         }
                     }
                     else
                     {
                         spiderperson = true;
+                        summaryText[0].text = "NEW!!!";
                         Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
@@ -484,16 +527,19 @@ public class GachaRolls : MonoBehaviour
                         if (hobnoblinStarLevel < commonLimit)
                         {
                             hobnoblinStarLevel += rankBonus;
+                            summaryText[0].text = "Rank UP!!!";
                             Debug.Log("Rank UP!!!");
                         }
                         else
                         {
+                            summaryText[0].text = "MAXED!!!";
                             Debug.Log("MAXED!!!");
                         }
                     }
                     else
                     {
                         hobnoblin = true;
+                        summaryText[0].text = "NEW!!!";
                         Debug.Log("Obtained " + checkname);
                         selectedCharacter = checkname;
                         CheckName();
