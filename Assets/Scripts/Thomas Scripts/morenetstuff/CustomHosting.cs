@@ -9,7 +9,6 @@ using UnityEngine.SceneManagement;
 
 public class CustomHosting : NetworkManager
 {
-    NetworkID netId;
     public void SetupHost()
     {
         SetPort();
@@ -26,7 +25,6 @@ public class CustomHosting : NetworkManager
     public void SetupMatchMakingHost()
     {
         NetworkManager.singleton.StartMatchMaker();
-        NetworkManager.singleton.matchMaker.ListMatches(0, 10, "", true, 0, 0, OnMatchList);
         string ipAddress = GameObject.Find("InputFieldIPAddress").transform.Find("Text").GetComponent<Text>().text;
 
         NetworkManager.singleton.matchMaker.CreateMatch(ipAddress, NetworkManager.singleton.matchSize, true, "", "", "", 0, 0, NetworkManager.singleton.OnMatchCreate);
@@ -42,10 +40,10 @@ public class CustomHosting : NetworkManager
             string ipAddress = GameObject.Find("InputFieldIPAddress").transform.Find("Text").GetComponent<Text>().text;
             for (int i = 0; i < NetworkManager.singleton.matches.Count; i++)
             {
-                var match = NetworkManager.singleton.matches[i];
-                if (match.name == ipAddress)
+                if (NetworkManager.singleton.matches[i].name == ipAddress)
                 {
-                    NetworkManager.singleton.matchName = ipAddress;
+                    NetworkID match = NetworkManager.singleton.matches[i].networkId;
+                    NetworkID netId = match;
                     NetworkManager.singleton.matchMaker.JoinMatch(netId, "", "", "", 0, 0, NetworkManager.singleton.OnMatchJoined);
                 }
             }
