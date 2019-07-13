@@ -1185,6 +1185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3419355764041805079}
   - component: {fileID: 3419355764041805077}
+  - component: {fileID: 6688546870413890131}
   - component: {fileID: 3419355764041805076}
   m_Layer: 0
   m_Name: Player
@@ -1341,6 +1342,18 @@ MonoBehaviour:
   spiderperson_Sprite: {fileID: 21300000, guid: 14e645b71ba53e24f9d3929c1be39b29,
     type: 3}
   hobnoblin_Sprite: {fileID: 21300000, guid: 223edd483086f7c42a8e280a5ff89ad3, type: 3}
+--- !u!114 &6688546870413890131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3419355764041805082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4e4cc045638de4d8a876d6e0a670fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3419355764041805076
 MonoBehaviour:
   m_ObjectHideFlags: 0
