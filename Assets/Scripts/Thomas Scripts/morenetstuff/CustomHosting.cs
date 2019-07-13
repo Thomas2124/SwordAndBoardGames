@@ -38,13 +38,14 @@ public class CustomHosting : NetworkManager
         if (NetworkManager.singleton.matches != null)
         {
             string ipAddress = GameObject.Find("InputFieldIPAddress").transform.Find("Text").GetComponent<Text>().text;
-            for (int i = 0; i < NetworkManager.singleton.matches.Count; i++)
+            foreach (var item in NetworkManager.singleton.matches)
             {
-                if (NetworkManager.singleton.matches[i].name == ipAddress)
+                if (item.name == ipAddress)
                 {
-                    NetworkID match = NetworkManager.singleton.matches[i].networkId;
-                    NetworkID netId = match;
-                    NetworkManager.singleton.matchMaker.JoinMatch(netId, "", "", "", 0, 0, NetworkManager.singleton.OnMatchJoined);
+                    print(item.name);
+                    print(ipAddress);
+                    NetworkID match = item.networkId;
+                    NetworkManager.singleton.matchMaker.JoinMatch(match, "", "", "", 0, 0, NetworkManager.singleton.OnMatchJoined);
                 }
             }
         }

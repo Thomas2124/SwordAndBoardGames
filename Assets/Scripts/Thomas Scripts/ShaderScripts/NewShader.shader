@@ -5,6 +5,7 @@
 	{
 		_Color("Tint", Color) = (0, 0, 0, 1) //Main colour of the texture
 		_MainTex("Texture", 2D) = "white" {} //Texture
+		_BumpMap("Bumpmap", 2D) = "bump" {} //Normal map
 		_Smoothness("Smoothness", Range(0, 1)) = 0 //Roughness of the surface
 		_Metallic("Metalness", Range(0, 1)) = 0 //if you want it to look like metal or not
 		[HDR] _Emission("Emission", Color) = (0, 0, 0, 1) //if you want it to glow
@@ -19,6 +20,7 @@
 		#pragma target 3.0 //uses higher precision values for better lighting and shadows
 
 		sampler2D _MainTex;
+		sampler2D _BumpMap;
 		fixed4 _Color;
 		half _Smoothness;
 		half _Metallic;
@@ -28,6 +30,7 @@
 		struct Input 
 		{
 			float2 uv_MainTex; //UV coordinates
+			float2 uv_BumpMap;
 		};
 
 		//Method for surface related stuff
@@ -39,8 +42,9 @@
 			o.Metallic = _Metallic;
 			o.Smoothness = _Smoothness;
 			o.Emission = _Emission;
+			o.Normal = UnpackNormal(tex2D(_BumpMap, i.uv_BumpMap));
 		}
 		ENDCG
 	}
-	FallBack "Standard" //"Standard" create shadows on other surfaces
+	FallBack "Diffuse" //"Standard" create shadows on other surfaces
 }
