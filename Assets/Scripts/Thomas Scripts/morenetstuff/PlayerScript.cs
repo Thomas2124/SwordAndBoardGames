@@ -778,10 +778,60 @@ public class PlayerScript : NetworkBehaviour
         }
         else
         {
+            float increase = 1f;
+            switch (characterName)
+            {
+                case "fishman":
+                    increase = PlayerPrefs.GetFloat("Fishman_StarRankBonus");
+                    break;
+                case "werewolf":
+                    increase = PlayerPrefs.GetFloat("Werewolf_StarRankBonus");
+                    break;
+                case "bukkake Slime":
+                    increase = PlayerPrefs.GetFloat("BukkakeSlime_StarRankBonus");
+                    break;
+                case "dragonoid":
+                    increase = PlayerPrefs.GetFloat("Dragonoid_StarRankBonus");
+                    break;
+                case "golem":
+                    increase = PlayerPrefs.GetFloat("Golem_StarRankBonus");
+                    break;
+                case "catperson":
+                    increase = PlayerPrefs.GetFloat("Catperson_StarRankBonus");
+                    break;
+                case "angel":
+                    increase = PlayerPrefs.GetFloat("Angel_StarRankBonus");
+                    break;
+                case "devil":
+                    increase = PlayerPrefs.GetFloat("Devil_StarRankBonus");
+                    break;
+                case "orge":
+                    increase = PlayerPrefs.GetFloat("Orge_StarRankBonus");
+                    break;
+                case "gargoyle":
+                    increase = PlayerPrefs.GetFloat("Gargoyle_StarRankBonus");
+                    break;
+                case "garuda":
+                    increase = PlayerPrefs.GetFloat("Garuda_StarRankBonus");
+                    break;
+                case "loxodon":
+                    increase = PlayerPrefs.GetFloat("Loxodon_StarRankBonus");
+                    break;
+                case "minotaur":
+                    increase = PlayerPrefs.GetFloat("Minotaur_StarRankBonus");
+                    break;
+                case "spiderperson":
+                    increase = PlayerPrefs.GetFloat("Spiderperson_StarRankBonus");
+                    break;
+                case "hobnoblin":
+                    increase = PlayerPrefs.GetFloat("HobNoblin_StarRankBonus");
+                    break;
+            }
+
             level = Mathf.RoundToInt(levelGain);
-            float addHealth = level * 20;
-            float addAttack = level * 5;
-            float addDefence = level * 10;
+            float addHealth = level * 20 * increase;
+            float addAttack = level * 5 * increase;
+            float addDefence = level * 10 * increase;
 
             health += addHealth;
             attackRating += addAttack;
@@ -796,10 +846,60 @@ public class PlayerScript : NetworkBehaviour
         }
         else
         {
+            float increase = 1f;
+            switch (characterName)
+            {
+                case "fishman":
+                    increase = PlayerPrefs.GetFloat("Fishman_StarRankBonus");
+                    break;
+                case "werewolf":
+                    increase = PlayerPrefs.GetFloat("Werewolf_StarRankBonus");
+                    break;
+                case "bukkake Slime":
+                    increase = PlayerPrefs.GetFloat("BukkakeSlime_StarRankBonus");
+                    break;
+                case "dragonoid":
+                    increase = PlayerPrefs.GetFloat("Dragonoid_StarRankBonus");
+                    break;
+                case "golem":
+                    increase = PlayerPrefs.GetFloat("Golem_StarRankBonus");
+                    break;
+                case "catperson":
+                    increase = PlayerPrefs.GetFloat("Catperson_StarRankBonus");
+                    break;
+                case "angel":
+                    increase = PlayerPrefs.GetFloat("Angel_StarRankBonus");
+                    break;
+                case "devil":
+                    increase = PlayerPrefs.GetFloat("Devil_StarRankBonus");
+                    break;
+                case "orge":
+                    increase = PlayerPrefs.GetFloat("Orge_StarRankBonus");
+                    break;
+                case "gargoyle":
+                    increase = PlayerPrefs.GetFloat("Gargoyle_StarRankBonus");
+                    break;
+                case "garuda":
+                    increase = PlayerPrefs.GetFloat("Garuda_StarRankBonus");
+                    break;
+                case "loxodon":
+                    increase = PlayerPrefs.GetFloat("Loxodon_StarRankBonus");
+                    break;
+                case "minotaur":
+                    increase = PlayerPrefs.GetFloat("Minotaur_StarRankBonus");
+                    break;
+                case "spiderperson":
+                    increase = PlayerPrefs.GetFloat("Spiderperson_StarRankBonus");
+                    break;
+                case "hobnoblin":
+                    increase = PlayerPrefs.GetFloat("HobNoblin_StarRankBonus");
+                    break;
+            }
+
             level2 = Mathf.RoundToInt(levelGain2);
-            float addHealth = level * 20;
-            float addAttack = level * 5;
-            float addDefence = level * 10;
+            float addHealth = level * 20 * increase;
+            float addAttack = level * 5 * increase;
+            float addDefence = level * 10 * increase;
 
             health2 += addHealth;
             attackRating2 += addAttack;
@@ -814,10 +914,60 @@ public class PlayerScript : NetworkBehaviour
         }
         else
         {
+            float increase = 1f;
+            switch (characterName)
+            {
+                case "fishman":
+                    increase = PlayerPrefs.GetFloat("Fishman_StarRankBonus");
+                    break;
+                case "werewolf":
+                    increase = PlayerPrefs.GetFloat("Werewolf_StarRankBonus");
+                    break;
+                case "bukkake Slime":
+                    increase = PlayerPrefs.GetFloat("BukkakeSlime_StarRankBonus");
+                    break;
+                case "dragonoid":
+                    increase = PlayerPrefs.GetFloat("Dragonoid_StarRankBonus");
+                    break;
+                case "golem":
+                    increase = PlayerPrefs.GetFloat("Golem_StarRankBonus");
+                    break;
+                case "catperson":
+                    increase = PlayerPrefs.GetFloat("Catperson_StarRankBonus");
+                    break;
+                case "angel":
+                    increase = PlayerPrefs.GetFloat("Angel_StarRankBonus");
+                    break;
+                case "devil":
+                    increase = PlayerPrefs.GetFloat("Devil_StarRankBonus");
+                    break;
+                case "orge":
+                    increase = PlayerPrefs.GetFloat("Orge_StarRankBonus");
+                    break;
+                case "gargoyle":
+                    increase = PlayerPrefs.GetFloat("Gargoyle_StarRankBonus");
+                    break;
+                case "garuda":
+                    increase = PlayerPrefs.GetFloat("Garuda_StarRankBonus");
+                    break;
+                case "loxodon":
+                    increase = PlayerPrefs.GetFloat("Loxodon_StarRankBonus");
+                    break;
+                case "minotaur":
+                    increase = PlayerPrefs.GetFloat("Minotaur_StarRankBonus");
+                    break;
+                case "spiderperson":
+                    increase = PlayerPrefs.GetFloat("Spiderperson_StarRankBonus");
+                    break;
+                case "hobnoblin":
+                    increase = PlayerPrefs.GetFloat("HobNoblin_StarRankBonus");
+                    break;
+            }
+
             level3 = Mathf.RoundToInt(levelGain3);
-            float addHealth = level * 20;
-            float addAttack = level * 5;
-            float addDefence = level * 10;
+            float addHealth = level * 20 * increase;
+            float addAttack = level * 5 * increase;
+            float addDefence = level * 10 * increase;
 
             health3 += addHealth;
             attackRating3 += addAttack;
