@@ -164,9 +164,9 @@ public class CharacterList : MonoBehaviour
     public int hobnoblin_level = 1;
     public float hobnoblin_exp = 0f;
 
-    //public GameObject firstPlace;
-    //public GameObject secondPlace;
-    //public GameObject thirdPlace;
+    public GameObject firstPlace;
+    public GameObject secondPlace;
+    public GameObject thirdPlace;
     public GameObject saveButton;
     // Start is called before the first frame update
     void Awake()
@@ -230,7 +230,16 @@ public class CharacterList : MonoBehaviour
 
         if (firstPlace != null && secondPlace != null && thirdPlace != null)
         {
-            SaveStats();
+            if (firstPlace.tag != secondPlace.tag || firstPlace.tag != thirdPlace.tag)
+            {
+                if (secondPlace.tag != firstPlace.tag || secondPlace.tag != thirdPlace.tag)
+                {
+                    if (thirdPlace.tag != firstPlace.tag || thirdPlace.tag != secondPlace.tag)
+                    {
+                        SaveStats();
+                    }
+                }
+            }
         }*/
 
         if (pick1 == true)
