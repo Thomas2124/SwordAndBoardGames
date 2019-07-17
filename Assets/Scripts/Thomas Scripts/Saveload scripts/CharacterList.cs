@@ -164,6 +164,7 @@ public class CharacterList : MonoBehaviour
     public int hobnoblin_level = 1;
     public float hobnoblin_exp = 0f;
 
+    public GameObject playerCharacters;
     public GameObject firstPlace;
     public GameObject secondPlace;
     public GameObject thirdPlace;
@@ -206,43 +207,48 @@ public class CharacterList : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*firstPlace = checkerScript.firstCharacter;
-        secondPlace = checkerScript.secondCharacter;
-        thirdPlace = checkerScript.thirdCharacter;
+        //firstPlace = checkerScript.firstCharacter;
+        //secondPlace = checkerScript.secondCharacter;
+        //thirdPlace = checkerScript.thirdCharacter;
 
-        if (firstPlace != null)
+        if (firstPlace.transform.childCount != 0)
         {
-            CharacterSetter(firstPlace.tag, 1);
+            CharacterSetter(firstPlace.transform.GetChild(0).name, 1);
             ReplaceStats(1, n, h, a, d, l, e);
         }
 
-        if (secondPlace != null)
+        if (secondPlace.transform.childCount != 0)
         {
-            CharacterSetter(secondPlace.tag, 2);
+            CharacterSetter(secondPlace.transform.GetChild(0).name, 2);
             ReplaceStats(2, n, h, a, d, l, e);
         }
 
-        if (thirdPlace != null)
+        if (thirdPlace.transform.childCount != 0)
         {
-            CharacterSetter(thirdPlace.tag, 3);
+            CharacterSetter(thirdPlace.transform.GetChild(0).name, 3);
             ReplaceStats(3, n, h, a, d, l, e);
         }
 
-        if (firstPlace != null && secondPlace != null && thirdPlace != null)
+        if (firstPlace.transform.childCount != 0 && secondPlace.transform.childCount != 0 && thirdPlace.transform.childCount != 0)
         {
-            if (firstPlace.tag != secondPlace.tag || firstPlace.tag != thirdPlace.tag)
+            if (firstPlace.transform.GetChild(0).name != secondPlace.transform.GetChild(0).name && firstPlace.transform.GetChild(0).name != thirdPlace.transform.GetChild(0).name)
             {
-                if (secondPlace.tag != firstPlace.tag || secondPlace.tag != thirdPlace.tag)
+                if (secondPlace.transform.GetChild(0).name != firstPlace.transform.GetChild(0).name && secondPlace.transform.GetChild(0).name != thirdPlace.transform.GetChild(0).name)
                 {
-                    if (thirdPlace.tag != firstPlace.tag || thirdPlace.tag != secondPlace.tag)
+                    if (thirdPlace.transform.GetChild(0).name != firstPlace.transform.GetChild(0).name && thirdPlace.transform.GetChild(0).name != secondPlace.transform.GetChild(0).name)
                     {
                         SaveStats();
+                        saveButton.SetActive(true);
                     }
                 }
             }
-        }*/
+        }
+        else
+        {
+            saveButton.SetActive(false);
+        }
 
-        if (pick1 == true)
+        /*if (pick1 == true)
         {
             if (pickedCharacter == true)
             {
@@ -281,7 +287,7 @@ public class CharacterList : MonoBehaviour
         else
         {
             saveButton.SetActive(false);
-        }
+        }*/
     }
 
     void CharacterSetter(string characterTag, int myNum)
@@ -337,9 +343,52 @@ public class CharacterList : MonoBehaviour
         }
     }
 
+    public void ClearCharacters() //Saves data
+    {
+        if (firstPlace.transform.childCount != 0)
+        {
+            for (int i = 0; i < playerCharacters.transform.childCount; i++)
+            {
+                if (playerCharacters.transform.GetChild(i).gameObject.transform.childCount == 0)
+                {
+                    firstPlace.transform.GetChild(0).SetParent(playerCharacters.transform.GetChild(i).gameObject.transform);
+                    break;
+                }
+            }
+        }
+
+        if (secondPlace.transform.childCount != 0)
+        {
+            for (int i = 0; i < playerCharacters.transform.childCount; i++)
+            {
+                if (playerCharacters.transform.GetChild(i).gameObject.transform.childCount == 0)
+                {
+                    secondPlace.transform.GetChild(0).SetParent(playerCharacters.transform.GetChild(i).gameObject.transform);
+                    break;
+                }
+            }
+        }
+
+        if (thirdPlace.transform.childCount != 0)
+        {
+            for (int i = 0; i < playerCharacters.transform.childCount; i++)
+            {
+                if (playerCharacters.transform.GetChild(i).gameObject.transform.childCount == 0)
+                {
+                    thirdPlace.transform.GetChild(0).SetParent(playerCharacters.transform.GetChild(i).gameObject.transform);
+                    break;
+                }
+            }
+        }
+    }
+
     public void SaveStats() //Saves data
     {
         SaveSystem.SavePlayer(this);
+    }
+
+    public void NextScene() //Saves data
+    {
         SceneManager.LoadScene("NetworkMenuScene");
     }
 
