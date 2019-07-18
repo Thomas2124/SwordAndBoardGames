@@ -14,6 +14,7 @@ public class GachaRolls : MonoBehaviour
     public List<string> characterRolled; //character names pulled during the current roll
     public bool bigRoll = false;
     public int premCurrency;
+    public GameObject okButton1;
 
     //Result Variables
     public Text raceText;                   //the name of the character pulled displayed
@@ -78,7 +79,25 @@ public class GachaRolls : MonoBehaviour
 
     public void NormalRoll()
     {
-         
+        if(premCurrency < 1)
+        {
+            premCurrency--;
+            RandomPick();
+        }
+    }
+
+    public void MultipleRoll()
+    {
+        if (premCurrency < 2)
+        {
+            bigRoll = true;
+            premCurrency--;
+            RandomPick();
+        }
+    }
+
+    public void RandomPick()
+    {
         //rolls a random number to determine rarity class
         ranNum = Random.Range(0, 19);
         // rarity is split into a groups of varying chance to be selected
@@ -119,12 +138,6 @@ public class GachaRolls : MonoBehaviour
             Debug.Log(characterlistC[ranNum] + " is rolled");
             Results();
         }
-    }
-
-    public void MultipleRoll()
-    {
-        bigRoll = true;
-        NormalRoll();
     }
 
     public void Results()
@@ -186,6 +199,7 @@ public class GachaRolls : MonoBehaviour
                         break;
                 }
             }
+            okButton1.SetActive(false);
 
         }
         else
