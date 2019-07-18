@@ -1,0 +1,43 @@
+fileFormatVersion: 2
+guid: 0472d5f2324e1ee4c95edb02e4716023
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - slotObject: {instanceID: 0}
+  - spawnObject: {instanceID: 0}
+  - fishman_Sprite: {fileID: 6105035866502039392, guid: fa99bf788e883244b9edefc14753aa7f,
+      type: 3}
+  - werewolf_Sprite: {fileID: 3810439463239234806, guid: d45996b00fd1bb643900c4c671a12e4c,
+      type: 3}
+  - bukkakeSlime_Sprite: {fileID: 1401328236783613952, guid: f9633380ebe78fb4e8f8d7136420d58f,
+      type: 3}
+  - dragonoid_Sprite: {fileID: 63095110801503819, guid: 8503de7e1f5024f4f8e3c213bdd5cbe6,
+      type: 3}
+  - golem_Sprite: {fileID: 2250599807981980670, guid: 3ccbdc52c42f1bb4bbf7fc47c813bc9d,
+      type: 3}
+  - catperson_Sprite: {fileID: 756394114428153677, guid: f35464cbc6f8b5d4dbf86209e9df57a5,
+      type: 3}
+  - angel_Sprite: {fileID: 1976385933725662181, guid: 95aded9e7f9d86148bf2347136af88cd,
+      type: 3}
+  - devil_Sprite: {fileID: 3234830678040136037, guid: ceccf2afc84a22e40a5db923b97fcb60,
+      type: 3}
+  - orge_Sprite: {fileID: 2075859254960308516, guid: 76ba49a942a6ac84b87f8c49ab1ca0a5,
+      type: 3}
+  - gargoyle_Sprite: {fileID: 324775323792776515, guid: 54f406579691c8348b4167217c4aadaf,
+      type: 3}
+  - garuda_Sprite: {fileID: 5933437830648159696, guid: d711f1b2ebebfd2438e2b329b42b9153,
+      type: 3}
+  - loxodon_Sprite: {fileID: 3398059609666906021, guid: 0f976c46cb187a249b57164939e69b04,
+      type: 3}
+  - minotaur_Sprite: {fileID: 3648154658596912165, guid: bb17c2dfdcf2f0c44b08da8c119514b8,
+      type: 3}
+  - spiderperson_Sprite: {fileID: 1915278363783148330, guid: 8d91ad7ac02851d42a0ad93812d64b15,
+      type: 3}
+  - hobnoblin_Sprite: {fileID: 206478895369008558, guid: 6afe444adc925804a8a845b771495f68,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
