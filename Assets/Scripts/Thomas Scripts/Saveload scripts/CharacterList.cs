@@ -172,13 +172,13 @@ public class CharacterList : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        //checkerScript = GameObject.Find("EGO place getter").GetComponent<PlaceChecker>();
         pickedCharacter = false;
         pick1 = true;
         pick2 = false;
         pick3 = false;
         saveButton.SetActive(false);
 
+        //checks if exp can be loaded
         if (ExpSaveSystem.LoadPlayer() == null)
         {
             
@@ -207,10 +207,8 @@ public class CharacterList : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //firstPlace = checkerScript.firstCharacter;
-        //secondPlace = checkerScript.secondCharacter;
-        //thirdPlace = checkerScript.thirdCharacter;
-
+        //checks if parent objects have any children
+        //if it returns true, gets the name of the child and set the sets
         if (firstPlace.transform.childCount != 0)
         {
             CharacterSetter(firstPlace.transform.GetChild(0).name, 1);
@@ -229,6 +227,8 @@ public class CharacterList : MonoBehaviour
             ReplaceStats(3, n, h, a, d, l, e);
         }
 
+        //Check if any of the slot character are the same
+        //if so, save stats and enable nextbutton
         if (firstPlace.transform.childCount != 0 && secondPlace.transform.childCount != 0 && thirdPlace.transform.childCount != 0)
         {
             if (firstPlace.transform.GetChild(0).name != secondPlace.transform.GetChild(0).name && firstPlace.transform.GetChild(0).name != thirdPlace.transform.GetChild(0).name)
@@ -249,6 +249,7 @@ public class CharacterList : MonoBehaviour
         }
     }
 
+    //sets stats of selected characters
     void CharacterSetter(string characterTag, int myNum)
     {
         string theName = characterTag;
@@ -302,6 +303,7 @@ public class CharacterList : MonoBehaviour
         }
     }
 
+    //used to remove characters from the selection slots and back into the inventory
     public void ClearCharacters() //Saves data
     {
         if (firstPlace.transform.childCount != 0)
@@ -341,16 +343,19 @@ public class CharacterList : MonoBehaviour
         }
     }
 
-    public void SaveStats() //Saves data
+    //Saves data
+    public void SaveStats()
     {
         SaveSystem.SavePlayer(this);
     }
 
-    public void NextScene() //Saves data
+    //loads a scene
+    public void NextScene()
     {
         SceneManager.LoadScene("NetworkMenuScene");
     }
 
+    //used to replace variables with new ones
     public void ReplaceStats(int number, string n, float h, float a, float d, int l, float e)
     {
         if (number == 1)

@@ -9,12 +9,14 @@ using UnityEngine.SceneManagement;
 
 public class CustomHosting : NetworkManager
 {
+    //used if player wants to host a local match
     public void SetupHost()
     {
         SetPort();
         NetworkManager.singleton.StartHost();
     }
 
+    //used if player wants to join a local match
     public void JoinGame()
     {
         SetIPAddress();
@@ -22,15 +24,18 @@ public class CustomHosting : NetworkManager
         NetworkManager.singleton.StartClient();
     }
 
+    //used if player wants created an online match
     public void SetupMatchMakingHost()
     {
         NetworkManager.singleton.StartMatchMaker();
         string ipAddress = GameObject.Find("InputFieldIPAddress").transform.Find("Text").GetComponent<Text>().text;
 
+        //creates match using the text from the inputfield as the room name
         NetworkManager.singleton.matchMaker.CreateMatch(ipAddress, NetworkManager.singleton.matchSize, true, "", "", "", 0, 0, NetworkManager.singleton.OnMatchCreate);
 
     }
 
+    //used if player wants join an online match
     public void JoinMatchMakingGame()
     {
         NetworkManager.singleton.StartMatchMaker();
@@ -38,7 +43,7 @@ public class CustomHosting : NetworkManager
         if (NetworkManager.singleton.matches != null)
         {
             string ipAddress = GameObject.Find("InputFieldIPAddress").transform.Find("Text").GetComponent<Text>().text;
-            foreach (var item in NetworkManager.singleton.matches)
+            foreach (var item in NetworkManager.singleton.matches) //checks and compares all the the match names that are available 
             {
                 if (item.name == ipAddress)
                 {
@@ -51,23 +56,27 @@ public class CustomHosting : NetworkManager
         }
     }
 
+    //goes back to set scene
     public void BackToMenuButton()
     {
-        NetworkManager.Shutdown();
+        NetworkManager.Shutdown(); //shutdowns server
         SceneManager.LoadScene("Thomas_CharacterScene");
     }
 
+    //gets network port
     void SetPort()
     {
         NetworkManager.singleton.networkPort = 7777;
     }
 
+    //gets IPadress for local matchmaking only
     void SetIPAddress()
     {
         string ipAddress = GameObject.Find("InputFieldIPAddress").transform.Find("Text").GetComponent<Text>().text;
         NetworkManager.singleton.networkAddress = ipAddress;
     }
 
+    //checks what level has been loaded
     void OnLevelWasLoaded(int level)
     {
         if (level == 0)
@@ -80,6 +89,7 @@ public class CustomHosting : NetworkManager
         }
     }
 
+    //sets onclick actions on set buttons
     void MenuScene()
     {
         GameObject.Find("HostButton").GetComponent<Button>().onClick.RemoveAllListeners();
@@ -98,6 +108,7 @@ public class CustomHosting : NetworkManager
         GameObject.Find("BackButton").GetComponent<Button>().onClick.AddListener(this.BackToMenuButton);
     }
 
+    //sets onclick action for disconnect button while in a match
     void LevelScene()
     {
         GameObject.Find("DisconnectButton").GetComponent<Button>().onClick.RemoveAllListeners();

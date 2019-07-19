@@ -14,6 +14,7 @@ public class PlayerScript : NetworkBehaviour
     public List<string> theCharacterNames;
     public List<GameObject> theCharacterSprites;
     public bool isWinner;
+
     //Character 1
     [Header("Character 1")]
     [SyncVar]
@@ -71,6 +72,7 @@ public class PlayerScript : NetworkBehaviour
     [SyncVar]
     public int turnTime;
 
+    //temp varibles for sprites
     [SyncVar]
     public int thisCharacterSprite1;
     [SyncVar]
@@ -94,7 +96,6 @@ public class PlayerScript : NetworkBehaviour
 
     [Header("Character Damage")]
     [SyncVar]
-    //public float damage = 25f;
     public float finalDamage;
     public float baseHealth1;
     public float baseHealth2;
@@ -119,11 +120,10 @@ public class PlayerScript : NetworkBehaviour
     public GameObject enemyButton2;
     public GameObject enemyButton3;
     public PlayerScript myOpponent;
-    //public GameObject menuButton;
+
     [Header("Player Bars/Images")]
     public GameObject characterArrow;
     public GameObject waitPanel;
-    //public GameObject background;
     public Image healthBar;
     public Image healthBar2;
     public Image healthBar3;
@@ -198,6 +198,7 @@ public class PlayerScript : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //check if the player is local
         if (isLocalPlayer)
         {
             turnTime = 60;
@@ -207,6 +208,7 @@ public class PlayerScript : NetworkBehaviour
             isDead3 = false;
             characterNumber = 1;
 
+            //checks if data can be loaded
             if (SaveSystem.LoadPlayer() != null)
             {
                 LoadData();
@@ -216,6 +218,7 @@ public class PlayerScript : NetworkBehaviour
                 CmdStatSetter();
             }
 
+            //checks if exp can be loaded
             if (ExpSaveSystem.LoadPlayer() != null)
             {
                 ExpSaver expData = ExpSaveSystem.LoadPlayer();
@@ -236,7 +239,9 @@ public class PlayerScript : NetworkBehaviour
                 hobnoblin_exp = expData.hobnoblin_exp;
             }
 
+            //enables wait screen if the player joined is the first
             connectID = NetworkServer.connections.Count;
+
             if (connectID == 1)
             {
                 waitPanel.SetActive(true);
@@ -245,7 +250,6 @@ public class PlayerScript : NetworkBehaviour
             {
                 waitPanel.SetActive(false);
             }
-            //menuButton.SetActive(false);
 
             playerButton.SetActive(isMyTurn);
             defendButton.SetActive(isMyTurn);
@@ -262,12 +266,12 @@ public class PlayerScript : NetworkBehaviour
             character4.SetActive(true);
             character5.SetActive(true);
             character6.SetActive(true);
-            //background.SetActive(true);
 
+            //sets position of timer and victory text
             timerText.transform.localPosition = new Vector3(0f, 250f, 0f);
             victoryText.transform.localPosition = new Vector3(0f, 0f, 0f);
         }
-        else if (!isLocalPlayer)
+        else if (!isLocalPlayer) //if players is nnot local
         {
             playerButton.SetActive(false);
             defendButton.SetActive(false);
@@ -285,8 +289,6 @@ public class PlayerScript : NetworkBehaviour
             character5.SetActive(false);
             character6.SetActive(false);
             waitPanel.SetActive(false);
-            //background.SetActive(false);
-            //menuButton.SetActive(false);
         }
     }
 
@@ -298,7 +300,7 @@ public class PlayerScript : NetworkBehaviour
             CmdFindPLayers();
             if (myOpponent != null && myOpponent.isWinner == false && this.isWinner == false)
             {
-                if (once == false)
+                if (once == false) //is only performed once
                 {
                     CharacterSprites();
                     CmdBaseHealthSetter(baseHealth1, baseHealth2, baseHealth3);
@@ -306,7 +308,7 @@ public class PlayerScript : NetworkBehaviour
                     if (connectID == 1)
                     {
                         this.waitPanel.SetActive(false);
-                        flipNum = Random.Range(1f, 100f);
+                        flipNum = Random.Range(1f, 100f); //selects random player to start
                         if (flipNum <= 50f)
                         {
                             CmdCoinFlip(true, false);
@@ -346,7 +348,7 @@ public class PlayerScript : NetworkBehaviour
 
                 CmdTheWin();
 
-                //Timer
+                //Timer for players turn
                 if (isMyTurn == true)
                 {
                     if (System.DateTime.Now.Second == 0)
@@ -372,6 +374,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //sets turns of players after decision has been made
     [Command]
     void CmdCoinFlip(bool set1, bool set2)
     {
@@ -385,6 +388,7 @@ public class PlayerScript : NetworkBehaviour
         myOpponent.isMyTurn = set2;
     }
 
+    //sets sprites of enemy characters
     [Command]
     void CmdGetSprites(int num1, int num2, int num3)
     {
@@ -468,6 +472,7 @@ public class PlayerScript : NetworkBehaviour
                 break;
         }
 
+        //sets sprites
         if (num == enemyCharacterSprite1)
         {
             character4.GetComponent<Image>().sprite = spriteToUse;
@@ -482,6 +487,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //sets sprites for local player characters
     void CharacterSprites()
     {
         CmdCharacterSprites(theCharacterNames[0]);
@@ -563,6 +569,7 @@ public class PlayerScript : NetworkBehaviour
                 break;
         }
 
+        //sets sprites
         if (name == this.theCharacterNames[0])
         {
             this.theCharacterSprites[0].GetComponent<Image>().sprite = setSprite;
@@ -582,8 +589,8 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
-
-
+    //checks which player has won the match 
+    //winning player gains exp for fighting characters
     [Command]
     void CmdTheWin()
     {
@@ -609,10 +616,10 @@ public class PlayerScript : NetworkBehaviour
 
             if (win1 == true)
             {
-                this.victoryText.transform.localPosition = new Vector3(450f, 0f, 0f);
+                this.victoryText.transform.localPosition = new Vector3(450f, 0f, 0f); //sets visual indicator of who won the match
                 this.victoryText.GetComponent<Text>().text = "Winner";
 
-                foreach (string item in theCharacterNames)
+                foreach (string item in theCharacterNames) //sets exp for characters
                 {
                     string theName = item;
                     switch (theName)
@@ -739,19 +746,10 @@ public class PlayerScript : NetworkBehaviour
                 myOpponent.victoryText.GetComponent<Text>().text = "Loser";
             }
 
-            //this.menuButton.SetActive(true);
-            //myOpponent.menuButton.SetActive(true);
             this.characterArrow.SetActive(false);
             myOpponent.characterArrow.SetActive(false);
         }
     }
-
-    /*public void BackToCharacterScreen()
-    {
-        SceneManager.LoadScene("TL_TestLocalMultiplayer");
-        //NetworkManager manager = GetComponent<NetworkManager>();
-        //manager.StopServer();
-    }*/
 
     //Sets time variable to UI text
     [Command]
@@ -770,6 +768,7 @@ public class PlayerScript : NetworkBehaviour
     [Command]
     void CmdStatSetter()
     {
+        //sets stats for first character
         float levelGain = myExp / 100f;
 
         if (levelGain < 1f)
@@ -838,6 +837,7 @@ public class PlayerScript : NetworkBehaviour
             defenceRating += addDefence;
         }
 
+        //sets stats for second character
         float levelGain2 = myExp2 / 100f;
 
         if (levelGain2 < 1f)
@@ -906,6 +906,7 @@ public class PlayerScript : NetworkBehaviour
             defenceRating2 += addDefence;
         }
 
+        //sets stats for third character
         float levelGain3 = myExp3 / 100f;
 
         if (levelGain3 < 1f)
@@ -1129,11 +1130,6 @@ public class PlayerScript : NetworkBehaviour
                     characterNumber += 1;
                 }
             }
-            /*else
-            {
-                characterArrow.SetActive(false);
-                CmdTurnSetter(bool1, bool2);
-            }*/
         }
     }
 
@@ -1252,8 +1248,6 @@ public class PlayerScript : NetworkBehaviour
             myOpponent.specialBar2.enabled = off;
             myOpponent.specialBar3.enabled = off;
             myOpponent.characterArrow.SetActive(off);
-            //this.gameObject.SetActive(false);
-            //myOpponent.gameObject.SetActive(false);
         }
     }
 

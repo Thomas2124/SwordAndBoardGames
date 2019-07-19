@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class TestSpawnPrefabs : MonoBehaviour
 {
+    [Header("List of loaded characters")]
     public List<string> theCharacters;
+
+    [Header("Character Inventory")]
     public GameObject slotObject;
+
+    [Header("List of characters script")]
     public PlayerCharacterList theScript;
 
-    [Space]
+    [Header("Character Prefabs")]
     public GameObject fishman_Sprite;
     public GameObject werewolf_Sprite;
     public GameObject bukkakeSlime_Sprite;
@@ -28,16 +33,19 @@ public class TestSpawnPrefabs : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //loads and sets list items from another script
         theScript = gameObject.GetComponent<PlayerCharacterList>();
         theCharacters = theScript.myCharacters;
-        for (int i = 0; i < slotObject.transform.childCount; i++)
+
+
+        for (int i = 0; i < slotObject.transform.childCount; i++) //goes through each slot in the inventory
         {
-            for (int j = 0; j < theCharacters.Count; j++)
+            for (int j = 0; j < theCharacters.Count; j++) //goes through each character in the list
             {
                 name = theCharacters[j];
-                if (i == j)
+                if (i == j) //if the inventory slot and the current list item are in the same order
                 {
-                    Transform slot = slotObject.transform.GetChild(i).gameObject.transform;
+                    Transform slot = slotObject.transform.GetChild(i).gameObject.transform; //sets child object to spawn a prefab in
                     switch (name)
                     {
                         case "Fishman":
