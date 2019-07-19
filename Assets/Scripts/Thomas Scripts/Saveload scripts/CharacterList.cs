@@ -247,47 +247,6 @@ public class CharacterList : MonoBehaviour
         {
             saveButton.SetActive(false);
         }
-
-        /*if (pick1 == true)
-        {
-            if (pickedCharacter == true)
-            {
-                ReplaceStats(1, n, h, a, d, l, e);
-                pick2 = true;
-                pickedCharacter = false;
-            }
-        }
-
-        if (pick2 == true)
-        {
-            pick1 = false;
-            if (pickedCharacter == true)
-            {
-                ReplaceStats(2, n, h, a, d, l, e);
-                pick3 = true;
-                pickedCharacter = false;
-            }
-        }
-
-        if (pick3 == true)
-        {
-            pick2 = false;
-            if (pickedCharacter == true)
-            {
-                ReplaceStats(3, n, h, a, d, l, e);
-                pickedCharacter = false;
-                pick3 = false;
-            }
-        }
-
-        if (pick1 == false && pick2 == false  && pick3 == false)
-        {
-            saveButton.SetActive(true);
-        }
-        else
-        {
-            saveButton.SetActive(false);
-        }*/
     }
 
     void CharacterSetter(string characterTag, int myNum)
@@ -295,49 +254,49 @@ public class CharacterList : MonoBehaviour
         string theName = characterTag;
         switch (theName)
         {
-            case "fishman":
+            case "fishman(Clone)":
                 Option1();
                 break;
-            case "werewolf":
+            case "werewolf(Clone)":
                 Option2();
                 break;
-            case "bukkake Slime":
+            case "bukkake Slime(Clone)":
                 Option3();
                 break;
-            case "dragonoid":
+            case "dragonoid(Clone)":
                 Option4();
                 break;
-            case "golem":
+            case "golem(Clone)":
                 Option5();
                 break;
-            case "catperson":
+            case "catperson(Clone)":
                 Option6();
                 break;
-            case "angel":
+            case "angel(Clone)":
                 Option7();
                 break;
-            case "devil":
+            case "devil(Clone)":
                 Option8();
                 break;
-            case "orge":
+            case "orge(Clone)":
                 Option9();
                 break;
-            case "gargoyle":
+            case "gargoyle(Clone)":
                 Option10();
                 break;
-            case "garuda":
+            case "garuda(Clone)":
                 Option11();
                 break;
-            case "loxodon":
+            case "loxodon(Clone)":
                 Option12();
                 break;
-            case "minotaur":
+            case "minotaur(Clone)":
                 Option13();
                 break;
-            case "spiderperson":
+            case "spiderperson(Clone)":
                 Option14();
                 break;
-            case "hobnoblin":
+            case "hobnoblin(Clone)":
                 Option15();
                 break;
         }
