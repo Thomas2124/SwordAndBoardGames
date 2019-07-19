@@ -6,6 +6,7 @@ public class TestSpawnPrefabs : MonoBehaviour
 {
     public List<string> theCharacters;
     public GameObject slotObject;
+    public PlayerCharacterList theScript;
 
     [Space]
     public GameObject fishman_Sprite;
@@ -27,6 +28,8 @@ public class TestSpawnPrefabs : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        theScript = gameObject.GetComponent<PlayerCharacterList>();
+        theCharacters = theScript.myCharacters;
         for (int i = 0; i < slotObject.transform.childCount; i++)
         {
             for (int j = 0; j < theCharacters.Count; j++)
