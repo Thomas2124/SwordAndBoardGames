@@ -15,6 +15,8 @@ public class GachaRolls : MonoBehaviour
     public bool bigRoll = false;
     public int premCurrency;
     public GameObject okButton1;
+    public GameObject okButton2;
+    [SerializeField] private int counter;
 
     //Result Variables
     public Text raceText;                   //the name of the character pulled displayed
@@ -28,6 +30,7 @@ public class GachaRolls : MonoBehaviour
     public GameObject[] normSummary;        //normal roll summary page, how many images to show
     [SerializeField] private string selCharRarity;
     public Text[] summaryText;
+    [SerializeField] private int[] rollSprites;
 
     //Obtained? Variables
     public bool fishman = false;
@@ -47,7 +50,7 @@ public class GachaRolls : MonoBehaviour
     public bool hobnoblin = false;
     public string selectedCharacter;
     public GameObject obtainedCharacters;
-    public float rankBonus = .25f;
+    public float rankBonus = .01f;
     [SerializeField] private float commonLimit = 1.25f;
     [SerializeField] private float uncommonLimit = 1.5f;
     [SerializeField] private float rareLimit = 1.75f;
@@ -90,6 +93,7 @@ public class GachaRolls : MonoBehaviour
     {
         if (premCurrency < 2)
         {
+            counter = 4;
             bigRoll = true;
             premCurrency--;
             RandomPick();
@@ -98,6 +102,8 @@ public class GachaRolls : MonoBehaviour
 
     public void RandomPick()
     {
+        counter--;
+        Debug.Log(counter);
         //rolls a random number to determine rarity class
         ranNum = Random.Range(0, 19);
         // rarity is split into a groups of varying chance to be selected
@@ -138,6 +144,11 @@ public class GachaRolls : MonoBehaviour
             Debug.Log(characterlistC[ranNum] + " is rolled");
             Results();
         }
+        if(counter == 0)
+        {
+            okButton1.SetActive(false);
+            okButton2.SetActive(true);
+        }
     }
 
     public void Results()
@@ -173,54 +184,28 @@ public class GachaRolls : MonoBehaviour
                 resultRarity.GetComponent<Image>().sprite = rarity[3];
                 Summary();
                 break;
-        }     
+        }
+        Levelup();
     }
 
     public void Summary()
     {
-        if (bigRoll == true)
+        normSummary[0].SetActive(true);
+        switch (selCharRarity)
         {
-            for (int i = 0; i < 5; i++)
-            {
-                normSummary[i].SetActive(true);
-                switch (selCharRarity)
-                {
-                    case "Super Rare":
-                        normSummary[i].GetComponent<Image>().sprite = characterSpriteSR[ranNum];
-                        break;
-                    case "Rare":
-                        normSummary[i].GetComponent<Image>().sprite = characterSpriteR[ranNum];
-                        break;
-                    case "Uncommon":
-                        normSummary[i].GetComponent<Image>().sprite = characterSpriteUC[ranNum];
-                        break;
-                    case "Common":
-                        normSummary[i].GetComponent<Image>().sprite = characterSpriteC[ranNum];
-                        break;
-                }
-            }
-            okButton1.SetActive(false);
-
-        }
-        else
-        {
-            normSummary[0].SetActive(true);
-            switch (selCharRarity)
-            {
-                case "Super Rare":
-                    normSummary[0].GetComponent<Image>().sprite = characterSpriteSR[ranNum];
-                    break;
-                case "Rare":
-                    normSummary[0].GetComponent<Image>().sprite = characterSpriteR[ranNum];
-                    break;
-                case "Uncommon":
-                    normSummary[0].GetComponent<Image>().sprite = characterSpriteUC[ranNum];
-                    break;
-                case "Common":
-                    normSummary[0].GetComponent<Image>().sprite = characterSpriteC[ranNum];
-                    break;
-            }
-        }
+            case "Super Rare":
+                normSummary[0].GetComponent<Image>().sprite = characterSpriteSR[ranNum];
+                break;
+            case "Rare":
+                normSummary[0].GetComponent<Image>().sprite = characterSpriteR[ranNum];
+                break;
+            case "Uncommon":
+                normSummary[0].GetComponent<Image>().sprite = characterSpriteUC[ranNum];
+                break;
+            case "Common":
+                normSummary[0].GetComponent<Image>().sprite = characterSpriteC[ranNum];
+                break;
+        }       
     }
 
     public void Levelup()
@@ -596,6 +581,7 @@ public class GachaRolls : MonoBehaviour
         }
 
         bigRoll = false;
+        PlayerPrefsX.SetStringArray("CharacterlistOB", obtainedCharacters.GetComponent<PlayerCharacterList>().myCharacters.ToArray());
         PlayerPrefs.SetFloat("Fishman_StarRankBonus", fishmanStarLevel);
         PlayerPrefs.SetFloat("BukkakeSlime_StarRankBonus", bukkakeSlimeStarLevel);
         PlayerPrefs.SetFloat("Angel_StarRankBonus", angelStarLevel);
@@ -616,8 +602,8 @@ public class GachaRolls : MonoBehaviour
 
     public void CheckName()
     {
-        Debug.Log("you done goofed1");
-        Debug.Log(selectedCharacter + "is added");
+
+        Debug.Log(selectedCharacter + " is added");
         obtainedCharacters.GetComponent<PlayerCharacterList>().myCharacters.Add(selectedCharacter);
         //PlayerPrefs.SetString();
         //foreach (string item in obtainedCharacters.GetComponent<PlayerCharacterList>().myCharacters)
