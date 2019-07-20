@@ -75,4 +75,10 @@ public class PlayerBasicStats : MonoBehaviour
         playerSetName = GameObject.Find("InputFieldName").transform.Find("Text").GetComponent<Text>().text;
         noNeedToSet = 1;
     }
+
+    public void ResetName()
+    {
+        PlayerPrefs.DeleteKey("PlayerName");
+        PlayerPrefs.DeleteKey("PlayerScore");
+    }
 }
