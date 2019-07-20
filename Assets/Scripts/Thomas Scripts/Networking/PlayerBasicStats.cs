@@ -12,6 +12,7 @@ public class PlayerBasicStats : MonoBehaviour
     public GameObject inputField;
     HighScores highscoreManager;
     public int noNeedToSet = 0;
+    public Text playerStatText;
 
     // Start is called before the first frame update
     void Awake()
@@ -26,6 +27,8 @@ public class PlayerBasicStats : MonoBehaviour
             score = PlayerPrefs.GetInt("PlayerScore");
 
             noNeedToSet = 2;
+
+            playerStatText.text = playerName + ": " + score.ToString();
         }
         else
         {
