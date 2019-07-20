@@ -34,8 +34,8 @@ public class TestSpawnPrefabs : MonoBehaviour
     void Start()
     {
         //loads and sets list items from another script
-        theScript = gameObject.GetComponent<PlayerCharacterList>();
-        theCharacters = theScript.myCharacters;
+        //theScript = gameObject.GetComponent<PlayerCharacterList>();
+        //theCharacters = theScript.myCharacters;
 
 
         for (int i = 0; i < slotObject.transform.childCount; i++) //goes through each slot in the inventory

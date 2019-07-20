@@ -619,6 +619,18 @@ public class PlayerScript : NetworkBehaviour
                 this.victoryText.transform.localPosition = new Vector3(450f, 0f, 0f); //sets visual indicator of who won the match
                 this.victoryText.GetComponent<Text>().text = "Winner";
 
+                if (PlayerPrefs.GetInt("PlayerScore") != 0)
+                {
+                    int score = PlayerPrefs.GetInt("PlayerScore");
+                    PlayerPrefs.SetInt("PlayerScore", score + 5);
+                }
+                else
+                {
+                    PlayerPrefs.SetInt("PlayerScore", 1);
+                    int score = PlayerPrefs.GetInt("PlayerScore");
+                    PlayerPrefs.SetInt("PlayerScore", score + 5);
+                }
+
                 foreach (string item in theCharacterNames) //sets exp for characters
                 {
                     string theName = item;
@@ -684,6 +696,18 @@ public class PlayerScript : NetworkBehaviour
             {
                 myOpponent.victoryText.transform.localPosition = new Vector3(-450f, 0f, 0f);
                 myOpponent.victoryText.GetComponent<Text>().text = "Winner";
+
+                if (PlayerPrefs.GetInt("PlayerScore") != 0)
+                {
+                    int score = PlayerPrefs.GetInt("PlayerScore");
+                    PlayerPrefs.SetInt("PlayerScore", score + 5);
+                }
+                else
+                {
+                    PlayerPrefs.SetInt("PlayerScore", 1);
+                    int score = PlayerPrefs.GetInt("PlayerScore");
+                    PlayerPrefs.SetInt("PlayerScore", score + 5);
+                }
 
                 foreach (string item in theCharacterNames)
                 {
