@@ -17,6 +17,8 @@ public class PlayerBasicStats : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        highscoreManager.AddNewHighScore(playerName, score);
+
         highscoreManager = GetComponent<HighScores>();
         if (PlayerPrefs.GetString("PlayerName") != null && PlayerPrefs.GetInt("PlayerScore") > 0)
         {

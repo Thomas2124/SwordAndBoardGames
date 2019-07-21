@@ -1529,12 +1529,12 @@ public class PlayerScript : NetworkBehaviour
 
         if (connectID == 1)
         {
-            myString = "Host";
+            myString = PlayerPrefs.GetString("PlayerName");
             myVector = new Vector3(-300f, 300f, 0f);
         }
         else
         {
-            myString = "Client";
+            myString = PlayerPrefs.GetString("PlayerName");
             myVector = new Vector3(300f, 300f, 0f);
         }
 
