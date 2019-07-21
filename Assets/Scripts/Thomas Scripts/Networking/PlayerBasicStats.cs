@@ -8,8 +8,8 @@ public class PlayerBasicStats : MonoBehaviour
     public string playerName;
     public int score;
     public string playerSetName;
-    public GameObject button;
-    public GameObject inputField;
+    //public GameObject button;
+    //public GameObject inputField;
     HighScores highscoreManager;
     public int noNeedToSet = 0;
     public Text playerStatText;
@@ -17,13 +17,12 @@ public class PlayerBasicStats : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        highscoreManager.AddNewHighScore(playerName, score);
-
         highscoreManager = GetComponent<HighScores>();
+        highscoreManager.AddNewHighScore(playerName, score);
         if (PlayerPrefs.GetString("PlayerName") != null && PlayerPrefs.GetInt("PlayerScore") > 0)
         {
-            button.SetActive(false);
-            inputField.SetActive(false);
+            //button.SetActive(false);
+            //inputField.SetActive(false);
             playerName = PlayerPrefs.GetString("PlayerName");
             print(playerName);
             score = PlayerPrefs.GetInt("PlayerScore");
@@ -35,8 +34,8 @@ public class PlayerBasicStats : MonoBehaviour
         else
         {
             noNeedToSet = 0;
-            button.SetActive(true);
-            inputField.SetActive(true);
+            //button.SetActive(true);
+            //inputField.SetActive(true);
         }
     }
 
@@ -67,8 +66,8 @@ public class PlayerBasicStats : MonoBehaviour
                 highscoreManager.AddNewHighScore(playerName, score);
             }
 
-            button.SetActive(false);
-            inputField.SetActive(false);
+            //button.SetActive(false);
+            //inputField.SetActive(false);
         }
     }
 

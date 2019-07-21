@@ -12,19 +12,15 @@ public class SetUsername : MonoBehaviour
     public Text fieldText;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        PlayerPrefs.DeleteKey("PlayerName");
-        PlayerPrefs.DeleteKey("PlayerScore");
-        if (PlayerPrefs.GetString("PlayerName") != "")
+        highscoreManager = GetComponent<HighScores>();
+        if (PlayerPrefs.GetString("PlayerName") != null)
         {
             SceneManager.LoadScene("Stephen_Scene");
         }
         else
         {
-            PlayerPrefs.DeleteKey("PlayerName");
-            PlayerPrefs.DeleteKey("PlayerScore");
-            highscoreManager = GetComponent<HighScores>();
             inputField = GameObject.Find("InputFieldName");
             fieldText = GameObject.Find("InputFieldName").transform.Find("Text").GetComponent<Text>();
         }

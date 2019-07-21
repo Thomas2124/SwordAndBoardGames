@@ -324,7 +324,7 @@ public class PlayerScript : NetworkBehaviour
 
                 CmdSpecialBar(mana, mana2, mana3);
 
-                CmdNameSetter(tempName, tempPosition);
+                NameSetter(tempName, tempPosition);
 
                 CmdCharacterPosition();
 
@@ -619,17 +619,8 @@ public class PlayerScript : NetworkBehaviour
                 this.victoryText.transform.localPosition = new Vector3(450f, 0f, 0f); //sets visual indicator of who won the match
                 this.victoryText.GetComponent<Text>().text = "Winner";
 
-                if (PlayerPrefs.GetInt("PlayerScore") != 0)
-                {
-                    int score = PlayerPrefs.GetInt("PlayerScore");
-                    PlayerPrefs.SetInt("PlayerScore", score + 5);
-                }
-                else
-                {
-                    PlayerPrefs.SetInt("PlayerScore", 1);
-                    int score = PlayerPrefs.GetInt("PlayerScore");
-                    PlayerPrefs.SetInt("PlayerScore", score + 5);
-                }
+                int score = PlayerPrefs.GetInt("PlayerScore");
+                PlayerPrefs.SetInt("PlayerScore", score + 5);
 
                 foreach (string item in theCharacterNames) //sets exp for characters
                 {
@@ -697,17 +688,8 @@ public class PlayerScript : NetworkBehaviour
                 myOpponent.victoryText.transform.localPosition = new Vector3(-450f, 0f, 0f);
                 myOpponent.victoryText.GetComponent<Text>().text = "Winner";
 
-                if (PlayerPrefs.GetInt("PlayerScore") != 0)
-                {
-                    int score = PlayerPrefs.GetInt("PlayerScore");
-                    PlayerPrefs.SetInt("PlayerScore", score + 5);
-                }
-                else
-                {
-                    PlayerPrefs.SetInt("PlayerScore", 1);
-                    int score = PlayerPrefs.GetInt("PlayerScore");
-                    PlayerPrefs.SetInt("PlayerScore", score + 5);
-                }
+                int score = PlayerPrefs.GetInt("PlayerScore");
+                PlayerPrefs.SetInt("PlayerScore", score + 5);
 
                 foreach (string item in theCharacterNames)
                 {
@@ -1520,9 +1502,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
-    //sets Players Name and the position of it
-    [Command]
-    void CmdNameSetter(string myString, Vector3 myVector)
+    void NameSetter(string myString, Vector3 myVector)
     {
         myString = name;
         myVector = textPosition;
@@ -1538,6 +1518,13 @@ public class PlayerScript : NetworkBehaviour
             myVector = new Vector3(300f, 300f, 0f);
         }
 
+        CmdNameSetter(myString, myVector);
+    }
+
+    //sets Players Name and the position of it
+    [Command]
+    void CmdNameSetter(string myString, Vector3 myVector)
+    {
         RpcNameSetter(myString, myVector);
     }
 
