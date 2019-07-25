@@ -208,6 +208,28 @@ public class PlayerScript : NetworkBehaviour
             isDead3 = false;
             characterNumber = 1;
 
+            if (PlayerPrefs.GetInt("ResetExp") == 1)
+            {
+                fishman_exp = 0f;
+                werewolf_exp = 0f;
+                bukkakeSlime_exp = 0f;
+                dragonoid_exp = 0f;
+                golem_exp = 0f;
+                catperson_exp = 0f;
+                angel_exp = 0f;
+                devil_exp = 0f;
+                orge_exp = 0f;
+                gargoyle_exp = 0f;
+                garuda_exp = 0f;
+                loxodon_exp = 0f;
+                minotaur_exp = 0f;
+                spiderperson_exp = 0f;
+                hobnoblin_exp = 0f;
+
+                ExpSaveSystem.SavePlayer(this);
+                PlayerPrefs.SetInt("ResetExp", 0);
+            }
+
             //checks if data can be loaded
             if (SaveSystem.LoadPlayer() != null)
             {

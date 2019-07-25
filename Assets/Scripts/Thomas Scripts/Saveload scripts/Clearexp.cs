@@ -8,13 +8,13 @@ public class Clearexp : MonoBehaviour
     public GameObject clearButton;
     public GameObject yesButton;
     public GameObject noButton;
-
-    public PlayerScript script;
+    public int resetNum;
 
     
     // Start is called before the first frame update
     void Start()
     {
+        PlayerPrefs.SetInt("ResetExp", 0);
         clearButton.SetActive(true);
         yesButton.SetActive(false);
         noButton.SetActive(false);
@@ -23,7 +23,7 @@ public class Clearexp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        resetNum = PlayerPrefs.GetInt("ResetExp");
     }
 
     public void AreYouSure()
@@ -35,6 +35,7 @@ public class Clearexp : MonoBehaviour
 
     public void No()
     {
+        PlayerPrefs.SetInt("ResetExp", 0);
         clearButton.SetActive(true);
         yesButton.SetActive(false);
         noButton.SetActive(false);
@@ -42,26 +43,9 @@ public class Clearexp : MonoBehaviour
 
     public void Yes()
     {
+        PlayerPrefs.SetInt("ResetExp", 1);
         clearButton.SetActive(true);
         yesButton.SetActive(false);
         noButton.SetActive(false);
-
-        script.fishman_exp = 0f;
-        script.werewolf_exp = 0f;
-        script.bukkakeSlime_exp = 0f;
-        script.dragonoid_exp = 0f;
-        script.golem_exp = 0f;
-        script.catperson_exp = 0f;
-        script.angel_exp = 0f;
-        script.devil_exp = 0f;
-        script.orge_exp = 0f;
-        script.gargoyle_exp = 0f;
-        script.garuda_exp = 0f;
-        script.loxodon_exp = 0f;
-        script.minotaur_exp = 0f;
-        script.spiderperson_exp = 0f;
-        script.hobnoblin_exp = 0f;
-
-        ExpSaveSystem.SavePlayer(script);
     }
 }
