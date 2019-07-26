@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCharacterList : MonoBehaviour
 {
-    public List<string> myCharacters;
-    private string[] loadData;
+    public List<string> myCharacters;   //Players obtained character list
+    private string[] loadData;          //converter 
+    public int premiumCurrency;         //Players currency
+    public Text currencydisplay;        //currency displayer
 
     // Start is called before the first frame update
     void Start()
@@ -17,8 +20,10 @@ public class PlayerCharacterList : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currencydisplay.text = premiumCurrency.ToString();
     }
 
+    //checks what is in your obtained list (dev)
     public void Checker()
     {
         var result = string.Join(", ", myCharacters.ToArray());
