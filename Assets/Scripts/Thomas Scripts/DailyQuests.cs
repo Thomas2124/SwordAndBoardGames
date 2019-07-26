@@ -1,20 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DailyQuests : MonoBehaviour
 {
-    public int winCounter = 0;
-    public int matchesPlayed = 0;
-    public int rollCounter = 0;
+    public float winCounter = 0;
+    public float matchesPlayed = 0;
+    public float rollCounter = 0;
 
-    public int winGoal = 1;
-    public int matchesGoal = 5;
-    public int rollGoal = 3;
+    public float winGoal = 1;
+    public float matchesGoal = 5;
+    public float rollGoal = 3;
 
-    public int winReward = 100;
-    public int matchesReward = 100;
-    public int rollReward = 100;
+    public float winReward = 100;
+    public float matchesReward = 100;
+    public float rollReward = 100;
 
     public bool claimWin = false;
     public bool claimMatches = false;
@@ -24,35 +25,61 @@ public class DailyQuests : MonoBehaviour
     public GameObject RewardButtonMatches;
     public GameObject RewardButtonRoll;
 
-    public PlayerCharacterList theScript;
-    public int currency;
+    public Image winsBar;
+    public Image matchesBar;
+    public Image rollsBar;
+
+    public Text winsText;
+    public Text matchesText;
+    public Text rollsText;
+
+    //public PlayerCharacterList theScript;
+    public float currency;
 
     // Start is called before the first frame update
     void Start()
     {
-        GameObject.Find("MyCharacter").GetComponent<PlayerCharacterList>();
+        //GameObject.Find("MyCharacter").GetComponent<PlayerCharacterList>();
 
-        if (PlayerPrefs.GetInt("Wins") != null)
+        if (PlayerPrefs.GetFloat("Currency") == 0f)
         {
-            winCounter = PlayerPrefs.GetInt("Wins");
+            PlayerPrefs.SetFloat("Currency", 0f);
         }
 
-        if (PlayerPrefs.GetInt("Matches") != null)
+        /*if (PlayerPrefs.GetFloat("Wins") == 0f)
         {
-            matchesPlayed = PlayerPrefs.GetInt("Matches");
+            winCounter = PlayerPrefs.GetFloat("Wins");
         }
 
-        if (PlayerPrefs.GetInt("Rolls") != null)
+        if (PlayerPrefs.GetFloat("Matches") == 0f)
         {
-            rollCounter = PlayerPrefs.GetInt("Rolls");
+            matchesPlayed = PlayerPrefs.GetFloat("Matches");
         }
+
+        if (PlayerPrefs.GetFloat("Rolls") == 0f)
+        {
+            rollCounter = PlayerPrefs.GetFloat("Rolls");
+        }*/
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (winCounter == winGoal)
+        winCounter = PlayerPrefs.GetFloat("Wins");
+        matchesPlayed = PlayerPrefs.GetFloat("Matches");
+        rollCounter = PlayerPrefs.GetFloat("Rolls");
+        currency = PlayerPrefs.GetFloat("Currency");
+        winsBar.fillAmount = winCounter / winGoal;
+        matchesBar.fillAmount = matchesPlayed / matchesGoal;
+        rollsBar.fillAmount = rollCounter / rollGoal;
+
+        winsText.text = winCounter.ToString() + " / " + winGoal.ToString();
+        matchesText.text = matchesPlayed.ToString() + " / " + matchesGoal.ToString();
+        rollsText.text = rollCounter.ToString() + " / " + rollGoal.ToString();
+
+        if (winCounter >= winGoal)
         {
+            winCounter = winGoal;
             claimWin = true;
             RewardButtonWin.SetActive(true);
         }
@@ -62,8 +89,9 @@ public class DailyQuests : MonoBehaviour
             RewardButtonWin.SetActive(false);
         }
 
-        if (matchesPlayed == matchesGoal)
+        if (matchesPlayed >= matchesGoal)
         {
+            matchesPlayed = matchesGoal;
             claimMatches = true;
             RewardButtonMatches.SetActive(true);
         }
@@ -73,8 +101,9 @@ public class DailyQuests : MonoBehaviour
             RewardButtonMatches.SetActive(false);
         }
 
-        if (rollCounter == rollGoal)
+        if (rollCounter >= rollGoal)
         {
+            rollCounter = rollGoal;
             claimRoll = true;
             RewardButtonRoll.SetActive(true);
         }
@@ -87,21 +116,27 @@ public class DailyQuests : MonoBehaviour
 
     public void ClaimRewardWins()
     {
-        currency += winReward;
+        float value = PlayerPrefs.GetFloat("Currency") + winReward;
+        PlayerPrefs.SetFloat("Currency", value);
+        winCounter = 0f;
         PlayerPrefs.SetInt("Wins", 0);
         RewardButtonWin.SetActive(false);
     }
 
     public void ClaimRewardMatches()
     {
-        currency += matchesReward;
+        float value = PlayerPrefs.GetFloat("Currency") + matchesReward;
+        PlayerPrefs.SetFloat("Currency", value);
+        matchesPlayed = 0f;
         PlayerPrefs.SetInt("Matches", 0);
         RewardButtonMatches.SetActive(false);
     }
 
     public void ClaimRewardRolls()
     {
-        currency += rollReward;
+        float value = PlayerPrefs.GetFloat("Currency") + rollReward;
+        PlayerPrefs.SetFloat("Currency", value);
+        rollCounter = 0f;
         PlayerPrefs.SetInt("Rolls", 0);
         RewardButtonRoll.SetActive(false);
     }

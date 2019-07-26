@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class BackButton : MonoBehaviour
 {
     public string sceneName;
+    public string questName;
 
     // Start is called before the first frame update
     void Start()
@@ -23,5 +24,10 @@ public class BackButton : MonoBehaviour
     public void MyBackButton()
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void MyQuestButton()
+    {
+        SceneManager.LoadScene(questName);
     }
 }

@@ -3,7 +3,50 @@ guid: 72a2285b777bce14aa6d6b04988d13e1
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - timerText: {instanceID: 0}
+  - spriteToUse: {instanceID: 0}
+  - setSprite: {instanceID: 0}
+  - playerName: {instanceID: 0}
+  - character1: {instanceID: 0}
+  - character2: {instanceID: 0}
+  - character3: {instanceID: 0}
+  - character4: {instanceID: 0}
+  - character5: {instanceID: 0}
+  - character6: {instanceID: 0}
+  - playerButton: {instanceID: 0}
+  - defendButton: {instanceID: 0}
+  - specialButton: {instanceID: 0}
+  - enemyButton1: {instanceID: 0}
+  - enemyButton2: {instanceID: 0}
+  - enemyButton3: {instanceID: 0}
+  - myOpponent: {instanceID: 0}
+  - characterArrow: {instanceID: 0}
+  - waitPanel: {instanceID: 0}
+  - healthBar: {instanceID: 0}
+  - healthBar2: {instanceID: 0}
+  - healthBar3: {instanceID: 0}
+  - specialBar: {instanceID: 0}
+  - specialBar2: {instanceID: 0}
+  - specialBar3: {instanceID: 0}
+  - victoryText: {instanceID: 0}
+  - fishman_Sprite: {fileID: 21300000, guid: b032f870d1daa974eba1bfdfaead8765, type: 3}
+  - werewolf_Sprite: {fileID: 21300000, guid: f59a79a3046af70458e88584c98ff73b, type: 3}
+  - bukkakeSlime_Sprite: {fileID: 21300000, guid: ef63e315783fb9049abbd028d53676cb,
+      type: 3}
+  - dragonoid_Sprite: {fileID: 21300000, guid: 21fb93576a4e33a43909cdadfdc0cd35, type: 3}
+  - golem_Sprite: {fileID: 21300000, guid: 893a3cca214668344bf3be3c11c5a058, type: 3}
+  - catperson_Sprite: {fileID: 21300000, guid: 9537d890feda6ba47b0fb81334b38d4b, type: 3}
+  - angel_Sprite: {fileID: 21300000, guid: 819c9898bcb6bb14fb5e4d2eed02ad6d, type: 3}
+  - devil_Sprite: {fileID: 21300000, guid: 9fb563ac77dcb214fa460481015957c8, type: 3}
+  - orge_Sprite: {fileID: 21300000, guid: bca966fd7e959b8478bf51537606efd9, type: 3}
+  - gargoyle_Sprite: {fileID: 21300000, guid: a9bbc3bde02fa4145836e46e3278b85d, type: 3}
+  - garuda_Sprite: {fileID: 21300000, guid: 3bd7ca775888ae046bb288906b820181, type: 3}
+  - loxodon_Sprite: {fileID: 21300000, guid: 4ae4fb0589486144caab5c3636980622, type: 3}
+  - minotaur_Sprite: {fileID: 21300000, guid: d4ef1587d721eed49a1eace04b8ea72e, type: 3}
+  - spiderperson_Sprite: {fileID: 21300000, guid: 1da83b2f4b136d04b8d6601ce3221c2b,
+      type: 3}
+  - hobnoblin_Sprite: {fileID: 21300000, guid: 08441285d96e332458a63128dc2576fb, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

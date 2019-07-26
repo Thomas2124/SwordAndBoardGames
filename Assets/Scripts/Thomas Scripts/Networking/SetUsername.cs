@@ -15,7 +15,7 @@ public class SetUsername : MonoBehaviour
     void Awake()
     {
         highscoreManager = GetComponent<HighScores>();
-        if (PlayerPrefs.GetString("PlayerName") != null)
+        if (PlayerPrefs.GetString("PlayerName") != "")
         {
             SceneManager.LoadScene("Stephen_Scene");
         }

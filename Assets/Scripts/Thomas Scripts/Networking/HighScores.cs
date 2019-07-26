@@ -25,7 +25,7 @@ public class HighScores : MonoBehaviour
 
     IEnumerator UploadNewHighScore(string username, int score)
     {
-        WWW www = new WWW(webURL + privateCode + "/add/" + WWW.EscapeURL(username) + "/" + score);
+        WWW www = new WWW(webURL + privateCode + "/add/" + /*WWW.EscapeURL(username)*/username + "/" + score);
         yield return www;
         if (string.IsNullOrEmpty(www.error))
         {

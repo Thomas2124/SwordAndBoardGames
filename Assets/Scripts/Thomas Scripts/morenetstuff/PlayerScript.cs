@@ -62,6 +62,8 @@ public class PlayerScript : NetworkBehaviour
     public bool skip2 = false;
     public bool skip3 = false;
 
+    public bool winOnce = false;
+
     public GameObject timerText;
     public Sprite spriteToUse;
     public Sprite setSprite;
@@ -201,6 +203,18 @@ public class PlayerScript : NetworkBehaviour
         //check if the player is local
         if (isLocalPlayer)
         {
+            float value = 0f;
+            if (PlayerPrefs.GetFloat("Matches") < 0f)
+            {
+                value = 0f;
+            }
+            else
+            {
+                value = PlayerPrefs.GetFloat("Matches") + 1f;
+            }
+
+            PlayerPrefs.SetFloat("Matches", value);
+
             turnTime = 60;
             isWinner = false;
             isDead = false;
@@ -324,6 +338,7 @@ public class PlayerScript : NetworkBehaviour
             {
                 if (once == false) //is only performed once
                 {
+
                     CharacterSprites();
                     CmdBaseHealthSetter(baseHealth1, baseHealth2, baseHealth3);
 
@@ -697,6 +712,22 @@ public class PlayerScript : NetworkBehaviour
                     }
                 }
 
+                if (winOnce == false)
+                {
+                    float value = 0f;
+                    if (PlayerPrefs.GetFloat("Wins") < 0f)
+                    {
+                        value = 0f;
+                    }
+                    else
+                    {
+                        value = PlayerPrefs.GetFloat("Wins") + 1f;
+                    }
+
+                    PlayerPrefs.SetFloat("Wins", value);
+                    winOnce = true;
+                }
+
                 ExpSaveSystem.SavePlayer(this);
             }
             else
@@ -705,7 +736,7 @@ public class PlayerScript : NetworkBehaviour
                 this.victoryText.GetComponent<Text>().text = "Loser";
             }
 
-            if (win2 == true)
+            if (win2 == true && winOnce == false)
             {
                 myOpponent.victoryText.transform.localPosition = new Vector3(-450f, 0f, 0f);
                 myOpponent.victoryText.GetComponent<Text>().text = "Winner";
@@ -766,7 +797,24 @@ public class PlayerScript : NetworkBehaviour
                     }
                 }
 
+                if (winOnce == false)
+                {
+                    float value = 0f;
+                    if (PlayerPrefs.GetFloat("Wins") < 0f)
+                    {
+                        value = 0f;
+                    }
+                    else
+                    {
+                        value = PlayerPrefs.GetFloat("Wins") + 1f;
+                    }
+
+                    PlayerPrefs.SetFloat("Wins", value);
+                    winOnce = true;
+                }
+
                 ExpSaveSystem.SavePlayer(myOpponent);
+                winOnce = true;
             }
             else
             {

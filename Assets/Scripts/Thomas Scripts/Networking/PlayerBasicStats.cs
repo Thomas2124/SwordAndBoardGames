@@ -18,8 +18,7 @@ public class PlayerBasicStats : MonoBehaviour
     void Awake()
     {
         highscoreManager = GetComponent<HighScores>();
-        highscoreManager.AddNewHighScore(playerName, score);
-        if (PlayerPrefs.GetString("PlayerName") != null && PlayerPrefs.GetInt("PlayerScore") > 0)
+        if (PlayerPrefs.GetString("PlayerName") != "" && PlayerPrefs.GetInt("PlayerScore") > 0)
         {
             //button.SetActive(false);
             //inputField.SetActive(false);
@@ -42,6 +41,7 @@ public class PlayerBasicStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        highscoreManager.AddNewHighScore(playerName, score);
         if (playerSetName != null && noNeedToSet == 1)
         {
             PlayerPrefs.SetString("PlayerName", playerSetName);
