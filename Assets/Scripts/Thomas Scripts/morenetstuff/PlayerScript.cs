@@ -194,12 +194,20 @@ public class PlayerScript : NetworkBehaviour
     public Sprite spiderperson_Sprite;
     public Sprite hobnoblin_Sprite;
 
+    public AudioSource mySource;
+    public AudioClip attackSound;
+    public AudioClip defenceSound;
+    public AudioClip specialSound;
+    public AudioClip deathSound;
+
+
     float flipNum;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        mySource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
         //check if the player is local
         if (isLocalPlayer)
         {
@@ -338,7 +346,7 @@ public class PlayerScript : NetworkBehaviour
             {
                 if (once == false) //is only performed once
                 {
-
+                    GameObject.Find("EGO music").GetComponent<AudioSource>().enabled = true;
                     CharacterSprites();
                     CmdBaseHealthSetter(baseHealth1, baseHealth2, baseHealth3);
 
@@ -1737,6 +1745,8 @@ public class PlayerScript : NetworkBehaviour
 
             }
         }
+
+        mySource.PlayOneShot(attackSound);
     }
 
 
@@ -1901,6 +1911,8 @@ public class PlayerScript : NetworkBehaviour
                 break;
         }
         AttackButtonsOnOff(false);
+
+        mySource.PlayOneShot(defenceSound);
     }
 
     //Special move option
@@ -2036,6 +2048,7 @@ public class PlayerScript : NetworkBehaviour
     void RpcSpecialAttack(float damage, float enemy)
     {
         myOpponent.TakeSpecialDamage(enemy, damage);
+        mySource.PlayOneShot(specialSound);
     }
 
     //code for special defence move
@@ -2083,6 +2096,7 @@ public class PlayerScript : NetworkBehaviour
                 this.defenceRating3 = increase;
                 break;
         }
+        mySource.PlayOneShot(specialSound);
     }
 
     //special move for fishman
@@ -2156,6 +2170,7 @@ public class PlayerScript : NetworkBehaviour
         isFishman = false;
         characterNumber += 1;
         AttackButtonsOnOff(false);
+        mySource.PlayOneShot(specialSound);
     }
 
     //special move for Slime character
@@ -2256,6 +2271,7 @@ public class PlayerScript : NetworkBehaviour
                 }
                 break;
         }
+        mySource.PlayOneShot(specialSound);
     }
 
     //special move for Dragonoid character
@@ -2284,6 +2300,7 @@ public class PlayerScript : NetworkBehaviour
                 myOpponent.skip3 = true;
                 break;
         }
+        mySource.PlayOneShot(specialSound);
     }
 
     //special move for Spider character
@@ -2316,6 +2333,7 @@ public class PlayerScript : NetworkBehaviour
                 myOpponent.mana3 -= value3 * 25f;
                 break;
         }
+        mySource.PlayOneShot(specialSound);
     }
 
     //take damage for special attacks only
