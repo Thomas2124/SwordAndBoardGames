@@ -200,6 +200,10 @@ public class PlayerScript : NetworkBehaviour
     public AudioClip specialSound;
     public AudioClip deathSound;
 
+    public bool dead1 = false;
+    public bool dead2 = false;
+    public bool dead3 = false;
+
 
     float flipNum;
 
@@ -1272,6 +1276,11 @@ public class PlayerScript : NetworkBehaviour
             this.isDead = on;
             this.character1.SetActive(off);
             myOpponent.character4.SetActive(off);
+            if (dead1 == false)
+            {
+                mySource.PlayOneShot(deathSound);
+                dead1 = true;
+            }
         }
 
         if (heal2 <= 0f)
@@ -1280,6 +1289,11 @@ public class PlayerScript : NetworkBehaviour
             this.isDead2 = on;
             this.character2.SetActive(off);
             myOpponent.character5.SetActive(off);
+            if (dead2 == false)
+            {
+                mySource.PlayOneShot(deathSound);
+                dead2 = true;
+            }
         }
 
         if (heal3 <= 0f)
@@ -1288,6 +1302,11 @@ public class PlayerScript : NetworkBehaviour
             this.isDead3 = on;
             this.character3.SetActive(off);
             myOpponent.character6.SetActive(off);
+            if (dead3 == false)
+            {
+                mySource.PlayOneShot(deathSound);
+                dead3 = true;
+            }
         }
 
         if (heal1 <= 0f && heal2 <= 0f && heal3 <= 0f)
