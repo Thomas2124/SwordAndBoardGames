@@ -9,7 +9,7 @@ public class DragSlots : MonoBehaviour, IDropHandler
     {
         get
         {
-            if (transform.childCount > 0)
+            if (transform.childCount > 0) //checks if object has a child
             {
                 return transform.GetChild(0).gameObject;
             }
@@ -19,7 +19,7 @@ public class DragSlots : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (!item)
+        if (!item) //checks if there is no item present in pearnt object
         {
             DragNDrop.item.transform.SetParent(transform);
             ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged());

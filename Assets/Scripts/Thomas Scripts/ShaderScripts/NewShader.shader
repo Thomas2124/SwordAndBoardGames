@@ -14,6 +14,9 @@
 	{
 		Tags{ "RenderType" = "Opaque" "Queue" = "Geometry"}
 
+		Cull Off
+		Blend One OneMinusSrcAlpha
+
 		CGPROGRAM
 
 		#pragma surface surf Standard fullforwardshadows //#pragma (what kind of shader) (name of method) (what kind of lighting model)
