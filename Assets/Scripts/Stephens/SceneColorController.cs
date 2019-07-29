@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SceneColorController : MonoBehaviour
 {
@@ -41,7 +42,7 @@ public class SceneColorController : MonoBehaviour
 		colorReference.GetComponent<Image>().color = new Color(255, 255, 0);
 	}
 	public void ScreenSwitch(){
-		if (menuIsVisable)
+		if (screenObjectIsVisable)
 		{
 			CloseScreen();
 		}
