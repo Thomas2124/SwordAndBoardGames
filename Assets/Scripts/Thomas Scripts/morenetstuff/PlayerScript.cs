@@ -25,7 +25,7 @@ public class PlayerScript : NetworkBehaviour
     public float attackRating = 10f;
     public float defenceRating = 30f;
     public string characterName;
-   
+
     public int level;
     public float myExp;
     public float startingDefence;
@@ -159,6 +159,7 @@ public class PlayerScript : NetworkBehaviour
     bool bool2;
     bool attackPressed;
     public bool once = false;
+    public bool showStop = false;
 
     [Header("Character exp loaded")]
     public float fishman_exp;
@@ -204,6 +205,25 @@ public class PlayerScript : NetworkBehaviour
     public bool dead2 = false;
     public bool dead3 = false;
 
+    public Sprite[] fishman_Images;
+    public Sprite[] werewolf_Images;
+    public Sprite[] bukkakeSlime_Images;
+    public Sprite[] dragonoid_Images;
+    public Sprite[] golem_Images;
+    public Sprite[] catperson_Images;
+    public Sprite[] angel_Images;
+    public Sprite[] devil_Images;
+    public Sprite[] orge_Images;
+    public Sprite[] gargoyle_Images;
+    public Sprite[] garuda_Images;
+    public Sprite[] loxodon_Images;
+    public Sprite[] minotaur_Images;
+    public Sprite[] spiderperson_Images;
+    public Sprite[] hobnoblin_Images;
+
+    public Sprite[] character1_Images;
+    public Sprite[] character2_Images;
+    public Sprite[] character3_Images;
 
     float flipNum;
 
@@ -395,7 +415,10 @@ public class PlayerScript : NetworkBehaviour
 
                 CmdArrow(isMyTurn);
 
-                CmdTheWin();
+                if (showStop == false)
+                {
+                    CmdTheWin();
+                }
 
                 //Timer for players turn
                 if (isMyTurn == true)
@@ -638,6 +661,33 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    IEnumerator CharacterAttackAnimation1()
+    {
+        for (int i = 0; i < character1_Images.Length; i++)
+        {
+            character1.GetComponent<Image>().sprite = character1_Images[i];
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    IEnumerator CharacterAttackAnimation2()
+    {
+        for (int i = 0; i < character2_Images.Length; i++)
+        {
+            character2.GetComponent<Image>().sprite = character2_Images[i];
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    IEnumerator CharacterAttackAnimation3()
+    {
+        for (int i = 0; i < character3_Images.Length; i++)
+        {
+            character3.GetComponent<Image>().sprite = character3_Images[i];
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
     //checks which player has won the match 
     //winning player gains exp for fighting characters
     [Command]
@@ -836,6 +886,8 @@ public class PlayerScript : NetworkBehaviour
 
             this.characterArrow.SetActive(false);
             myOpponent.characterArrow.SetActive(false);
+
+            showStop = true;
         }
     }
 
@@ -1738,6 +1790,20 @@ public class PlayerScript : NetworkBehaviour
     void RpcAttackOptions(int enemy, bool set, bool attack1, bool attack2, bool attack3, float defending, int manaAdd, int playerNum)
     {
         ManaAdder(manaAdd);
+
+        switch (manaAdd)
+        {
+            case 1:
+                StartCoroutine("CharacterAttackAnimation1");
+                break;
+            case 2:
+                StartCoroutine("CharacterAttackAnimation2");
+                break;
+            case 3:
+                StartCoroutine("CharacterAttackAnimation3");
+                break;
+        }
+
         characterNumber = playerNum;
 
         AttackButtonsOnOff(set);
@@ -1750,6 +1816,7 @@ public class PlayerScript : NetworkBehaviour
         {
             if (attack1 == true)
             {
+
                 myOpponent.TakeDamage(1, defending, manaAdd);
             }
 
@@ -1774,6 +1841,7 @@ public class PlayerScript : NetworkBehaviour
     void CmdDefendChecker(int target)
     {
         int playerNum = characterNumber;
+
         int playerNum2 = characterNumber + 1;
         AttackButtonsOnOff(false);
 
