@@ -225,6 +225,8 @@ public class PlayerScript : NetworkBehaviour
     public Sprite[] character2_Images;
     public Sprite[] character3_Images;
 
+    public Sprite[] animation_Images;
+
     float flipNum;
 
 
@@ -582,62 +584,77 @@ public class PlayerScript : NetworkBehaviour
             case "fishman":
                 number = 1;
                 setSprite = fishman_Sprite;
+                animation_Images = fishman_Images;
                 break;
             case "werewolf":
                 number = 2;
                 setSprite = werewolf_Sprite;
+                animation_Images = werewolf_Images;
                 break;
             case "bukkake Slime":
                 number = 3;
                 setSprite = bukkakeSlime_Sprite;
+                animation_Images = bukkakeSlime_Images;
                 break;
             case "dragonoid":
                 number = 4;
                 setSprite = dragonoid_Sprite;
+                animation_Images = dragonoid_Images;
                 break;
             case "golem":
                 number = 5;
                 setSprite = golem_Sprite;
+                animation_Images = golem_Images;
                 break;
             case "catperson":
                 number = 6;
                 setSprite = catperson_Sprite;
+                animation_Images = catperson_Images;
                 break;
             case "angel":
                 number = 7;
                 setSprite = angel_Sprite;
+                animation_Images = angel_Images;
                 break;
             case "devil":
                 number = 8;
                 setSprite = devil_Sprite;
+                animation_Images = devil_Images;
                 break;
             case "orge":
                 number = 9;
                 setSprite = orge_Sprite;
+                animation_Images = orge_Images;
                 break;
             case "gargoyle":
                 number = 10;
                 setSprite = gargoyle_Sprite;
+                animation_Images = gargoyle_Images;
                 break;
             case "garuda":
                 number = 11;
                 setSprite = garuda_Sprite;
+                animation_Images = garuda_Images;
                 break;
             case "loxodon":
                 number = 12;
                 setSprite = loxodon_Sprite;
+                animation_Images = loxodon_Images;
                 break;
             case "minotaur":
                 number = 13;
                 setSprite = minotaur_Sprite;
+                animation_Images = minotaur_Images;
                 break;
             case "spiderperson":
                 number = 14;
                 setSprite = spiderperson_Sprite;
+                animation_Images = spiderperson_Images;
                 break;
             case "hobnoblin":
                 number = 15;
                 setSprite = hobnoblin_Sprite;
+                animation_Images = hobnoblin_Images;
                 break;
         }
 
@@ -646,18 +663,21 @@ public class PlayerScript : NetworkBehaviour
         {
             this.theCharacterSprites[0].GetComponent<Image>().sprite = setSprite;
             this.thisCharacterSprite1 = number;
+            this.character1_Images = animation_Images;
         }
 
         if (name == this.theCharacterNames[1])
         {
             this.theCharacterSprites[1].GetComponent<Image>().sprite = setSprite;
             this.thisCharacterSprite2 = number;
+            this.character2_Images = animation_Images;
         }
 
         if (name == this.theCharacterNames[2])
         {
             this.theCharacterSprites[2].GetComponent<Image>().sprite = setSprite;
             this.thisCharacterSprite3 = number;
+            this.character3_Images = animation_Images;
         }
     }
 
