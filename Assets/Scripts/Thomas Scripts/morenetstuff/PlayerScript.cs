@@ -1300,34 +1300,34 @@ public class PlayerScript : NetworkBehaviour
         {
             if (characterNumber == 1)
             {
-                arrowPosition = new Vector3(-500f, -400f, 0f);
+                arrowPosition = new Vector3(-750f, -400f, 0f);
             }
 
             if (characterNumber == 2)
             {
-                arrowPosition = new Vector3(-300f, -400f, 0f);
+                arrowPosition = new Vector3(-450f, -400f, 0f);
             }
 
             if (characterNumber == 3)
             {
-                arrowPosition = new Vector3(-100f, -400f, 0f);
+                arrowPosition = new Vector3(-150f, -400f, 0f);
             }
         }
         else
         {
             if (characterNumber == 1)
             {
-                arrowPosition = new Vector3(500f, -400f, 0f);
+                arrowPosition = new Vector3(750f, -400f, 0f);
             }
 
             if (characterNumber == 2)
             {
-                arrowPosition = new Vector3(300f, -400f, 0f);
+                arrowPosition = new Vector3(450f, -400f, 0f);
             }
 
             if (characterNumber == 3)
             {
-                arrowPosition = new Vector3(100f, -400f, 0f);
+                arrowPosition = new Vector3(150f, -400f, 0f);
             }
         }
     }
@@ -1502,21 +1502,21 @@ public class PlayerScript : NetworkBehaviour
 
         if (connectID == 1)
         {
-            chara1 = new Vector3(-500f, -400f, 0f);
-            chara2 = new Vector3(-300f, -400f, 0f);
-            chara3 = new Vector3(-100f, -400f, 0f);
-            chara4 = new Vector3(500f, -400f, 0f);
-            chara5 = new Vector3(300f, -400f, 0f);
-            chara6 = new Vector3(100f, -400f, 0f);
+            chara1 = new Vector3(-750f, -400f, 0f);
+            chara2 = new Vector3(-450f, -400f, 0f);
+            chara3 = new Vector3(-150f, -400f, 0f);
+            chara4 = new Vector3(750f, -400f, 0f);
+            chara5 = new Vector3(450f, -400f, 0f);
+            chara6 = new Vector3(150f, -400f, 0f);
         }
         else
         {
-            chara1 = new Vector3(500f, -400f, 0f);
-            chara2 = new Vector3(300f, -400f, 0f);
-            chara3 = new Vector3(100f, -400f, 0f);
-            chara4 = new Vector3(-500f, -400f, 0f);
-            chara5 = new Vector3(-300f, -400f, 0f);
-            chara6 = new Vector3(-100f, -400f, 0f);
+            chara1 = new Vector3(750f, -400f, 0f);
+            chara2 = new Vector3(450f, -400f, 0f);
+            chara3 = new Vector3(150f, -400f, 0f);
+            chara4 = new Vector3(-750f, -400f, 0f);
+            chara5 = new Vector3(-450f, -400f, 0f);
+            chara6 = new Vector3(-150f, -400f, 0f);
         }
 
         RpcCharacterPosition(chara1, chara2, chara3, chara4, chara5, chara6);
@@ -1592,15 +1592,15 @@ public class PlayerScript : NetworkBehaviour
         Vector3 pos3 = Vector3.zero;
         if (connectID == 1)
         {
-            pos1 = new Vector3(-580f, -400f, 0f);
-            pos2 = new Vector3(-380f, -400f, 0f);
-            pos3 = new Vector3(-180f, -400f, 0f);
+            pos1 = new Vector3(-900f, -400f, 0f);
+            pos2 = new Vector3(-600f, -400f, 0f);
+            pos3 = new Vector3(-300f, -400f, 0f);
         }
         else
         {
-            pos1 = new Vector3(580f, -400f, 0f);
-            pos2 = new Vector3(380f, -400f, 0f);
-            pos3 = new Vector3(180f, -400f, 0f);
+            pos1 = new Vector3(900f, -400f, 0f);
+            pos2 = new Vector3(600f, -400f, 0f);
+            pos3 = new Vector3(300f, -400f, 0f);
         }
 
         RpcSpecialBar(value, value2, value3, pos1, pos2, pos3);
@@ -1626,15 +1626,15 @@ public class PlayerScript : NetworkBehaviour
         Vector3 pos3 = Vector3.zero;
         if (connectID == 1)
         {
-            pos1 = new Vector3(-500f, -320f, 0f);
-            pos2 = new Vector3(-300f, -320f, 0f);
-            pos3 = new Vector3(-100f, -320f, 0f);
+            pos1 = new Vector3(-750f, -250f, 0f);
+            pos2 = new Vector3(-450f, -250f, 0f);
+            pos3 = new Vector3(-150f, -250f, 0f);
         }
         else
         {
-            pos1 = new Vector3(500f, -320f, 0f);
-            pos2 = new Vector3(300f, -320f, 0f);
-            pos3 = new Vector3(100f, -320f, 0f);
+            pos1 = new Vector3(750f, -250f, 0f);
+            pos2 = new Vector3(450f, -250f, 0f);
+            pos3 = new Vector3(150f, -250f, 0f);
         }
 
         RpcHealthBar(value, value2, value3, pos1, pos2, pos3, baseHealth1, baseHealth2, baseHealth3);
