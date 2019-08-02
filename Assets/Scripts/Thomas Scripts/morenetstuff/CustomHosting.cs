@@ -76,7 +76,7 @@ public class CustomHosting : NetworkManager
     public void BackToMenuButton()
     {
         //NetworkManager.Shutdown(); //shutdowns server
-        SceneManager.LoadScene("Thomas_CharacterScene");
+        SceneManager.LoadScene("Stephen_Scene");
     }
 
     //gets network port
