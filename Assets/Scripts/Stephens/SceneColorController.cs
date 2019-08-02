@@ -6,12 +6,25 @@ using UnityEngine.UI;
 
 public class SceneColorController : MonoBehaviour
 {
-	public GameObject colorReference;
-	public GameObject screenObject;
+    public GameObject colorReference;
+    public GameObject screenObject;
+    public GameObject[] sceneObjects;
+    public string objectTag;
 	public static bool screenObjectIsVisable;
-	
 
-	public void White()
+    void Awake()
+    {
+        sceneObjects = GameObject.FindGameObjectsWithTag(objectTag);
+    }
+    void FixedUpdate()
+    {
+        foreach (GameObject item in sceneObjects)
+        {
+            item.GetComponent<Image>().color = colorReference.GetComponent<Image>().color;
+        }
+    }
+
+    public void White()
 	{
 		colorReference.GetComponent<Image>().color = new Color(0, 0, 0);
 	}
@@ -43,6 +56,7 @@ public class SceneColorController : MonoBehaviour
 	{
 		colorReference.GetComponent<Image>().color = new Color(255, 255, 0);
 	}
+
 	public void ScreenSwitch(){
 		if (screenObjectIsVisable)
 		{
