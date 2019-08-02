@@ -9,7 +9,23 @@ using UnityEngine.SceneManagement;
 
 public class CustomHosting : NetworkManager
 {
+    public GameObject theCanvas;
     //used if player wants to host a local match
+
+    void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "NetworkMenuScene")
+        {
+            dontDestroyOnLoad = true;
+            theCanvas.SetActive(true);
+        }
+        else
+        {
+            dontDestroyOnLoad = false;
+            theCanvas.SetActive(false);
+        }
+    }
+
     public void SetupHost()
     {
         SetPort();
@@ -59,7 +75,7 @@ public class CustomHosting : NetworkManager
     //goes back to set scene
     public void BackToMenuButton()
     {
-        NetworkManager.Shutdown(); //shutdowns server
+        //NetworkManager.Shutdown(); //shutdowns server
         SceneManager.LoadScene("Thomas_CharacterScene");
     }
 
