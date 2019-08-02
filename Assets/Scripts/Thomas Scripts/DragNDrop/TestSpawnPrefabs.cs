@@ -98,4 +98,9 @@ public class TestSpawnPrefabs : MonoBehaviour
             }
         }
     }
+
+    void Update()
+    {
+
+    }
 }

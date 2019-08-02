@@ -73,10 +73,66 @@ public class GachaRolls : MonoBehaviour
     public float spiderpersonStarLevel = 1;
     public float hobnoblinStarLevel = 1;
 
+    void Update()
+    {
+        foreach (string item in PlayerPrefsX.GetStringArray("CharacterlistOB"))
+        {
+            switch (selectedCharacter)
+            {
+                case "Fishman":
+                    fishman = true;
+                    break;
+                case "Werewolf":
+                    werewolf = true;
+                    break;
+                //case "Bukkake Slime":
+                        
+                //    break;
+                case "Dragonoid":
+                    dragonoid = true;
+                    break;
+                //case "Golem":
+
+                //    break;
+                case "Catperson":
+                    catperson = true;
+                    break;
+                //case "Angel":
+
+                //    break;
+                case "Devil":
+                    devil = true;
+                    break;
+                case "Orge":
+                    orge = true;
+                    break;
+                case "Gargoyle":
+                    gargoyle = true;
+                    break;
+                case "Garuda":
+                    garuda = true;
+                    break;
+                case "Loxodon":
+                    loxodon = true;
+                    break;
+                case "Minotaur":
+                    minotaur = true;
+                    break;
+                case "Spiderperson":
+                    spiderperson = true;
+                    break;
+                case "Hobnoblin":
+                    hobnoblin = true;
+                    break;
+            }
+        }
+    }
+
     //Checks if currency is enough to roll for a single roll
     public void NormalRoll()
     {
-        if(obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency >= lowCost)
+        PlayerPrefs.SetFloat("Rolls", PlayerPrefs.GetFloat("Rolls") + 1f);
+        if (obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency >= lowCost)
         {
             obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency -= lowCost;
             RandomPick();
@@ -88,6 +144,7 @@ public class GachaRolls : MonoBehaviour
     {
         if (obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency >= highCost)
         {
+            PlayerPrefs.SetFloat("Rolls", PlayerPrefs.GetFloat("Rolls") + 5f);
             counter = 5;
             bigRoll = true;
             obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency -= highCost;
