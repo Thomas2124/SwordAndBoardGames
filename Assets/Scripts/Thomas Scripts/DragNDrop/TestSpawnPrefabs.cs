@@ -16,11 +16,11 @@ public class TestSpawnPrefabs : MonoBehaviour
     [Header("Character Prefabs")]
     public GameObject fishman_Sprite;
     public GameObject werewolf_Sprite;
-    public GameObject bukkakeSlime_Sprite;
+    //public GameObject bukkakeSlime_Sprite;
     public GameObject dragonoid_Sprite;
-    public GameObject golem_Sprite;
+    //public GameObject golem_Sprite;
     public GameObject catperson_Sprite;
-    public GameObject angel_Sprite;
+    //public GameObject angel_Sprite;
     public GameObject devil_Sprite;
     public GameObject orge_Sprite;
     public GameObject gargoyle_Sprite;
@@ -34,8 +34,8 @@ public class TestSpawnPrefabs : MonoBehaviour
     void Start()
     {
         //loads and sets list items from another script
-        //theScript = gameObject.GetComponent<PlayerCharacterList>();
-        //theCharacters = theScript.myCharacters;
+        theScript = gameObject.GetComponent<PlayerCharacterList>();
+        theCharacters = theScript.myCharacters;
 
 
         for (int i = 0; i < slotObject.transform.childCount; i++) //goes through each slot in the inventory
@@ -54,21 +54,21 @@ public class TestSpawnPrefabs : MonoBehaviour
                         case "Werewolf":
                             Instantiate(werewolf_Sprite, slot);
                             break;
-                        case "Bukkake Slime":
-                            Instantiate(bukkakeSlime_Sprite, slot);
-                            break;
+                        //case "Bukkake Slime":
+                        //    Instantiate(bukkakeSlime_Sprite, slot);
+                        //    break;
                         case "Dragonoid":
                             Instantiate(dragonoid_Sprite, slot);
                             break;
-                        case "Golem":
-                            Instantiate(golem_Sprite, slot);
-                            break;
+                        //case "Golem":
+                        //    Instantiate(golem_Sprite, slot);
+                        //    break;
                         case "Catperson":
                             Instantiate(catperson_Sprite, slot);
                             break;
-                        case "Angel":
-                            Instantiate(angel_Sprite, slot);
-                            break;
+                        //case "Angel":
+                        //    Instantiate(angel_Sprite, slot);
+                        //    break;
                         case "Devil":
                             Instantiate(devil_Sprite, slot);
                             break;

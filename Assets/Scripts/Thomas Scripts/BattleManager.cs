@@ -19,11 +19,11 @@ public class BattleManager : MonoBehaviour
 
     public float fishman_exp;
     public float werewolf_exp;
-    public float bukkakeSlime_exp;
+    //public float bukkakeSlime_exp;
     public float dragonoid_exp;
-    public float golem_exp;
+    //public float golem_exp;
     public float catperson_exp;
-    public float angel_exp;
+    //public float angel_exp;
     public float devil_exp;
     public float orge_exp;
     public float gargoyle_exp;
@@ -46,11 +46,11 @@ public class BattleManager : MonoBehaviour
             ExpSaver expData = ExpSaveSystem.LoadPlayer();
             fishman_exp = expData.fishman_exp;
             werewolf_exp = expData.werewolf_exp;
-            bukkakeSlime_exp = expData.bukkakeSlime_exp;
+            //bukkakeSlime_exp = expData.bukkakeSlime_exp;
             dragonoid_exp = expData.dragonoid_exp;
-            golem_exp = expData.golem_exp;
+            //golem_exp = expData.golem_exp;
             catperson_exp = expData.catperson_exp;
-            angel_exp = expData.angel_exp;
+            //angel_exp = expData.angel_exp;
             devil_exp = expData.devil_exp;
             orge_exp = expData.orge_exp;
             gargoyle_exp = expData.gargoyle_exp;
@@ -123,21 +123,21 @@ public class BattleManager : MonoBehaviour
                 case "werewolf":
                     werewolf_exp += 50f;
                     break;
-                case "bukkake Slime":
-                    bukkakeSlime_exp += 50f;
-                    break;
+                //case "bukkake Slime":
+                //    bukkakeSlime_exp += 50f;
+                //    break;
                 case "dragonoid":
                     dragonoid_exp += 50f;
                     break;
-                case "golem":
-                    golem_exp += 50f;
-                    break;
+                //case "golem":
+                //    golem_exp += 50f;
+                //    break;
                 case "catperson":
                     catperson_exp += 50f;
                     break;
-                case "angel":
-                    angel_exp += 50f;
-                    break;
+                //case "angel":
+                //    angel_exp += 50f;
+                //    break;
                 case "devil":
                     devil_exp += 50f;
                     break;

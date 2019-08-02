@@ -164,11 +164,11 @@ public class PlayerScript : NetworkBehaviour
     [Header("Character exp loaded")]
     public float fishman_exp;
     public float werewolf_exp;
-    public float bukkakeSlime_exp;
+    //public float bukkakeSlime_exp;
     public float dragonoid_exp;
-    public float golem_exp;
+    //public float golem_exp;
     public float catperson_exp;
-    public float angel_exp;
+    //public float angel_exp;
     public float devil_exp;
     public float orge_exp;
     public float gargoyle_exp;
@@ -181,11 +181,11 @@ public class PlayerScript : NetworkBehaviour
     [Header("Character sprites")]
     public Sprite fishman_Sprite;
     public Sprite werewolf_Sprite;
-    public Sprite bukkakeSlime_Sprite;
+    //public Sprite bukkakeSlime_Sprite;
     public Sprite dragonoid_Sprite;
-    public Sprite golem_Sprite;
+    //public Sprite golem_Sprite;
     public Sprite catperson_Sprite;
-    public Sprite angel_Sprite;
+    //public Sprite angel_Sprite;
     public Sprite devil_Sprite;
     public Sprite orge_Sprite;
     public Sprite gargoyle_Sprite;
@@ -207,11 +207,11 @@ public class PlayerScript : NetworkBehaviour
 
     public Sprite[] fishman_Images;
     public Sprite[] werewolf_Images;
-    public Sprite[] bukkakeSlime_Images;
+    //public Sprite[] bukkakeSlime_Images;
     public Sprite[] dragonoid_Images;
-    public Sprite[] golem_Images;
+    //public Sprite[] golem_Images;
     public Sprite[] catperson_Images;
-    public Sprite[] angel_Images;
+    //public Sprite[] angel_Images;
     public Sprite[] devil_Images;
     public Sprite[] orge_Images;
     public Sprite[] gargoyle_Images;
@@ -260,11 +260,11 @@ public class PlayerScript : NetworkBehaviour
             {
                 fishman_exp = 0f;
                 werewolf_exp = 0f;
-                bukkakeSlime_exp = 0f;
+                //bukkakeSlime_exp = 0f;
                 dragonoid_exp = 0f;
-                golem_exp = 0f;
+                //golem_exp = 0f;
                 catperson_exp = 0f;
-                angel_exp = 0f;
+                //angel_exp = 0f;
                 devil_exp = 0f;
                 orge_exp = 0f;
                 gargoyle_exp = 0f;
@@ -294,11 +294,11 @@ public class PlayerScript : NetworkBehaviour
                 ExpSaver expData = ExpSaveSystem.LoadPlayer();
                 fishman_exp = expData.fishman_exp;
                 werewolf_exp = expData.werewolf_exp;
-                bukkakeSlime_exp = expData.bukkakeSlime_exp;
+                //bukkakeSlime_exp = expData.bukkakeSlime_exp;
                 dragonoid_exp = expData.dragonoid_exp;
-                golem_exp = expData.golem_exp;
+                //golem_exp = expData.golem_exp;
                 catperson_exp = expData.catperson_exp;
-                angel_exp = expData.angel_exp;
+                //angel_exp = expData.angel_exp;
                 devil_exp = expData.devil_exp;
                 orge_exp = expData.orge_exp;
                 gargoyle_exp = expData.gargoyle_exp;
@@ -492,26 +492,26 @@ public class PlayerScript : NetworkBehaviour
                 this.spriteToUse = werewolf_Sprite;
 
                 break;
-            case 3:
-                this.spriteToUse = bukkakeSlime_Sprite;
+            //case 3:
+            //    this.spriteToUse = bukkakeSlime_Sprite;
 
-                break;
+            //    break;
             case 4:
                 this.spriteToUse = dragonoid_Sprite;
 
                 break;
-            case 5:
-                this.spriteToUse = golem_Sprite;
+            //case 5:
+            //    this.spriteToUse = golem_Sprite;
 
-                break;
+            //    break;
             case 6:
                 this.spriteToUse = catperson_Sprite;
 
                 break;
-            case 7:
-                this.spriteToUse = angel_Sprite;
+            //case 7:
+            //    this.spriteToUse = angel_Sprite;
 
-                break;
+            //    break;
             case 8:
                 this.spriteToUse = devil_Sprite;
 
@@ -591,31 +591,31 @@ public class PlayerScript : NetworkBehaviour
                 setSprite = werewolf_Sprite;
                 animation_Images = werewolf_Images;
                 break;
-            case "bukkake Slime":
-                number = 3;
-                setSprite = bukkakeSlime_Sprite;
-                animation_Images = bukkakeSlime_Images;
-                break;
+            //case "bukkake Slime":
+            //    number = 3;
+            //    setSprite = bukkakeSlime_Sprite;
+            //    animation_Images = bukkakeSlime_Images;
+            //    break;
             case "dragonoid":
                 number = 4;
                 setSprite = dragonoid_Sprite;
                 animation_Images = dragonoid_Images;
                 break;
-            case "golem":
-                number = 5;
-                setSprite = golem_Sprite;
-                animation_Images = golem_Images;
-                break;
+            //case "golem":
+            //    number = 5;
+            //    setSprite = golem_Sprite;
+            //    animation_Images = golem_Images;
+            //    break;
             case "catperson":
                 number = 6;
                 setSprite = catperson_Sprite;
                 animation_Images = catperson_Images;
                 break;
-            case "angel":
-                number = 7;
-                setSprite = angel_Sprite;
-                animation_Images = angel_Images;
-                break;
+            //case "angel":
+            //    number = 7;
+            //    setSprite = angel_Sprite;
+            //    animation_Images = angel_Images;
+            //    break;
             case "devil":
                 number = 8;
                 setSprite = devil_Sprite;
@@ -752,21 +752,21 @@ public class PlayerScript : NetworkBehaviour
                         case "werewolf":
                             this.werewolf_exp += 50f;
                             break;
-                        case "bukkake Slime":
-                            this.bukkakeSlime_exp += 50f;
-                            break;
+                        //case "bukkake Slime":
+                        //    this.bukkakeSlime_exp += 50f;
+                        //    break;
                         case "dragonoid":
                             this.dragonoid_exp += 50f;
                             break;
-                        case "golem":
-                            this.golem_exp += 50f;
-                            break;
+                        //case "golem":
+                        //    this.golem_exp += 50f;
+                        //    break;
                         case "catperson":
                             this.catperson_exp += 50f;
                             break;
-                        case "angel":
-                            this.angel_exp += 50f;
-                            break;
+                        //case "angel":
+                        //    this.angel_exp += 50f;
+                        //    break;
                         case "devil":
                             this.devil_exp += 50f;
                             break;
@@ -837,21 +837,21 @@ public class PlayerScript : NetworkBehaviour
                         case "werewolf":
                             myOpponent.werewolf_exp += 50f;
                             break;
-                        case "bukkake Slime":
-                            myOpponent.bukkakeSlime_exp += 50f;
-                            break;
+                        //case "bukkake Slime":
+                        //    myOpponent.bukkakeSlime_exp += 50f;
+                        //    break;
                         case "dragonoid":
                             myOpponent.dragonoid_exp += 50f;
                             break;
-                        case "golem":
-                            myOpponent.golem_exp += 50f;
-                            break;
+                        //case "golem":
+                        //    myOpponent.golem_exp += 50f;
+                        //    break;
                         case "catperson":
                             myOpponent.catperson_exp += 50f;
                             break;
-                        case "angel":
-                            myOpponent.angel_exp += 50f;
-                            break;
+                        //case "angel":
+                        //    myOpponent.angel_exp += 50f;
+                        //    break;
                         case "devil":
                             myOpponent.devil_exp += 50f;
                             break;
@@ -2066,25 +2066,25 @@ public class PlayerScript : NetworkBehaviour
                 percent = 50f;
                 AttackButtonsOnOff(true);
                 break;
-            case "bukkake Slime":
-                CmdSlimeSpecial();
-                break;
+            //case "bukkake Slime":
+            //    CmdSlimeSpecial();
+            //    break;
             case "dragonoid":
                 isDragnoid = true;
                 AttackButtonsOnOff(true);
                 break;
-            case "golem":
-                percent = 100f;
-                CmdSpecialDefence(percent);
-                break;
+            //case "golem":
+            //    percent = 100f;
+            //    CmdSpecialDefence(percent);
+            //    break;
             case "catperson":
                 percent = 25f;
                 AttackButtonsOnOff(true);
                 break;
-            case "angel":
-                percent = 100f;
-                AttackButtonsOnOff(true);
-                break;
+            //case "angel":
+            //    percent = 100f;
+            //    AttackButtonsOnOff(true);
+            //    break;
             case "devil":
                 percent = 75f;
                 AttackButtonsOnOff(true);

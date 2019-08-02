@@ -60,13 +60,13 @@ public class CharacterList : MonoBehaviour
     public int werewolf_level = 1;
     public float werewolf_exp = 0f;
 
-    [Header("bukkake Slime")]
-    public string bukkakeSlime_Name = "bukkake Slime";
-    public float bukkakeSlime_health = 140f;
-    public float bukkakeSlime_attackRating = 100f;
-    public float bukkakeSlime_defenceRating = 100f;
-    public int bukkakeSlime_level = 1;
-    public float bukkakeSlime_exp = 0f;
+    //[Header("bukkake Slime")]
+    //public string bukkakeSlime_Name = "bukkake Slime";
+    //public float bukkakeSlime_health = 140f;
+    //public float bukkakeSlime_attackRating = 100f;
+    //public float bukkakeSlime_defenceRating = 100f;
+    //public int bukkakeSlime_level = 1;
+    //public float bukkakeSlime_exp = 0f;
 
     [Header("dragonoid")]
     public string dragonoid_Name = "dragonoid";
@@ -76,13 +76,13 @@ public class CharacterList : MonoBehaviour
     public int dragonoid_level = 1;
     public float dragonoid_exp = 0f;
 
-    [Header("golem")]
-    public string golem_Name = "golem";
-    public float golem_health = 200f;
-    public float golem_attackRating = 70f;
-    public float golem_defenceRating = 100f;
-    public int golem_level = 1;
-    public float golem_exp = 0f;
+    //[Header("golem")]
+    //public string golem_Name = "golem";
+    //public float golem_health = 200f;
+    //public float golem_attackRating = 70f;
+    //public float golem_defenceRating = 100f;
+    //public int golem_level = 1;
+    //public float golem_exp = 0f;
 
     [Header("catperson")]
     public string catperson_Name = "catperson";
@@ -92,13 +92,13 @@ public class CharacterList : MonoBehaviour
     public int catperson_level = 1;
     public float catperson_exp = 0f;
 
-    [Header("angel")]
-    public string angel_Name = "angel";
-    public float angel_health = 200f;
-    public float angel_attackRating = 100f;
-    public float angel_defenceRating = 70f;
-    public int angel_level = 1;
-    public float angel_exp = 0f;
+    //[Header("angel")]
+    //public string angel_Name = "angel";
+    //public float angel_health = 200f;
+    //public float angel_attackRating = 100f;
+    //public float angel_defenceRating = 70f;
+    //public int angel_level = 1;
+    //public float angel_exp = 0f;
 
     [Header("devil")]
     public string devil_Name = "devil";
@@ -188,11 +188,11 @@ public class CharacterList : MonoBehaviour
             ExpSaver expData = ExpSaveSystem.LoadPlayer();
             fishman_exp = expData.fishman_exp;
             werewolf_exp = expData.werewolf_exp;
-            bukkakeSlime_exp = expData.bukkakeSlime_exp;
+            //bukkakeSlime_exp = expData.bukkakeSlime_exp;
             dragonoid_exp = expData.dragonoid_exp;
-            golem_exp = expData.golem_exp;
+            //golem_exp = expData.golem_exp;
             catperson_exp = expData.catperson_exp;
-            angel_exp = expData.angel_exp;
+            //angel_exp = expData.angel_exp;
             devil_exp = expData.devil_exp;
             orge_exp = expData.orge_exp;
             gargoyle_exp = expData.gargoyle_exp;
@@ -261,21 +261,21 @@ public class CharacterList : MonoBehaviour
             case "werewolf(Clone)":
                 Option2();
                 break;
-            case "bukkake Slime(Clone)":
-                Option3();
-                break;
+            //case "bukkake Slime(Clone)":
+            //    Option3();
+            //    break;
             case "dragonoid(Clone)":
                 Option4();
                 break;
-            case "golem(Clone)":
-                Option5();
-                break;
+            //case "golem(Clone)":
+            //    Option5();
+            //    break;
             case "catperson(Clone)":
                 Option6();
                 break;
-            case "angel(Clone)":
-                Option7();
-                break;
+            //case "angel(Clone)":
+            //    Option7();
+            //    break;
             case "devil(Clone)":
                 Option8();
                 break;
@@ -413,13 +413,13 @@ public class CharacterList : MonoBehaviour
 
     public void Option3()
     {
-        pickedCharacter = true;
-        n = bukkakeSlime_Name;
-        h = bukkakeSlime_health;
-        a = bukkakeSlime_attackRating;
-        d = bukkakeSlime_defenceRating;
-        l = bukkakeSlime_level;
-        e = bukkakeSlime_exp;
+        //pickedCharacter = true;
+        //n = bukkakeSlime_Name;
+        //h = bukkakeSlime_health;
+        //a = bukkakeSlime_attackRating;
+        //d = bukkakeSlime_defenceRating;
+        //l = bukkakeSlime_level;
+        //e = bukkakeSlime_exp;
     }
 
     public void Option4()
@@ -435,13 +435,13 @@ public class CharacterList : MonoBehaviour
 
     public void Option5()
     {
-        pickedCharacter = true;
-        n = golem_Name;
-        h = golem_health;
-        a = golem_attackRating;
-        d = golem_defenceRating;
-        l = golem_level;
-        e = golem_exp;
+        //pickedCharacter = true;
+        //n = golem_Name;
+        //h = golem_health;
+        //a = golem_attackRating;
+        //d = golem_defenceRating;
+        //l = golem_level;
+        //e = golem_exp;
     }
 
     public void Option6()
@@ -457,13 +457,13 @@ public class CharacterList : MonoBehaviour
 
     public void Option7()
     {
-        pickedCharacter = true;
-        n = angel_Name;
-        h = angel_health;
-        a = angel_attackRating;
-        d = angel_defenceRating;
-        l = angel_level;
-        e = angel_exp;
+        //pickedCharacter = true;
+        //n = angel_Name;
+        //h = angel_health;
+        //a = angel_attackRating;
+        //d = angel_defenceRating;
+        //l = angel_level;
+        //e = angel_exp;
     }
 
     public void Option8()
