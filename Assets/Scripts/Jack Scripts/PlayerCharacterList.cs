@@ -9,6 +9,7 @@ public class PlayerCharacterList : MonoBehaviour
     private string[] loadData;          //converter 
     public int premiumCurrency;         //Players currency
     public Text currencydisplay;        //currency displayer
+    public string[] clearArray;
 
     // Start is called before the first frame update
     void Start()
@@ -28,5 +29,12 @@ public class PlayerCharacterList : MonoBehaviour
     {
         var result = string.Join(", ", myCharacters.ToArray());
         Debug.Log(result);
+    }
+
+    public void ClearBoi()
+    {
+        myCharacters.Clear();
+        
+        PlayerPrefsX.SetStringArray("CharacterlistOB", clearArray);
     }
 }

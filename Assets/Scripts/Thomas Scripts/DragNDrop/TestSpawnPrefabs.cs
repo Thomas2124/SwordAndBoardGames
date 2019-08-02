@@ -34,7 +34,7 @@ public class TestSpawnPrefabs : MonoBehaviour
     void Start()
     {
         //loads and sets list items from another script
-        theScript = gameObject.GetComponent<PlayerCharacterList>();
+        theScript = GameObject.Find("MyCharacters").GetComponent<PlayerCharacterList>();
         theCharacters = theScript.myCharacters;
 
 
