@@ -1,0 +1,603 @@
+fileFormatVersion: 2
+guid: 3364e6020032dae42a990fdf01f75429
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2492841652989269327
+    second: RubyAespriteani_lit_0
+  - first:
+      213: 4378360973562175444
+    second: RubyAespriteani_lit_1
+  - first:
+      213: 3852061530749252515
+    second: RubyAespriteani_lit_2
+  - first:
+      213: 3206148973715436910
+    second: RubyAespriteani_lit_3
+  - first:
+      213: -3906217696712493686
+    second: RubyAespriteani_lit_4
+  - first:
+      213: 5222415897539938318
+    second: RubyAespriteani_lit_5
+  - first:
+      213: -1839024112922447561
+    second: RubyAespriteani_lit_6
+  - first:
+      213: 9025273349852092069
+    second: RubyAespriteani_lit_7
+  - first:
+      213: -1824873457371148306
+    second: RubyAespriteani_lit_8
+  - first:
+      213: 9203550042279383703
+    second: RubyAespriteani_lit_9
+  - first:
+      213: -2086954512543737143
+    second: RubyAespriteani_lit_10
+  - first:
+      213: -7219751042886648157
+    second: RubyAespriteani_lit_11
+  - first:
+      213: 4947026969760377472
+    second: RubyAespriteani_lit_12
+  - first:
+      213: 2972176247524816065
+    second: RubyAespriteani_lit_13
+  - first:
+      213: -8088206774519714654
+    second: RubyAespriteani_lit_14
+  - first:
+      213: -843082370446818340
+    second: RubyAespriteani_lit_15
+  - first:
+      213: 6586789475681061320
+    second: RubyAespriteani_lit_16
+  - first:
+      213: -3630619726073376055
+    second: RubyAespriteani_lit_17
+  - first:
+      213: -2096886431884016808
+    second: RubyAespriteani_lit_18
+  - first:
+      213: 8955213876275630898
+    second: RubyAespriteani_lit_19
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7112
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 392894f50195214468221b5b792d8d5e
+      internalID: 2492841652989269327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_1
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 7112
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e368b0c8c3d226e4eb1adc29269a946f
+      internalID: 4378360973562175444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_2
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 7112
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5baccdeb8cee274d8fc2670ebba99c3
+      internalID: 3852061530749252515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_3
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 7112
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fabc06cc40e7e641a828b09b3c8a4d0
+      internalID: 3206148973715436910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6032
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bb6b56616671dd408c27b0af5b03fca
+      internalID: -3906217696712493686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_5
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 6032
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fda7f7299622e4342a38384bbd7367ea
+      internalID: 5222415897539938318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_6
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 6032
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba75e5605c85ab34eb9611ba36b91f24
+      internalID: -1839024112922447561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_7
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 6032
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2c8301ed628fb844a610f19b14bca1c
+      internalID: 9025273349852092069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4952
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d03479b00993294db31125d6f1eca98
+      internalID: -1824873457371148306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_9
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 4952
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8461432faccf9f4438dce74d741022e0
+      internalID: 9203550042279383703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_10
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 4952
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 273faa8203fe8e844a21e7a500a0fa27
+      internalID: -2086954512543737143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_11
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 4952
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fcfce77f8823f24f9fadb07c3377da3
+      internalID: -7219751042886648157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3872
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67bf2ea5cb7625d4eb8b8f050586e4f7
+      internalID: 4947026969760377472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_13
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 3872
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fa9d0dfde207e543b34f78abd57c539
+      internalID: 2972176247524816065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_14
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 3872
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d5ae8b67d3a09a438ed8cb7943fabdf
+      internalID: -8088206774519714654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_15
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 3872
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fadd174a26572be42b9a3e0f2526f130
+      internalID: -843082370446818340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2792
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcbd1636235072345b6d285b48e4212e
+      internalID: 6586789475681061320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_17
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 2792
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d16d847540bd914e8cc8d9e93f07e07
+      internalID: -3630619726073376055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_18
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 2792
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c11e7702d221c924b957af5f89883fed
+      internalID: -2096886431884016808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RubyAespriteani_lit_19
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 2792
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc017c60f54941a4f8f932b8717b26eb
+      internalID: 8955213876275630898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 36284bc39581aeb4bb01831b9173a0b2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
