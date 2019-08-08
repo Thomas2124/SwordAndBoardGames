@@ -11,16 +11,31 @@ public class SceneColorController : MonoBehaviour
     public GameObject[] sceneObjects;
     public string objectTag;
 	public static bool screenObjectIsVisable;
-
+    public GameObject[] sceneObjects2;
+    public GameObject colorReference2;
+    public GameObject[] sceneObjects3;
+    public GameObject colorReference3;
+    public string objectTag2;
+    public string objectTag3;
     void Awake()
     {
         sceneObjects = GameObject.FindGameObjectsWithTag(objectTag);
+        sceneObjects = GameObject.FindGameObjectsWithTag(objectTag2);
+        sceneObjects = GameObject.FindGameObjectsWithTag(objectTag3);
     }
     void FixedUpdate()
     {
         foreach (GameObject item in sceneObjects)
         {
             item.GetComponent<Image>().color = colorReference.GetComponent<Image>().color;
+        }
+		foreach (GameObject item2 in sceneObjects2)
+        {
+            item2.GetComponent<Image>().color = colorReference.GetComponent<Image>().color;
+        }
+        foreach (GameObject item3 in sceneObjects3)
+        {
+            item3.GetComponent<Image>().color = colorReference.GetComponent<Image>().color;
         }
     }
 
