@@ -15,8 +15,19 @@ public class FCPScriptReference : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        laReference.GetComponent<Image>().color = fCPOne.color;
-        laReference2.GetComponent<Image>().color = fCPTwo.color;
-        laReference3.GetComponent<Image>().color = fCPThree.color;
+        if (laReference.activeInHierarchy == true)
+        {
+            laReference.GetComponent<Image>().color = fCPOne.color;
+        }
+
+        if (laReference2.activeInHierarchy == true)
+        {
+            laReference2.GetComponent<Image>().color = fCPTwo.color;
+        }
+
+        if (laReference3.activeInHierarchy == true)
+        {
+            laReference3.GetComponent<Image>().color = fCPThree.color;
+        }
     }
 }

@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class SceneColorController : MonoBehaviour
 {
-    public GameObject colorReference;
+    public Vector3 colorOne;
+    public Vector3 colorTwo;
+    public Vector3 colorThree;
     public GameObject screenObject;
     public GameObject[] sceneObjects;
     public string objectTag;
@@ -25,17 +27,34 @@ public class SceneColorController : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (PlayerPrefsX.GetVector3("colorOne") != null)
+        {
+            colorOne = PlayerPrefsX.GetVector3("colorOne");
+        }
+
+        if (PlayerPrefsX.GetVector3("colorTwo") != null)
+        {
+            colorTwo = PlayerPrefsX.GetVector3("colorTwo");
+        }
+
+        if (PlayerPrefsX.GetVector3("colorThree") != null)
+        {
+            colorThree = PlayerPrefsX.GetVector3("colorThree");
+        }
+
         foreach (GameObject item in sceneObjects)
         {
-            item.GetComponent<Image>().color = colorReference.GetComponent<Image>().color;
+            item.GetComponent<Image>().color = new Color(colorOne.x, colorOne.y, colorOne.z, 1.0f);
         }
+
 		foreach (GameObject item2 in sceneObjects2)
         {
-            item2.GetComponent<Image>().color = colorReference.GetComponent<Image>().color;
+            item2.GetComponent<Image>().color = new Color(colorTwo.x, colorTwo.y, colorTwo.z, 1.0f);
         }
+
         foreach (GameObject item3 in sceneObjects3)
         {
-            item3.GetComponent<Image>().color = colorReference.GetComponent<Image>().color;
+            item3.GetComponent<Image>().color = new Color(colorThree.x, colorThree.y, colorThree.z, 1.0f);
         }
     }
 
