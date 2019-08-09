@@ -9,24 +9,28 @@ public class SceneColorController : MonoBehaviour
     public Vector3 colorOne;
     public Vector3 colorTwo;
     public Vector3 colorThree;
-    public GameObject screenObject;
-    public GameObject[] sceneObjects;
+    public GameObject screenObjects1;
+    public GameObject[] sceneObjects1;
     public string objectTag;
 	public static bool screenObjectIsVisable;
     public GameObject[] sceneObjects2;
     public GameObject colorReference2;
     public GameObject[] sceneObjects3;
     public GameObject colorReference3;
-    public string objectTag2;
-    public string objectTag3;
-    void Awake()
+    public string objectTagTwo;
+    public string objectTagThree;
+    void Start()
     {
-        sceneObjects = GameObject.FindGameObjectsWithTag(objectTag);
-        sceneObjects = GameObject.FindGameObjectsWithTag(objectTag2);
-        sceneObjects = GameObject.FindGameObjectsWithTag(objectTag3);
+        sceneObjects1 = GameObject.FindGameObjectsWithTag(objectTag);
+        sceneObjects2 = GameObject.FindGameObjectsWithTag(objectTagTwo);
+        sceneObjects3 = GameObject.FindGameObjectsWithTag(objectTagThree);
     }
     void FixedUpdate()
     {
+		sceneObjects1 = GameObject.FindGameObjectsWithTag(objectTag);
+        sceneObjects2 = GameObject.FindGameObjectsWithTag(objectTagTwo);
+        sceneObjects3 = GameObject.FindGameObjectsWithTag(objectTagThree);
+
         if (PlayerPrefsX.GetVector3("colorOne") != null)
         {
             colorOne = PlayerPrefsX.GetVector3("colorOne");
@@ -42,7 +46,7 @@ public class SceneColorController : MonoBehaviour
             colorThree = PlayerPrefsX.GetVector3("colorThree");
         }
 
-        foreach (GameObject item in sceneObjects)
+        foreach (GameObject item in sceneObjects1)
         {
             item.GetComponent<Image>().color = new Color(colorOne.x, colorOne.y, colorOne.z, 1.0f);
         }
@@ -90,26 +94,7 @@ public class SceneColorController : MonoBehaviour
 //	{
 //		colorReference.GetComponent<Image>().color = new Color(255, 255, 0);
 //	}
-
-	public void ScreenSwitch(){
-		if (screenObjectIsVisable)
-		{
-			CloseScreen();
-		}
-		else
-		{
-			ScreenVisable();
-		}
-	}
-	void CloseScreen(){
-		screenObject.SetActive (false);
-		screenObjectIsVisable = false;
-	}
 	
-	void ScreenVisable(){
-		screenObject.SetActive (true);
-		screenObjectIsVisable = true;
-	}		
 }
 
 

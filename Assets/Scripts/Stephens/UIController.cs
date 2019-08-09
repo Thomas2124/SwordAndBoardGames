@@ -17,6 +17,7 @@ public class UIController : MonoBehaviour
 	public static bool helpIsVisable = false;
 	public static bool bugReportIsVisable = false;
 	public static bool playerPortraitSelectIsVisable = false;
+	public static bool colorSettingsIsVisable = false;
 	
 	public GameObject titlescreen;
 	public GameObject tos;
@@ -39,6 +40,7 @@ public class UIController : MonoBehaviour
 	public GameObject bugReport;
 	public GameObject fade;	
 	public GameObject playerPortraitSelect;
+	public GameObject colorSettings;
 	
 	//How Do I make the navigation script into an array of script
 	
@@ -371,4 +373,25 @@ public class UIController : MonoBehaviour
 		playerPortraitSelect.SetActive (true);
 		playerPortraitSelectIsVisable = true;
 	}		
+	public void ColorSettingsOpen()
+	{
+		if (colorSettingsIsVisable)
+		{
+			ClosecolorSettings();
+		}
+		else
+		{
+			ColorSettingsVisable();
+		}
+	}
+	
+	void ClosecolorSettings(){
+		colorSettings.SetActive (false);
+		colorSettingsIsVisable = false;
+	}
+	
+	void ColorSettingsVisable(){
+		colorSettings.SetActive (true);
+		colorSettingsIsVisable = true;
+	}
 }
