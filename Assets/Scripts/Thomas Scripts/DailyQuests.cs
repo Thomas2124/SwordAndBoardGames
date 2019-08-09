@@ -65,6 +65,21 @@ public class DailyQuests : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PlayerPrefs.GetFloat("winGoal") != 0f)
+        {
+            winGoal = PlayerPrefs.GetFloat("winGoal");
+        }
+
+        if (PlayerPrefs.GetFloat("matchesGoal") != 0f)
+        {
+            matchesGoal = PlayerPrefs.GetFloat("matchesGoal");
+        }
+
+        if (PlayerPrefs.GetFloat("rollGoal") != 0f)
+        {
+            rollGoal = PlayerPrefs.GetFloat("rollGoal");
+        }
+
         winCounter = PlayerPrefs.GetFloat("Wins");
         matchesPlayed = PlayerPrefs.GetFloat("Matches");
         rollCounter = PlayerPrefs.GetFloat("Rolls");
@@ -118,6 +133,7 @@ public class DailyQuests : MonoBehaviour
     {
         float value = PlayerPrefs.GetFloat("Currency") + winReward;
         PlayerPrefs.SetFloat("Currency", value);
+        PlayerPrefs.SetFloat("winGoal", winGoal + 1f);
         winCounter = 0f;
         PlayerPrefs.SetInt("Wins", 0);
         RewardButtonWin.SetActive(false);
@@ -127,6 +143,7 @@ public class DailyQuests : MonoBehaviour
     {
         float value = PlayerPrefs.GetFloat("Currency") + matchesReward;
         PlayerPrefs.SetFloat("Currency", value);
+        PlayerPrefs.SetFloat("matchesGoal", matchesGoal + 1f);
         matchesPlayed = 0f;
         PlayerPrefs.SetInt("Matches", 0);
         RewardButtonMatches.SetActive(false);
@@ -136,6 +153,7 @@ public class DailyQuests : MonoBehaviour
     {
         float value = PlayerPrefs.GetFloat("Currency") + rollReward;
         PlayerPrefs.SetFloat("Currency", value);
+        PlayerPrefs.SetFloat("rollGoal", rollGoal + 1f);
         rollCounter = 0f;
         PlayerPrefs.SetInt("Rolls", 0);
         RewardButtonRoll.SetActive(false);
