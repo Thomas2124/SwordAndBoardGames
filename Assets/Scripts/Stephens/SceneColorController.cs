@@ -21,13 +21,13 @@ public class SceneColorController : MonoBehaviour
     public string objectTagThree;
     void Start()
     {
-        sceneObjects1 = GameObject.FindGameObjectsWithTag(objectTag);
-        sceneObjects2 = GameObject.FindGameObjectsWithTag(objectTagTwo);
-        sceneObjects3 = GameObject.FindGameObjectsWithTag(objectTagThree);
+        //sceneObjects1 = GameObject.FindGameObjectsWithTag(objectTag);
+        //sceneObjects2 = GameObject.FindGameObjectsWithTag(objectTagTwo);
+        //sceneObjects3 = GameObject.FindGameObjectsWithTag(objectTagThree);
     }
     void FixedUpdate()
     {
-		sceneObjects1 = GameObject.FindGameObjectsWithTag(objectTag);
+        sceneObjects1 = GameObject.FindGameObjectsWithTag(objectTag);
         sceneObjects2 = GameObject.FindGameObjectsWithTag(objectTagTwo);
         sceneObjects3 = GameObject.FindGameObjectsWithTag(objectTagThree);
 
@@ -45,7 +45,7 @@ public class SceneColorController : MonoBehaviour
         {
             colorThree = PlayerPrefsX.GetVector3("colorThree");
         }
-
+        
         foreach (GameObject item in sceneObjects1)
         {
             item.GetComponent<Image>().color = new Color(colorOne.x, colorOne.y, colorOne.z, 1.0f);

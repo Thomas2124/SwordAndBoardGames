@@ -16,9 +16,9 @@ public class TheColorSaver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        colorOne = new Vector3(objectOne.GetComponent<Image>().color.r, objectOne.GetComponent<Image>().color.b, objectOne.GetComponent<Image>().color.g);
-        colorTwo = new Vector3(objectTwo.GetComponent<Image>().color.r, objectTwo.GetComponent<Image>().color.b, objectTwo.GetComponent<Image>().color.g);
-        colorThree = new Vector3(objectThree.GetComponent<Image>().color.r, objectThree.GetComponent<Image>().color.b, objectThree.GetComponent<Image>().color.g);
+        colorOne = new Vector3(objectOne.GetComponent<Image>().color.r, objectOne.GetComponent<Image>().color.g, objectOne.GetComponent<Image>().color.b);
+        colorTwo = new Vector3(objectTwo.GetComponent<Image>().color.r, objectTwo.GetComponent<Image>().color.g, objectTwo.GetComponent<Image>().color.b);
+        colorThree = new Vector3(objectThree.GetComponent<Image>().color.r, objectThree.GetComponent<Image>().color.g, objectThree.GetComponent<Image>().color.b);
 
         if (colorOne != Vector3.one)
         {
