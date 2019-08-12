@@ -238,6 +238,7 @@ public class PlayerScript : NetworkBehaviour
         if (isLocalPlayer)
         {
             float value = 0f;
+            float value2 = 0f;
             if (PlayerPrefs.GetFloat("Matches") < 0f)
             {
                 value = 0f;
@@ -247,6 +248,16 @@ public class PlayerScript : NetworkBehaviour
                 value = PlayerPrefs.GetFloat("Matches") + 1f;
             }
 
+            if (PlayerPrefs.GetFloat("win50Goal") < 0f)
+            {
+                value2 = 0f;
+            }
+            else
+            {
+                value2 = PlayerPrefs.GetFloat("win50Goal") + 1f;
+            }
+
+            PlayerPrefs.SetFloat("win50Goal", value2);
             PlayerPrefs.SetFloat("Matches", value);
 
             turnTime = 60;
