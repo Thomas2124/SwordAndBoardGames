@@ -116,7 +116,7 @@ public class DailyQuests : MonoBehaviour
         winsBar.fillAmount = winCounter / winGoal;
         matchesBar.fillAmount = matchesPlayed / matchesGoal;
         rollsBar.fillAmount = rollCounter / rollGoal;
-        wins50Bar.fillAmount = win50Counter / win50Goal;
+        //wins50Bar.fillAmount = win50Counter / win50Goal;
 
 
         winsText.text = winCounter.ToString() + " / " + winGoal.ToString();
