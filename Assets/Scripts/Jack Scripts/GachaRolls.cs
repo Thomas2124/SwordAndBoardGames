@@ -33,8 +33,8 @@ public class GachaRolls : MonoBehaviour
     public Text[] summaryText;                              //says whether its a new, rank up or max character
 
     //Obtained? Variables
-    public bool fishman = false;                            
-    public bool werewolf = false;                           
+    public bool fishman = false;
+    public bool werewolf = false;
     //public bool bukkakeSlime = false;
     public bool dragonoid = false;
     //public bool golem = false;
@@ -73,11 +73,35 @@ public class GachaRolls : MonoBehaviour
     public float spiderpersonStarLevel = 1;
     public float hobnoblinStarLevel = 1;
 
+    public string[] savedCharacters;
+    public GameObject singleRollButton;
+    public GameObject fiveRollButton;
+
     void Update()
     {
-        foreach (string item in PlayerPrefsX.GetStringArray("CharacterlistOB"))
+
+        savedCharacters = PlayerPrefsX.GetStringArray("CharacterlistOB");
+        foreach (string item in savedCharacters)
         {
-            switch (selectedCharacter)
+            if (obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency >= lowCost)
+            {
+                singleRollButton.SetActive(true);
+            }
+            else
+            {
+                singleRollButton.SetActive(false);
+            }
+
+            if (obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency >= highCost)
+            {
+                fiveRollButton.SetActive(true);
+            }
+            else
+            {
+                fiveRollButton.SetActive(false);
+            }
+
+            switch (item)
             {
                 case "Fishman":
                     fishman = true;
@@ -132,24 +156,18 @@ public class GachaRolls : MonoBehaviour
     public void NormalRoll()
     {
         PlayerPrefs.SetFloat("Rolls", PlayerPrefs.GetFloat("Rolls") + 1f);
-        if (obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency >= lowCost)
-        {
-            obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency -= lowCost;
-            RandomPick();
-        }
+        obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency -= lowCost;
+        RandomPick();
     }
 
     //checks if currency is enough to roll for a multi roll
     public void MultipleRoll()
     {
-        if (obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency >= highCost)
-        {
-            PlayerPrefs.SetFloat("Rolls", PlayerPrefs.GetFloat("Rolls") + 5f);
-            counter = 5;
-            bigRoll = true;
-            obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency -= highCost;
-            RandomPick();
-        }
+        PlayerPrefs.SetFloat("Rolls", PlayerPrefs.GetFloat("Rolls") + 5f);
+        counter = 5;
+        bigRoll = true;
+        obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency -= highCost;
+        RandomPick();
     }
 
     //Rolls the character

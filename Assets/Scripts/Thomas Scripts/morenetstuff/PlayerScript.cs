@@ -744,7 +744,7 @@ public class PlayerScript : NetworkBehaviour
             this.victoryText.SetActive(true);
             myOpponent.victoryText.SetActive(true);
 
-            if (win1 == true)
+            if (win1 == true && winOnce == false)
             {
                 this.victoryText.transform.localPosition = new Vector3(450f, 0f, 0f); //sets visual indicator of who won the match
                 this.victoryText.GetComponent<Text>().text = "Winner";

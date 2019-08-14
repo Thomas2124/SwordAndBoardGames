@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TestSpawnPrefabs : MonoBehaviour
 {
+    public GameObject teamScreen;
     [Header("List of loaded characters")]
     public List<string> theCharacters;
 
@@ -30,7 +31,7 @@ public class TestSpawnPrefabs : MonoBehaviour
     public GameObject spiderperson_Sprite;
     public GameObject hobnoblin_Sprite;
 
-    bool setCheck = false;
+    public bool setCheck = false;
 
     // Start is called before the first frame update
     void Start()
@@ -104,7 +105,8 @@ public class TestSpawnPrefabs : MonoBehaviour
 
     void Update()
     {
-        if (this.gameObject.activeInHierarchy == true && setCheck == true)
+
+        if (teamScreen.activeInHierarchy == true && setCheck == true)
         {
             theScript = GameObject.Find("MyCharacters").GetComponent<PlayerCharacterList>();
             theCharacters = theScript.myCharacters;
@@ -171,10 +173,19 @@ public class TestSpawnPrefabs : MonoBehaviour
 
             setCheck = false;
         }
+    }
 
-        if (this.gameObject.activeInHierarchy == false)
+    void OnDisable()
+    {
+        setCheck = true;
+        for (int i = 0; i < slotObject.transform.childCount; i++) //goes through each slot in the inventory
         {
-            setCheck = true;
+            if (slotObject.transform.GetChild(i).gameObject.transform.GetChild(0).gameObject != null)
+            {
+                Destroy(slotObject.transform.GetChild(i).gameObject.transform.GetChild(0).gameObject);
+            }
         }
     }
+
+
 }
