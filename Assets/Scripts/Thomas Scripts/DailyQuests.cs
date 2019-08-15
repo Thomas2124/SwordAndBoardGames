@@ -91,6 +91,7 @@ public class DailyQuests : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         characterRollList = PlayerPrefsX.GetStringArray("CharacterlistOB");
 
         if (PlayerPrefs.GetFloat("winGoal") != 0f)
@@ -174,46 +175,56 @@ public class DailyQuests : MonoBehaviour
 
         foreach (string item in characterRollList)
         {
-            if (PlayerPrefsX.GetBool("slimeClaim") != true)
+            claimSlime = PlayerPrefsX.GetBool("slimeClaim");
+            claimGolem = PlayerPrefsX.GetBool("golemClaim");
+            claimAngel = PlayerPrefsX.GetBool("angelClaim");
+
+            if (claimSlime == true)
             {
                 if (item == "Bukkake Slime")
                 {
-                    claimSlime = true;
                     RewardButtonSlime.SetActive(true);
                 }
                 else
                 {
-                    claimSlime = false;
-                    RewardButtonSlime.SetActive(false);
+                    //RewardButtonSlime.SetActive(true);
                 }
             }
+            else
+            {
+                RewardButtonSlime.SetActive(false);
+            }
 
-            if (PlayerPrefsX.GetBool("golemClaim") != true)
+            if (claimGolem == true)
             {
                 if (item == "Golem")
                 {
-                    claimGolem = true;
                     RewardButtonGolem.SetActive(true);
                 }
                 else
                 {
-                    claimGolem = false;
-                    RewardButtonGolem.SetActive(false);
+                    //RewardButtonGolem.SetActive(true);
                 }
             }
+            else
+            {
+                RewardButtonGolem.SetActive(false);
+            }
 
-            if (PlayerPrefsX.GetBool("angelClaim") != true)
+            if (claimAngel == true)
             {
                 if (item == "Angel")
                 {
-                    claimAngel = true;
                     RewardButtonAngel.SetActive(true);
                 }
                 else
                 {
-                    claimAngel = false;
-                    RewardButtonAngel.SetActive(false);
+                    //RewardButtonAngel.SetActive(true);
                 }
+            }
+            else
+            {
+                RewardButtonAngel.SetActive(false);
             }
         }
     }
@@ -259,28 +270,49 @@ public class DailyQuests : MonoBehaviour
 
     public void ClaimRewardSlime()
     {
-        float value = PlayerPrefs.GetFloat("Currency") + slimeReward;
-        PlayerPrefs.SetFloat("Currency", value);
-        PlayerPrefsX.SetBool("slimeClaim", true);
-        claimSlime = false;
-        RewardButtonSlime.SetActive(false);
+        if (claimSlime == false)
+        {
+            float value = PlayerPrefs.GetFloat("Currency") + slimeReward;
+            PlayerPrefs.SetFloat("Currency", value);
+            PlayerPrefsX.SetBool("slimeClaim", true);
+            claimSlime = false;
+            RewardButtonSlime.SetActive(false);
+        }
+        else
+        {
+
+        }
     }
 
     public void ClaimRewardGolem()
     {
-        float value = PlayerPrefs.GetFloat("Currency") + golemReward;
-        PlayerPrefs.SetFloat("Currency", value);
-        PlayerPrefsX.SetBool("golemClaim", true);
-        claimGolem = false;
-        RewardButtonGolem.SetActive(false);
+        if (claimGolem == false)
+        {
+            float value = PlayerPrefs.GetFloat("Currency") + golemReward;
+            PlayerPrefs.SetFloat("Currency", value);
+            PlayerPrefsX.SetBool("golemClaim", true);
+            claimGolem = false;
+            RewardButtonGolem.SetActive(false);
+        }
+        else
+        {
+
+        }
     }
 
     public void ClaimRewardAngel()
     {
-        float value = PlayerPrefs.GetFloat("Currency") + angelReward;
-        PlayerPrefs.SetFloat("Currency", value);
-        PlayerPrefsX.SetBool("angelClaim", true);
-        claimAngel = false;
-        RewardButtonAngel.SetActive(false);
+        if (claimAngel == false)
+        {
+            float value = PlayerPrefs.GetFloat("Currency") + angelReward;
+            PlayerPrefs.SetFloat("Currency", value);
+            PlayerPrefsX.SetBool("angelClaim", true);
+            claimAngel = false;
+            RewardButtonAngel.SetActive(false);
+        }
+        else
+        {
+
+        }
     }
 }

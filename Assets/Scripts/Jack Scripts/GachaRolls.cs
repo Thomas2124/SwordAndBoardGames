@@ -14,11 +14,13 @@ public class GachaRolls : MonoBehaviour
     public List<string> characterRolled;                    //character names pulled during the current roll
     [SerializeField] private bool bigRoll = false;          //is it a multiple roll
     [SerializeField] private int counter;                   //counter to ensure that rolls occurs 5 times (multiroll)
-    public int lowCost = 250;                               //Cost of a single roll
-    public int highCost = 1000;                             //Cost of a multi roll
+    public int lowCost = 0;                               //Cost of a single roll
+    public int highCost = 0;                             //Cost of a multi roll
     public GameObject resultScreen;                         //The result screen panel
     public GameObject okButton1;                            //does another roll (multiroll)
     public GameObject okButton2;                            //closes the result screen
+    public GameObject Animation;
+    public GameObject MainUI;
 
     //Result Variables  
     public Text raceText;                                   //the name of the character pulled displayed
@@ -76,6 +78,8 @@ public class GachaRolls : MonoBehaviour
     public string[] savedCharacters;
     public GameObject singleRollButton;
     public GameObject fiveRollButton;
+    public bool cantRollSingle = false;
+    public bool cantRollFive = false;
 
     void Update()
     {
@@ -83,23 +87,25 @@ public class GachaRolls : MonoBehaviour
         savedCharacters = PlayerPrefsX.GetStringArray("CharacterlistOB");
         foreach (string item in savedCharacters)
         {
-            if (obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency >= lowCost)
-            {
-                singleRollButton.SetActive(true);
-            }
-            else
-            {
-                singleRollButton.SetActive(false);
-            }
+            //if (obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency >= lowCost)
+            //{
+            //    //singleRollButton.SetActive(true);
+            //    NormalRoll();
+            //}
+            //else
+            //{
+            //    //singleRollButton.SetActive(false);
+            //}
 
-            if (obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency >= highCost)
-            {
-                fiveRollButton.SetActive(true);
-            }
-            else
-            {
-                fiveRollButton.SetActive(false);
-            }
+            //if (obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency >= highCost)
+            //{
+            //    //fiveRollButton.SetActive(true);
+            //    MultipleRoll();
+            //}
+            //else
+            //{
+            //    //fiveRollButton.SetActive(false);
+            //}
 
             switch (item)
             {
@@ -155,19 +161,31 @@ public class GachaRolls : MonoBehaviour
     //Checks if currency is enough to roll for a single roll
     public void NormalRoll()
     {
-        PlayerPrefs.SetFloat("Rolls", PlayerPrefs.GetFloat("Rolls") + 1f);
-        obtainedCharacters.GetComponent<PlayerCharacterList>().SpendMoney(lowCost);
-        RandomPick();
+        if (obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency >= lowCost)
+        {
+            MainUI.SetActive(false);
+            Animation.SetActive(true);
+            PlayerPrefs.SetFloat("Rolls", PlayerPrefs.GetFloat("Rolls") + 1f);
+            obtainedCharacters.GetComponent<PlayerCharacterList>().SpendMoney(lowCost);
+            RandomPick();
+        }
+        
     }
 
     //checks if currency is enough to roll for a multi roll
     public void MultipleRoll()
     {
-        PlayerPrefs.SetFloat("Rolls", PlayerPrefs.GetFloat("Rolls") + 5f);
-        counter = 5;
-        bigRoll = true;
-        obtainedCharacters.GetComponent<PlayerCharacterList>().SpendMoney(highCost);
-        RandomPick();
+        if (obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency >= highCost)
+        {
+            MainUI.SetActive(false);
+            Animation.SetActive(true);
+            PlayerPrefs.SetFloat("Rolls", PlayerPrefs.GetFloat("Rolls") + 5f);
+            counter = 5;
+            bigRoll = true;
+            obtainedCharacters.GetComponent<PlayerCharacterList>().SpendMoney(highCost);
+            RandomPick();
+
+        }
     }
 
     //Rolls the character
