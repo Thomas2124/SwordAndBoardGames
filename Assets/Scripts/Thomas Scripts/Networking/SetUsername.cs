@@ -42,6 +42,7 @@ public class SetUsername : MonoBehaviour
     public void EnterGame()
     {
         string playerSetName = GameObject.Find("InputFieldName").transform.Find("Text").GetComponent<Text>().text;
+        PlayerPrefs.SetFloat("Currency", 2000f);
         PlayerPrefs.SetString("PlayerName", playerSetName);
         PlayerPrefs.SetInt("PlayerScore", 1);
         highscoreManager.AddNewHighScore(playerSetName, 1);

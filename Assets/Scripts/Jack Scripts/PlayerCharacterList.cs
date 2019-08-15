@@ -21,6 +21,7 @@ public class PlayerCharacterList : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        premiumCurrency = (int)PlayerPrefs.GetFloat("Currency");
         currencydisplay.text = premiumCurrency.ToString();
     }
 
@@ -36,5 +37,11 @@ public class PlayerCharacterList : MonoBehaviour
         myCharacters.Clear();
         
         PlayerPrefsX.SetStringArray("CharacterlistOB", clearArray);
+    }
+
+    public void SpendMoney(int amount)
+    {
+        premiumCurrency = (int)PlayerPrefs.GetFloat("Currency") - amount;
+        PlayerPrefs.SetFloat("Currency", premiumCurrency);
     }
 }

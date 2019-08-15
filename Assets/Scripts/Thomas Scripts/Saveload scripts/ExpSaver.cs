@@ -11,20 +11,20 @@ public class ExpSaver
     [Header("werewolf")]
     public float werewolf_exp;
 
-    //[Header("bukkake Slime")]
-    //public float bukkakeSlime_exp;
+    [Header("bukkake Slime")]
+    public float bukkakeSlime_exp;
 
     [Header("dragonoid")]
     public float dragonoid_exp;
 
-    //[Header("golem")]
-    //public float golem_exp;
+    [Header("golem")]
+    public float golem_exp;
 
     [Header("catperson")]
     public float catperson_exp;
 
-    //[Header("angel")]
-    //public float angel_exp;
+    [Header("angel")]
+    public float angel_exp;
 
     [Header("devil")]
     public float devil_exp;
@@ -54,11 +54,11 @@ public class ExpSaver
     {
         fishman_exp = myList.fishman_exp;
         werewolf_exp = myList.werewolf_exp;
-        //bukkakeSlime_exp = myList.bukkakeSlime_exp;
+        bukkakeSlime_exp = myList.bukkakeSlime_exp;
         dragonoid_exp = myList.dragonoid_exp;
-        //golem_exp = myList.golem_exp;
+        golem_exp = myList.golem_exp;
         catperson_exp = myList.catperson_exp;
-        //angel_exp = myList.angel_exp;
+        angel_exp = myList.angel_exp;
         devil_exp = myList.devil_exp;
         orge_exp = myList.orge_exp;
         gargoyle_exp = myList.gargoyle_exp;

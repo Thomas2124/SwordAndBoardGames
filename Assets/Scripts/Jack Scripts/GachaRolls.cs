@@ -35,11 +35,11 @@ public class GachaRolls : MonoBehaviour
     //Obtained? Variables
     public bool fishman = false;
     public bool werewolf = false;
-    //public bool bukkakeSlime = false;
+    public bool bukkakeSlime = false;
     public bool dragonoid = false;
-    //public bool golem = false;
+    public bool golem = false;
     public bool catperson = false;
-    //public bool angel = false;
+    public bool angel = false;
     public bool devil = false;
     public bool orge = false;
     public bool gargoyle = false;
@@ -59,11 +59,11 @@ public class GachaRolls : MonoBehaviour
     //Bonus Stats Variables                                                          
     public float fishmanStarLevel = 1;
     public float werewolfStarLevel = 1;
-    //public float bukkakeSlimeStarLevel = 1;
+    public float bukkakeSlimeStarLevel = 1;
     public float dragonoidStarLevel = 1;
-    //public float golemStarLevel = 1;
+    public float golemStarLevel = 1;
     public float catpersonStarLevel = 1;
-    //public float angelStarLevel = 1;
+    public float angelStarLevel = 1;
     public float devilStarLevel = 1;
     public float orgeStarLevel = 1;
     public float gargoyleStarLevel = 1;
@@ -109,21 +109,21 @@ public class GachaRolls : MonoBehaviour
                 case "Werewolf":
                     werewolf = true;
                     break;
-                //case "Bukkake Slime":
-                        
-                //    break;
+                case "Bukkake Slime":
+                    bukkakeSlime = true;
+                    break;
                 case "Dragonoid":
                     dragonoid = true;
                     break;
-                //case "Golem":
-
-                //    break;
+                case "golem":
+                    golem = true;
+                    break;
                 case "Catperson":
                     catperson = true;
                     break;
-                //case "Angel":
-
-                //    break;
+                case "Angel":
+                    angel = true;
+                    break;
                 case "Devil":
                     devil = true;
                     break;
@@ -156,7 +156,7 @@ public class GachaRolls : MonoBehaviour
     public void NormalRoll()
     {
         PlayerPrefs.SetFloat("Rolls", PlayerPrefs.GetFloat("Rolls") + 1f);
-        obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency -= lowCost;
+        obtainedCharacters.GetComponent<PlayerCharacterList>().SpendMoney(lowCost);
         RandomPick();
     }
 
@@ -166,7 +166,7 @@ public class GachaRolls : MonoBehaviour
         PlayerPrefs.SetFloat("Rolls", PlayerPrefs.GetFloat("Rolls") + 5f);
         counter = 5;
         bigRoll = true;
-        obtainedCharacters.GetComponent<PlayerCharacterList>().premiumCurrency -= highCost;
+        obtainedCharacters.GetComponent<PlayerCharacterList>().SpendMoney(highCost);
         RandomPick();
     }
 
@@ -321,25 +321,25 @@ public class GachaRolls : MonoBehaviour
                         New();
                     }
                     break;
-                //case "Bukkake Slime":
-                //    if (bukkakeSlime == true)
-                //    {
-                //        if (bukkakeSlimeStarLevel < superrareLimit)
-                //        {
-                //            bukkakeSlimeStarLevel += rankBonus;
-                //            RankUp();
-                //        }
-                //        else
-                //        {
-                //            Maxed();
-                //        }
-                //    }
-                //    else
-                //    {
-                //        bukkakeSlime = true;
-                //        New();
-                //    }
-                //    break;
+                case "Bukkake Slime":
+                    if (bukkakeSlime == true)
+                    {
+                        if (bukkakeSlimeStarLevel < superrareLimit)
+                        {
+                            bukkakeSlimeStarLevel += rankBonus;
+                            RankUp();
+                        }
+                        else
+                        {
+                            Maxed();
+                        }
+                    }
+                    else
+                    {
+                        bukkakeSlime = true;
+                        New();
+                    }
+                    break;
                 case "Dragonoid":
                     if (dragonoid == true)
                     {
@@ -359,25 +359,25 @@ public class GachaRolls : MonoBehaviour
                         New();
                     }
                     break;
-                //case "Golem":
-                //    if (golem == true)
-                //    {
-                //        if (golemStarLevel < superrareLimit)
-                //        {
-                //            golemStarLevel += rankBonus;
-                //            RankUp();
-                //        }
-                //        else
-                //        {
-                //            Maxed();
-                //        }
-                //    }
-                //    else
-                //    {
-                //        golem = true;
-                //        New();
-                //    }
-                //    break;
+                case "Golem":
+                    if (golem == true)
+                    {
+                        if (golemStarLevel < superrareLimit)
+                        {
+                            golemStarLevel += rankBonus;
+                            RankUp();
+                        }
+                        else
+                        {
+                            Maxed();
+                        }
+                    }
+                    else
+                    {
+                        golem = true;
+                        New();
+                    }
+                    break;
                 case "Catperson":
                     if (catperson == true)
                     {
@@ -397,25 +397,25 @@ public class GachaRolls : MonoBehaviour
                         New();
                     }
                     break;
-                //case "Angel":
-                //    if (angel == true)
-                //    {
-                //        if (angelStarLevel < superrareLimit)
-                //        {
-                //            angelStarLevel += rankBonus;
-                //            RankUp();
-                //        }
-                //        else
-                //        {
-                //            Maxed();
-                //        }
-                //    }
-                //    else
-                //    {
-                //        angel = true;
-                //        New();
-                //    }
-                //    break;
+                case "Angel":
+                    if (angel == true)
+                    {
+                        if (angelStarLevel < superrareLimit)
+                        {
+                            angelStarLevel += rankBonus;
+                            RankUp();
+                        }
+                        else
+                        {
+                            Maxed();
+                        }
+                    }
+                    else
+                    {
+                        angel = true;
+                        New();
+                    }
+                    break;
                 case "Devil":
                     if (devil == true)
                     {
@@ -574,9 +574,9 @@ public class GachaRolls : MonoBehaviour
         bigRoll = false;
         PlayerPrefsX.SetStringArray("CharacterlistOB", obtainedCharacters.GetComponent<PlayerCharacterList>().myCharacters.ToArray());
         PlayerPrefs.SetFloat("Fishman_StarRankBonus", fishmanStarLevel);
-        //PlayerPrefs.SetFloat("BukkakeSlime_StarRankBonus", bukkakeSlimeStarLevel);
-        //PlayerPrefs.SetFloat("Angel_StarRankBonus", angelStarLevel);
-        //PlayerPrefs.SetFloat("Golem_StarRankBonus", golemStarLevel);
+        PlayerPrefs.SetFloat("BukkakeSlime_StarRankBonus", bukkakeSlimeStarLevel);
+        PlayerPrefs.SetFloat("Angel_StarRankBonus", angelStarLevel);
+        PlayerPrefs.SetFloat("Golem_StarRankBonus", golemStarLevel);
         PlayerPrefs.SetFloat("Devil_StarRankBonus", devilStarLevel);
         PlayerPrefs.SetFloat("Loxodon_StarRankBonus", loxodonStarLevel);
         PlayerPrefs.SetFloat("Spiderperson_StarRankBonus", spiderpersonStarLevel);
