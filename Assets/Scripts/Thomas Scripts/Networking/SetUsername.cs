@@ -39,7 +39,7 @@ public class SetUsername : MonoBehaviour
         }
     }
 
-    public void EnterGame()
+    public void EnterGame() //sets name, add currency, set score, enter game
     {
         string playerSetName = GameObject.Find("InputFieldName").transform.Find("Text").GetComponent<Text>().text;
         PlayerPrefs.SetFloat("Currency", 2000f);

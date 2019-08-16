@@ -33,6 +33,7 @@ public class CharacterCreate : MonoBehaviour
         CreateCharacterPrefabs();
     }
 
+    //spawns characters
     void CreateCharacterPrefabs()
     {
         foreach (string item in myCharacters)

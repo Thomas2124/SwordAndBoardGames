@@ -23,7 +23,7 @@ public class HighScores : MonoBehaviour
         StartCoroutine(UploadNewHighScore(username, score));
     }
 
-    IEnumerator UploadNewHighScore(string username, int score)
+    IEnumerator UploadNewHighScore(string username, int score) //upload stats
     {
         WWW www = new WWW(webURL + privateCode + "/add/" + /*WWW.EscapeURL(username)*/username + "/" + score);
         yield return www;
@@ -64,7 +64,7 @@ public class HighScores : MonoBehaviour
         string[] entries = textStream.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
         highscoresList = new Highscore[entries.Length];
 
-        for (int i = 0; i < entries.Length; i++)
+        for (int i = 0; i < entries.Length; i++) //set scores and names
         {
             string[] entryInfo = entries[i].Split(new char[] { '|' });
             string username = entryInfo[0];
