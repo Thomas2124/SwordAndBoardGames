@@ -20,7 +20,7 @@ public class DisplayHighscores : MonoBehaviour
         StartCoroutine("RefreashHighscore");
     }
 
-    public void OnHighscoresDownloaded(Highscore[] highScoresList)
+    public void OnHighscoresDownloaded(Highscore[] highScoresList) //display player score
     {
         for (int i = 0; i < highscoreTexts.Length; i++)
         {

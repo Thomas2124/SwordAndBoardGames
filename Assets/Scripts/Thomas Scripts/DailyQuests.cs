@@ -91,7 +91,7 @@ public class DailyQuests : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //set values
         characterRollList = PlayerPrefsX.GetStringArray("CharacterlistOB");
 
         if (PlayerPrefs.GetFloat("winGoal") != 0f)
@@ -117,15 +117,15 @@ public class DailyQuests : MonoBehaviour
         winsBar.fillAmount = winCounter / winGoal;
         matchesBar.fillAmount = matchesPlayed / matchesGoal;
         rollsBar.fillAmount = rollCounter / rollGoal;
-        //wins50Bar.fillAmount = win50Counter / win50Goal;
 
-
+        //set text
         winsText.text = winCounter.ToString() + " / " + winGoal.ToString();
         matchesText.text = matchesPlayed.ToString() + " / " + matchesGoal.ToString();
         rollsText.text = rollCounter.ToString() + " / " + rollGoal.ToString();
         wins50Text.text = win50Counter.ToString() + " / "  + win50Goal.ToString();
 
-        if (winCounter >= winGoal)
+        //Check and claim quests
+        if (winCounter >= winGoal)//checks wins
         {
             winCounter = winGoal;
             claimWin = true;
@@ -137,7 +137,7 @@ public class DailyQuests : MonoBehaviour
             RewardButtonWin.SetActive(false);
         }
 
-        if (matchesPlayed >= matchesGoal)
+        if (matchesPlayed >= matchesGoal)//checks matches
         {
             matchesPlayed = matchesGoal;
             claimMatches = true;
@@ -149,7 +149,7 @@ public class DailyQuests : MonoBehaviour
             RewardButtonMatches.SetActive(false);
         }
 
-        if (rollCounter >= rollGoal)
+        if (rollCounter >= rollGoal)//checks rolls
         {
             rollCounter = rollGoal;
             claimRoll = true;
@@ -161,7 +161,7 @@ public class DailyQuests : MonoBehaviour
             RewardButtonRoll.SetActive(false);
         }
 
-        if (win50Counter >= win50Goal && PlayerPrefsX.GetBool("win50Claim") != true)
+        if (win50Counter >= win50Goal && PlayerPrefsX.GetBool("win50Claim") != true)//checks event wins
         {
             win50Counter = win50Goal;
             claim50Wins = true;
@@ -173,7 +173,7 @@ public class DailyQuests : MonoBehaviour
             RewardButtonWin50.SetActive(false);
         }
 
-        foreach (string item in characterRollList)
+        foreach (string item in characterRollList)//checks specific characters
         {
             claimSlime = PlayerPrefsX.GetBool("slimeClaim");
             claimGolem = PlayerPrefsX.GetBool("golemClaim");
@@ -229,7 +229,7 @@ public class DailyQuests : MonoBehaviour
         }
     }
 
-    public void ClaimRewardWins()
+    public void ClaimRewardWins()//claim player wins
     {
         float value = PlayerPrefs.GetFloat("Currency") + winReward;
         PlayerPrefs.SetFloat("Currency", value);
@@ -239,7 +239,7 @@ public class DailyQuests : MonoBehaviour
         RewardButtonWin.SetActive(false);
     }
 
-    public void ClaimRewardMatches()
+    public void ClaimRewardMatches()//amount of matches
     {
         float value = PlayerPrefs.GetFloat("Currency") + matchesReward;
         PlayerPrefs.SetFloat("Currency", value);
@@ -249,7 +249,7 @@ public class DailyQuests : MonoBehaviour
         RewardButtonMatches.SetActive(false);
     }
 
-    public void ClaimRewardRolls()
+    public void ClaimRewardRolls()//roll characters
     {
         float value = PlayerPrefs.GetFloat("Currency") + rollReward;
         PlayerPrefs.SetFloat("Currency", value);
@@ -259,7 +259,7 @@ public class DailyQuests : MonoBehaviour
         RewardButtonRoll.SetActive(false);
     }
 
-    public void ClaimReward50Wins()
+    public void ClaimReward50Wins()//get 50 wins
     {
         float value = PlayerPrefs.GetFloat("Currency") + wins50Reward;
         PlayerPrefs.SetFloat("Currency", value);
@@ -268,7 +268,7 @@ public class DailyQuests : MonoBehaviour
         RewardButtonWin50.SetActive(false);
     }
 
-    public void ClaimRewardSlime()
+    public void ClaimRewardSlime()//roll slime character
     {
         if (claimSlime == false)
         {
@@ -284,7 +284,7 @@ public class DailyQuests : MonoBehaviour
         }
     }
 
-    public void ClaimRewardGolem()
+    public void ClaimRewardGolem()//roll golem character
     {
         if (claimGolem == false)
         {
@@ -300,7 +300,7 @@ public class DailyQuests : MonoBehaviour
         }
     }
 
-    public void ClaimRewardAngel()
+    public void ClaimRewardAngel()//roll angel character
     {
         if (claimAngel == false)
         {
