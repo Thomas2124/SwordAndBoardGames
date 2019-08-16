@@ -19,48 +19,59 @@ public class SceneColorController : MonoBehaviour
     public GameObject colorReference3;
     public string objectTagTwo;
     public string objectTagThree;
+	public bool once = false;
+	
     void Start()
     {
         //sceneObjects1 = GameObject.FindGameObjectsWithTag(objectTag);
         //sceneObjects2 = GameObject.FindGameObjectsWithTag(objectTagTwo);
         //sceneObjects3 = GameObject.FindGameObjectsWithTag(objectTagThree);
     }
-    void FixedUpdate()
+	
+    public void SetColour()
     {
-        sceneObjects1 = GameObject.FindGameObjectsWithTag(objectTag);
-        sceneObjects2 = GameObject.FindGameObjectsWithTag(objectTagTwo);
-        sceneObjects3 = GameObject.FindGameObjectsWithTag(objectTagThree);
+		if(once == false)
+		{
+			sceneObjects1 = GameObject.FindGameObjectsWithTag(objectTag);
+			sceneObjects2 = GameObject.FindGameObjectsWithTag(objectTagTwo);
+			sceneObjects3 = GameObject.FindGameObjectsWithTag(objectTagThree);
+			
+			if (PlayerPrefsX.GetVector3("colorOne") != null)
+			{
+				colorOne = PlayerPrefsX.GetVector3("colorOne");
+			}
 
-        if (PlayerPrefsX.GetVector3("colorOne") != null)
-        {
-            colorOne = PlayerPrefsX.GetVector3("colorOne");
-        }
+			if (PlayerPrefsX.GetVector3("colorTwo") != null)
+			{
+				colorTwo = PlayerPrefsX.GetVector3("colorTwo");
+			}
 
-        if (PlayerPrefsX.GetVector3("colorTwo") != null)
-        {
-            colorTwo = PlayerPrefsX.GetVector3("colorTwo");
-        }
+			if (PlayerPrefsX.GetVector3("colorThree") != null)
+			{
+				colorThree = PlayerPrefsX.GetVector3("colorThree");
+			}
+			
+			foreach (GameObject item in sceneObjects1)
+			{
+				item.GetComponent<Image>().color = new Color(colorOne.x, colorOne.y, colorOne.z, 1.0f);
+			}
 
-        if (PlayerPrefsX.GetVector3("colorThree") != null)
-        {
-            colorThree = PlayerPrefsX.GetVector3("colorThree");
-        }
+			foreach (GameObject item2 in sceneObjects2)
+			{
+				item2.GetComponent<Image>().color = new Color(colorTwo.x, colorTwo.y, colorTwo.z, 1.0f);
+			}
+
+			foreach (GameObject item3 in sceneObjects3)
+			{
+				item3.GetComponent<Image>().color = new Color(colorThree.x, colorThree.y, colorThree.z, 1.0f);
+			}
+			
+			once = true;
+		}
         
-        foreach (GameObject item in sceneObjects1)
-        {
-            item.GetComponent<Image>().color = new Color(colorOne.x, colorOne.y, colorOne.z, 1.0f);
-        }
-
-		foreach (GameObject item2 in sceneObjects2)
-        {
-            item2.GetComponent<Image>().color = new Color(colorTwo.x, colorTwo.y, colorTwo.z, 1.0f);
-        }
-
-        foreach (GameObject item3 in sceneObjects3)
-        {
-            item3.GetComponent<Image>().color = new Color(colorThree.x, colorThree.y, colorThree.z, 1.0f);
-        }
     }
+	
+	
 
 //   public void White()
 //	{
